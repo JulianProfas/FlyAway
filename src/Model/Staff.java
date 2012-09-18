@@ -19,6 +19,7 @@ public class Staff {
      private int number;
      private PersonalType type;
      private String name;
+     private String primaryairport;
 
     /**
      * Get the value of type
@@ -76,6 +77,14 @@ public class Staff {
      */
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public void setPrimaryAirport(String primaryairport) {
+        this.primaryairport = primaryairport;
+    }
+    
+    public String getPrimaryAirport() {
+        return primaryairport;
     }
 
     @Override

@@ -142,6 +142,7 @@ public class DatabaseConnectie {
                 s.setName(rs.getString("name"));
                 s.setNumber(rs.getInt("staffnumber"));
                 s.setType(Staff.PersonalType.valueOf( rs.getString("type")));
+                s.setPrimaryAirport(rs.getString("primaryairport"));
 
                 staff.put(s.getNumber(), s);
             }
