@@ -81,3 +81,7 @@ dist/lib/AbsoluteLayout.jar
 nbproject/private/private.properties
 
 nbproject/private/private.xml
+
+build/classes/Controller/Controller.class
+
+build/classes/Database/DatabaseConnectie.class
