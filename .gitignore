@@ -5,8 +5,10 @@
 
 build/built-jar.properties
 nbproject/private/private.properties
-build/*
-dist/*
-nbproject/private/*
+build/
+dist/
+nbproject/private/
 build/.DS_Store
 dist/FlyAWay.jar
+
+build/classes/View/CreateChangeAirportView.class
