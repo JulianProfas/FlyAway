@@ -30,7 +30,7 @@ public class Controller extends Observable {
     HashMap<Integer, Plane> planes;
     HashMap<String, Airport> airports;
     HashMap<Integer,Staff> staff;
-    HashMap<Integer, Flight> flights;
+    HashMap<Integer, Flight> flights;//hallo
 
     HashMap<String, User> users;
     User logedIn;
