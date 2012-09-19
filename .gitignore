@@ -1,5 +1,10 @@
 # Can also ignore all directories and files in a directory.
-build/**/*
-dist/**/*
-nbproject/private/**/*
+#build/**/*
+#dist/**/*
+#nbproject/private/**/*
+
 build/built-jar.properties
+nbproject/private/private.properties
+build/*
+dist/*
+nbproject/private/*
