@@ -36,8 +36,8 @@ public class Controller extends Observable {
     User logedIn;
 
       private void DBSetup(){
-        //Database.DatabaseConnectie.Connect("//localhost:3306/flyaway", "root", "root");
-        Database.DatabaseConnectie.Connect("//mysql04.totaalholding.nl/bohnern_flyaway", "bohnern_flyaway", "FlyAWay");
+        Database.DatabaseConnectie.Connect("//localhost:3306/flyaway", "root", "");
+//        Database.DatabaseConnectie.Connect("//mysql04.totaalholding.nl/bohnern_flyaway", "bohnern_flyaway", "FlyAWay");
         
         airports = Database.DatabaseConnectie.getAirports();
         staff = Database.DatabaseConnectie.getStaff();
@@ -484,6 +484,18 @@ public class Controller extends Observable {
         return result;
     }
 
+	public Flight GetFlight(int number){
+		Flight found = null;
+		for(Flight f : flights.values())
+		{
+			if(f.getNumber() == number){
+				found = f;
+				break;
+			}		
+		}
+		return found;
+	}
+	
     public boolean ChangeFlight(Flight newFlight, Flight oldFlight){
         boolean result = false;
 
@@ -509,8 +521,13 @@ public class Controller extends Observable {
 
         if(DatabaseConnectie.deleteFlight(f)){
             flights.remove(f.getNumber());
+			if(f.getReturnFlight() != 0){
+				flights.remove(f.getReturnFlight());
+				notifyObservers(f.getReturnFlight());
+			}
             result = true;
             notifyObservers(f);
+			
         }
         return result;
     }

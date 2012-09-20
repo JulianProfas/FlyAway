@@ -286,6 +286,11 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 
         btnCancel.setText(resourceMap.getString("btnCancel.text")); // NOI18N
         btnCancel.setName("btnCancel"); // NOI18N
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
@@ -435,10 +440,13 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
             txtFieldDate.setBackground(Color.WHITE);
             DateFormat d = new SimpleDateFormat(Flight.FlightDateFormat);
             date = d.parse(txtFieldDate.getText());
+			
         } catch (ParseException ex) {
             Logger.getLogger(CreateChangeFlightView.class.getName()).log(Level.SEVERE, null, ex);
             txtFieldDate.setBackground(Color.RED);
-        }        
+        }    
+		
+
     }//GEN-LAST:event_txtFieldDateFocusLost
 
     private void txtFieldPlaneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldPlaneFocusGained
@@ -557,9 +565,15 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
             Calendar cal = Calendar.getInstance(Locale.FRANCE);
             Date today = new Date(cal.get(Calendar.YEAR) - 1900, cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
             
+			DateFormat d = new SimpleDateFormat(Flight.FlightDateFormat);
+			
             if(date.before(today)){
                 errorMessage += "A flight cannot be booked in the past \n";
             }
+			if (!d.format(date).equals(txtFieldDate.getText()))
+			{
+			  errorMessage = "The date that you provided is invalid.";
+			}
         }
 
         int id = -1;
@@ -571,7 +585,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
               Logger.getLogger(CreateChangeFlightView.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        if(id == -1){
+        if(id == -1 || Controller.Instance().GetFlight(id) != null){
              errorMessage += "Please fill in a correct flight id\n";
         }
         if(errorMessage.isEmpty()){
@@ -587,12 +601,39 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 
                 pilots[0] = pilot;
                 pilots[1] = coPilot;
+				
+				flight.setStops(stops);
 
                 flight.setPilots(pilots);
                 flight.setOtherPersonal(other);
                 flight.setPlane(plane);
 
-                Controller.Instance().AddFlight(flight);
+//				Flight returnFlight = new Flight();
+//				Calendar c = Calendar.getInstance();
+//				c.setTime(date);
+//				c.add(Calendar.DATE, 1);
+//				returnFlight.setDate(c.getTime());
+//				returnFlight.setNumber(id + 1);
+//				returnFlight.setFrom(destination);
+//				returnFlight.setDestination(from);
+//				returnFlight.setPilots(pilots);
+//				returnFlight.setPlane(plane);
+//				returnFlight.setStops(stops);
+//				returnFlight.setOtherPersonal(other);
+//				returnFlight.setReturnFlight(id);
+//				
+//				flight.setReturnFlight(id + 1);
+				
+                if(Controller.Instance().AddFlight(flight) //&& Controller.Instance().AddFlight(returnFlight))
+						)
+				{
+					Controller.Instance().ChangeFlight(flight, flight);
+//					Controller.Instance().ChangeFlight(returnFlight, returnFlight);
+					JOptionPane.showMessageDialog(this, "Flight saved");
+                    this.dispose();
+				}else{
+                   JOptionPane.showMessageDialog(this, "Unable to save flight");
+                }  
                 
             }
             else{
@@ -607,19 +648,23 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 
                 pilots[0] = pilot;
                 pilots[1] = coPilot;
+				
+				newFlight.setStops(stops);
 
                 newFlight.setPilots(pilots);
                 newFlight.setOtherPersonal(other);
                 newFlight.setPlane(plane);
+				
+				
+				if(Controller.Instance().ChangeFlight(newFlight, flight))
+				{
+					JOptionPane.showMessageDialog(this, "Flight Saved");
+					this.dispose();
+				}
+				else{
+				   JOptionPane.showMessageDialog(this, "Unable to Save flight");
+				}     
 
-                if(Controller.Instance().ChangeFlight(newFlight, flight))
-                {
-                    JOptionPane.showMessageDialog(this, "Plane Saved");
-                    this.dispose();
-                }
-                else{
-                   JOptionPane.showMessageDialog(this, "Unable to Save plane");
-                }                
             }
         }
         else{
@@ -628,7 +673,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPersonalMouseClicked
-        final ChildPicker<Staff> staff = new ChildPicker<Staff>(Controller.Instance().getStaff(), other);
+        final ChildPicker<Staff> staff = new ChildPicker<Staff>(Controller.Instance().SearchStaffAvailable(date), other);
 
         staff.setVisible(true);
         staff.getOKButton().addActionListener(new ActionListener() {
@@ -678,6 +723,10 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         listSearchResults.setEnabled(true);
         listSearchResults.setListData(Controller.Instance().getAirports().toArray());
     }//GEN-LAST:event_txtFieldDestinationFocusGained
+
+	private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+		this.dispose();
+	}//GEN-LAST:event_btnCancelActionPerformed
 
     private void ChangePersonal(ArrayList<Staff> staff){
         other = staff;

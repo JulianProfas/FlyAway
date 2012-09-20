@@ -46,9 +46,6 @@ public class Flight {
         this.date = date;
     }
 
-
-
-
     /**
      * Get the value of plane
      *

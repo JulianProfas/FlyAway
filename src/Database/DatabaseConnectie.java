@@ -164,13 +164,15 @@ public class DatabaseConnectie {
             while (rs.next()) {
                 Flight f = new Flight();
                 f.setNumber(rs.getInt("flightnumber"));
-                SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
-                try {
-                    f.setDate(sdf.parse(rs.getString("date")));
-                } catch (ParseException ex) {
-                    Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
-                    continue;
-                }
+				f.setDate(rs.getDate("date"));
+				f.setReturnFlight(rs.getInt("returnflight"));
+//                SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
+//                try {
+//                    f.setDate(sdf.parse(rs.getString("date")));
+//                } catch (ParseException ex) {
+//                    Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
+//                    continue;
+//                }
 
                 Airport destination = Controller.Controller.Instance().getAirportByCode(rs.getString("airportdestination"));
                 Airport from = Controller.Controller.Instance().getAirportByCode(rs.getString("airportfrom"));
@@ -232,17 +234,14 @@ public class DatabaseConnectie {
 
         PreparedStatement pstmt;
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
             String date = sdf.format(f.getDate());
-//            String query = "INSERT INTO flight (flightnumber, airportNameFrom, airportNameDestination, pilotNumber, copilotNumber, `Date`, planeNumber) VALUES ("+ f.getNumber()+", \""+ f.getFrom().getName() + "\", \""+ f.getDestination().getName()+ "\","+ f.getPilots()[0].getNumber() + ", "+ f.getPilots()[1].getNumber() +", \""+ date +"\", "+ f.getPlane().getNumber() +");";
-//            System.out.println(""+query);
-//            pstmt = con.prepareStatement(query);
 
-            pstmt = con.prepareStatement("INSERT INTO flight (flightnumber, airportNameFrom, airportNameDestination, pilotNumber, copilotNumber, `Date`, planeNumber) VALUES (?, ?, ?, ?, ?, ?, ?);");
+            pstmt = con.prepareStatement("INSERT INTO flight (flightnumber, airportfrom, airportdestination, pilot, copilot, `date`, plane) VALUES (?, ?, ?, ?, ?, ?, ?);");
 
             pstmt.setInt(1, f.getNumber());
-            pstmt.setString(2, f.getFrom().getName());
-            pstmt.setString(3, f.getDestination().getName());
+            pstmt.setString(2, f.getFrom().getCode());
+            pstmt.setString(3, f.getDestination().getCode());
 
 
             pstmt.setInt(4, f.getPilots()[0].getNumber());
@@ -295,19 +294,24 @@ public class DatabaseConnectie {
 
         PreparedStatement pstmt;
         try {
-            pstmt = con.prepareStatement("Update flight set flightnumber = ?, airportNameFrom = ?, airportNameDestination = ?, pilotNumber = ?, copilotNumber = ?, `Date` = ?, planeNumber = ? where flightnumber = ? ;");
+            pstmt = con.prepareStatement("Update flight set flightnumber = ?, airportfrom = ?, airportdestination = ?, pilot = ?, copilot = ?, `date` = ?, plane = ?, returnflight = ? where flightnumber = ? ;");
 
             pstmt.setInt(1, newFlight.getNumber());
-            pstmt.setString(2, newFlight.getFrom().getName());
-            pstmt.setString(3, newFlight.getDestination().getName());
+            pstmt.setString(2, newFlight.getFrom().getCode());
+            pstmt.setString(3, newFlight.getDestination().getCode());
 
             pstmt.setInt(4, newFlight.getPilots()[0].getNumber());
             pstmt.setInt(5, newFlight.getPilots()[1].getNumber());
-            SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
             String date = sdf.format(newFlight.getDate());
             pstmt.setString(6, date);
             pstmt.setInt(7, newFlight.getPlane().getNumber());
-            pstmt.setInt(8, oldFlight.getNumber());
+			if(newFlight.getReturnFlight() == 0){
+				pstmt.setNull(8, java.sql.Types.INTEGER);
+			}else{
+				pstmt.setInt(8, newFlight.getReturnFlight());
+			}
+            pstmt.setInt(9, oldFlight.getNumber());
 
            
             int x = pstmt.executeUpdate();
@@ -316,7 +320,7 @@ public class DatabaseConnectie {
                 result = true;
             }
 
-            pstmt = con.prepareStatement("DELETE FROM `flightstaff` WHERE `flightNumber` = " + newFlight.getNumber() + ";");
+            pstmt = con.prepareStatement("DELETE FROM `flightstaff` WHERE `flight` = " + newFlight.getNumber() + ";");
             pstmt.executeUpdate();
 
             pstmt = con.prepareStatement("INSERT INTO `flightstaff` VALUES(?, ?);");
@@ -348,18 +352,18 @@ public class DatabaseConnectie {
 
         PreparedStatement pstmt;
         try {
-            pstmt = con.prepareStatement("Delete from flight where `flight` = ?");
+            pstmt = con.prepareStatement("Delete from flight where `flightnumber` = ?");
             pstmt.setInt(1, f.getNumber());
             int records = pstmt.executeUpdate();
 
-            pstmt = con.prepareStatement("DELETE FROM `flightstaff` WHERE `flight` = ?;");
-            pstmt.setInt(1, f.getNumber());
-            pstmt.executeUpdate();
-
-            pstmt = con.prepareStatement("DELETE FROM `flightstops` WHERE `flightnumber` = ?;");
-            pstmt.setInt(1, f.getNumber());
-
-            pstmt.executeUpdate();
+//            pstmt = con.prepareStatement("DELETE FROM `flightstaff` WHERE `flight` = ?;");
+//            pstmt.setInt(1, f.getNumber());
+//            pstmt.executeUpdate();
+//
+//            pstmt = con.prepareStatement("DELETE FROM `flightstops` WHERE `flight` = ?;");
+//            pstmt.setInt(1, f.getNumber());
+//
+//            pstmt.executeUpdate();
 
             if (records == 1) {
                 result = true;
