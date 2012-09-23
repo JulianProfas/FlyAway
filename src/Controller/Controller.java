@@ -36,7 +36,7 @@ public class Controller extends Observable {
     User logedIn;
 
       private void DBSetup(){
-        Database.DatabaseConnectie.Connect("//localhost:3306/flyaway", "root", "");
+        Database.DatabaseConnectie.Connect("//localhost:3306/flyaway", "root", "root");
 //        Database.DatabaseConnectie.Connect("//mysql04.totaalholding.nl/bohnern_flyaway", "bohnern_flyaway", "FlyAWay");
         
         airports = Database.DatabaseConnectie.getAirports();

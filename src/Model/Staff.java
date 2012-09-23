@@ -89,6 +89,6 @@ public class Staff {
 
     @Override
     public String toString(){
-        return this.number + " "+this.name+ " : "+ type;
+        return this.number + " "+this.name+ " : "+ this.type + " : " + this.primaryairport;
     }
 }
