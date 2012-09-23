@@ -192,7 +192,7 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
                 capacity = Integer.parseInt(txtFieldCapacity.getText());
             }
             catch(NumberFormatException nfe){
-                ErrorMessage += "Capacity issn't a number \n";
+                ErrorMessage += "Capacity isn't a number \n";
             }
         }
 
@@ -204,7 +204,7 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
                 planeNumber = Integer.parseInt(txtFieldNumber.getText());
             }
             catch(NumberFormatException nfe){
-                ErrorMessage += "plane number issn't a number \n";
+                ErrorMessage += "plane number isn't a number \n";
             }
         }
 

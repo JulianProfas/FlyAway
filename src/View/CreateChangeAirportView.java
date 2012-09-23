@@ -190,6 +190,8 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
        country = country.trim();
        if(country.isEmpty()){
            errorMessage += "pleade fill in a country \n";
+       } else if (country.length() > 2) {
+           errorMessage += "please fill in a valid country code (2 characters max) \n";
        }
 
        city = city.trim();
@@ -200,6 +202,8 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
        code = code.trim();
        if(code.isEmpty()){
            errorMessage += "please fill in a airport code \n";
+       } else if (code.length() > 3) {
+           errorMessage += "please fill in a valid airport code (3 characters max) \n";
        }
 
        if(errorMessage.isEmpty()){

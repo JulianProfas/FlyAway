@@ -383,10 +383,12 @@ public class DatabaseConnectie {
         try {
             pstmt = con.prepareStatement("Insert into airport values (?,?,?,?);");
 
-            pstmt.setString(1, a.getName());
-            pstmt.setString(2, a.getCity());
-            pstmt.setString(3,a.getCountry());
-            pstmt.setString(4, a.getCode());
+            pstmt.setString(1, a.getCode());
+            pstmt.setString(2, a.getName());
+            pstmt.setString(3 ,a.getCountry());
+            pstmt.setString(4, a.getCity());
+            
+            
 
             int rowCount = pstmt.executeUpdate();
             if(rowCount == 1){
@@ -405,13 +407,13 @@ public class DatabaseConnectie {
 
         try {
 
-            pstmt = con.prepareStatement("update airport set name = ?, city = ?, country = ?, code = ? where name = ?;");
+            pstmt = con.prepareStatement("update airport set name = ?, city = ?, country = ?, airportcode = ? where airportcode = ?;");
 
             pstmt.setString(1, airportNew.getName());
             pstmt.setString(2, airportNew.getCity());
             pstmt.setString(3, airportNew.getCountry());
             pstmt.setString(4, airportNew.getCode());
-            pstmt.setString(5, airportOld.getName());
+            pstmt.setString(5, airportOld.getCode());
 
             int rows = pstmt.executeUpdate();
 
