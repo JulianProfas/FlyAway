@@ -224,17 +224,17 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
                     dbResult = Controller.Controller.Instance().ChangePlane(p, plane);
                     
                 }
-                if(dbResult){
-                    lblError.setText("Plane saved !!!!!!!!!!!!");
+                if(!dbResult){
+                    lblError.setText("Plane saved !");
                     lblError.setForeground(Color.GREEN);
 
                     JOptionPane.showMessageDialog(this, "Plane Saved");
                     this.dispose();
                 }
                 else{
-                    lblError.setText("Error while saving plane !!!!!!!!!!!!");
+                    lblError.setText("Error while saving plane !");
                     lblError.setForeground(Color.RED);
-                }               
+                }
         }
         else{
             lblError.setText(ErrorMessage);

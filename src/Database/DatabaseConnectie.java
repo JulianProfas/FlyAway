@@ -519,7 +519,7 @@ public class DatabaseConnectie {
         try {
             pstmt = con.prepareStatement("Insert into Plane (`capacity`, `planeNumber`, `type`) values (?,?,?);");
             pstmt.setInt(1, p.getCapacity());
-            pstmt.setInt(2, p.getCapacity());
+            pstmt.setInt(2, p.getNumber());
             pstmt.setString(3, p.getType());
             
             int rowCount = pstmt.executeUpdate();
