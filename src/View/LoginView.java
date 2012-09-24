@@ -13,6 +13,7 @@ package View;
 
 import Controller.Controller;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -58,6 +59,11 @@ public class LoginView extends javax.swing.JFrame {
 
         txtFieldPW.setText(resourceMap.getString("txtFieldPW.text")); // NOI18N
         txtFieldPW.setName("txtFieldPW"); // NOI18N
+        txtFieldPW.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFieldPWKeyPressed(evt);
+            }
+        });
 
         jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
@@ -67,6 +73,11 @@ public class LoginView extends javax.swing.JFrame {
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
+            }
+        });
+        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnLoginKeyPressed(evt);
             }
         });
 
@@ -119,6 +130,21 @@ public class LoginView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        login();
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
+        
+       
+    }//GEN-LAST:event_btnLoginKeyPressed
+
+    private void txtFieldPWKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldPWKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+          login();  
+        }
+    }//GEN-LAST:event_txtFieldPWKeyPressed
+
+    private void login() {
         String username = txtFieldUserName.getText();
         char[] pw = txtFieldPW.getPassword();
         String password = new String(pw);
@@ -132,8 +158,7 @@ public class LoginView extends javax.swing.JFrame {
             lblError.setForeground(Color.red);
             lblError.setText("Incorrect user password combination");
         }
-    }//GEN-LAST:event_btnLoginActionPerformed
-
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
