@@ -9,12 +9,12 @@ import Model.Airport;
 import Model.Flight;
 import Model.Plane;
 import Model.Staff;
+import Model.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,6 +75,102 @@ public class DatabaseConnectie {
         return result;
     }
 
+	public static HashMap<String, User> getUsers(){
+	
+		HashMap<String, User> users = new HashMap<String, User>();
+
+        try{
+            PreparedStatement pstmt;
+
+            pstmt = con.prepareStatement("Select * from user;");
+
+            ResultSet rs;
+
+                rs = pstmt.executeQuery();
+
+            while(rs.next()){
+                User u = new User();
+
+                u.setUsername(rs.getString("username"));
+				u.setPassword(rs.getString("password"), true);
+				u.setRank(User.Rank.valueOf(rs.getString("rank")));
+				users.put(u.getUsername(), u);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return users;
+	}
+	
+	public static boolean insertUser(User u){
+	
+		boolean result = false;
+
+        PreparedStatement pstmt;
+        try {
+            pstmt = con.prepareStatement("Insert into user values (?,?,?, NULL);");
+
+            pstmt.setString(1, u.getUsername());
+            pstmt.setString(2, u.getPassword());
+            pstmt.setString(3 ,u.getRank().toString());
+                       
+            
+
+            int rowCount = pstmt.executeUpdate();
+            if(rowCount == 1){
+                result = true;
+            }
+         } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+	}
+	
+	public static boolean updateUser(User uNew, User uOld){
+	
+		boolean result = false;
+
+        PreparedStatement pstmt;
+        try {
+            pstmt = con.prepareStatement("Update user set username = ?, password = ?, rank = ?, staff = NULL where username = ?;");
+            pstmt.setString(1, uNew.getUsername());
+            pstmt.setString(2, uNew.getPassword());
+            pstmt.setString(3, uNew.getRank().toString());
+            pstmt.setString(4, uOld.getUsername());
+
+            int rowCount = pstmt.executeUpdate();
+            if(rowCount == 1){
+                result = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+        return result;
+	}
+	
+	public static boolean deleteUser(User u){
+	
+		boolean result = false;
+
+        PreparedStatement pstmt;
+        try {
+            pstmt = con.prepareStatement("Delete from user where username = ?;");
+            pstmt.setString(1, u.getUsername());
+
+            int rowCount = pstmt.executeUpdate();
+
+            if(rowCount == 1){
+                result = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+	}
+	
+	
     public static HashMap<Integer, Plane> getPlanes(){
         HashMap<Integer, Plane> planes = new HashMap<Integer, Plane>();
 

@@ -21,6 +21,9 @@ public class User implements Serializable{
     private String username;
     private String password;
     private Rank rank;
+	private int staffAccount = 0;
+
+	
 
     public enum Rank{
         user,
@@ -45,14 +48,23 @@ public class User implements Serializable{
      *
      * @param password new value of password
      */
-    public void setPassword(String password){
+    public void setPassword(String password, boolean hashed){
         if(password != null && this.password != null){
             if(this.password.equals(password))
                 return;
         }
 
-        this.password = this.hash(password);
+		if(hashed == true){
+		
+			this.password = password;
+			
+		}else{
+			
+			this.password = this.hash(password);
+		}
+        
     }
+	
 
 
     /**
@@ -81,6 +93,13 @@ public class User implements Serializable{
         this.rank = rank;
     }
 
+	public int getStaffAccount() {
+		return staffAccount;
+	}
+
+	public void setStaffAccount(int staffAccount) {
+		this.staffAccount = staffAccount;
+	}
 
 
     private String hash(String password){

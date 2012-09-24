@@ -181,7 +181,7 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
                 User u = new User();
 
                 u.setUsername(userName);
-                u.setPassword(password);
+                u.setPassword(password, false);
                 u.setRank((User.Rank)cmbBoxType.getSelectedItem());
 
                 if(Controller.Instance().addUser(u)){
@@ -196,7 +196,7 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
                 User u = new User();
                 u.CopyUser(user);
                 u.setUsername(userName);
-                u.setPassword(password);
+                u.setPassword(password, false);
 
                 u.setRank((User.Rank)cmbBoxType.getSelectedItem());
 

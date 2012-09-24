@@ -36,7 +36,7 @@ public class Controller extends Observable {
     User logedIn;
 
       private void DBSetup(){
-        Database.DatabaseConnectie.Connect("//localhost:3306/flyaway", "root", "root");
+        Database.DatabaseConnectie.Connect("//localhost:3306/flyaway", "root", "");
 //        Database.DatabaseConnectie.Connect("//mysql04.totaalholding.nl/bohnern_flyaway", "bohnern_flyaway", "FlyAWay");
         
         airports = Database.DatabaseConnectie.getAirports();
@@ -65,10 +65,10 @@ public class Controller extends Observable {
     public boolean Login(String username, String password){
         boolean result = false;
         
-        users = UserSerializer.readUsers("users.usr");
+        users = Database.DatabaseConnectie.getUsers();
         if(users != null){
             User test = new User();
-            test.setPassword(password);
+            test.setPassword(password, false);
             test.setUsername(username);
 
             User test2 = users.get(username);
@@ -521,10 +521,10 @@ public class Controller extends Observable {
 
         if(DatabaseConnectie.deleteFlight(f)){
             flights.remove(f.getNumber());
-			if(f.getReturnFlight() != 0){
-				flights.remove(f.getReturnFlight());
-				notifyObservers(f.getReturnFlight());
-			}
+//			if(f.getReturnFlight() != 0){
+//				flights.remove(f.getReturnFlight());
+//				notifyObservers(f.getReturnFlight());
+//			}
             result = true;
             notifyObservers(f);
 			
@@ -559,10 +559,14 @@ public class Controller extends Observable {
         boolean result = false;
      
         if(users.get(oldUser.getUsername()) != null){
-            users.remove(oldUser.getUsername());
+			if(Database.DatabaseConnectie.updateUser(newUser, oldUser)){
+			
+			users.remove(oldUser.getUsername());
             users.put(newUser.getUsername(), newUser);
             notifyObservers(newUser);
             result = true;
+			}
+            
         }
         return result;        
     }
@@ -571,19 +575,29 @@ public class Controller extends Observable {
         boolean result = false;
 
         if(users.get(user.getUsername()) == null){
-            users.put(user.getUsername(), user);
-            notifyObservers(user);
-            result = true;
+            
+			if(Database.DatabaseConnectie.insertUser(user)){
+				users.put(user.getUsername(), user);
+				notifyObservers(user);
+				result = true;
+			}
+			
         }
         return result;
     }
 
     public boolean removeUser(User user){
         boolean result = false;
-        if(users.remove(user.getUsername()) != null){
-            notifyObservers(user);
-            result = true;
-        }
+		
+		if(Database.DatabaseConnectie.deleteUser(user)){
+		
+			if(users.remove(user.getUsername()) != null){
+
+				notifyObservers(user);
+				result = true;
+			}
+			
+		}
         return result;
     }
     
