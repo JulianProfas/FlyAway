@@ -26,43 +26,46 @@ public class CustomTableCellRenderer extends JLabel implements TableCellRenderer
         /* If what we're displaying isn't an array of values we
         return the normal renderer*/
 
-        if (value.getClass().isArray()) {           
-       
-            final Object[] passed = (Object[]) value;
+		if( value != null ){
+		
+			if (value.getClass().isArray()) {           
 
-            //Calculate the height for this row.
-            minHeight = table.getRowHeight();
-            
-          
-            if(passed.length * minHeight > currHeight)
-                currHeight = passed.length * minHeight;
-            
-            table.setRowHeight(row, currHeight);
-            
-            /* We create the table that will hold the multivalue
-             *fields and that will be embedded in the main table */
-            return new JTable(
-                    new AbstractTableModel() {
+				final Object[] passed = (Object[]) value;
 
-                        public int getColumnCount() {
-                            return 1;
-                        }
+				//Calculate the height for this row.
+				minHeight = table.getRowHeight();
 
-                        public int getRowCount() {
-                            return passed.length;
-                        }
 
-                        public Object getValueAt(int rowIndex, int columnIndex) {
-                            return passed[rowIndex];
-                        }
+				if(passed.length * minHeight > currHeight)
+					currHeight = passed.length * minHeight;
 
-                @Override
-                        public boolean isCellEditable(int row, int col) {
-                            return false;
-                        }
-                    });
-        }
+				table.setRowHeight(row, currHeight);
 
+				/* We create the table that will hold the multivalue
+				 *fields and that will be embedded in the main table */
+				return new JTable(
+						new AbstractTableModel() {
+
+							public int getColumnCount() {
+								return 1;
+							}
+
+							public int getRowCount() {
+								return passed.length;
+							}
+
+							public Object getValueAt(int rowIndex, int columnIndex) {
+								return passed[rowIndex];
+							}
+
+					@Override
+							public boolean isCellEditable(int row, int col) {
+								return false;
+							}
+						});
+			}
+		}
+			
         if(value instanceof ArrayList){        
 
             ArrayList al = (ArrayList)value;
@@ -101,9 +104,18 @@ public class CustomTableCellRenderer extends JLabel implements TableCellRenderer
                     });
         }
 
-        return table.getDefaultRenderer(
-                    value.getClass()).getTableCellRendererComponent(
-                    table, value, isSelected, hasFocus, row, column);
+		if( value != null ){
+		
+			return table.getDefaultRenderer(
+				value.getClass()).getTableCellRendererComponent(
+				table, value, isSelected, hasFocus, row, column);
+			
+		}else{
+			return null;
+		}
+		
+			
+        
     }
 
 }

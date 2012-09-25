@@ -10,6 +10,7 @@ import Model.User;
 import View.AirportView;
 import View.FlightView;
 import View.PlaneView;
+import View.ScheduleView;
 import View.StaffView;
 import View.UserView;
 import java.beans.PropertyVetoException;
@@ -24,7 +25,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
 import javax.swing.Icon;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
@@ -98,7 +98,15 @@ public class FlyAWayView extends FrameView {
         lblWelkom.setText("Welcome : " +u.getUsername());
         if(u.getRank() == User.Rank.admin){
             btnUsers.setEnabled(true);
-        }
+			btnSchedule.setEnabled(false);
+        }else if(u.getRank() == User.Rank.staff){
+			btnAirport.setEnabled(false);
+			btnFlight.setEnabled(false);
+			btnPlane.setEnabled(false);
+			btnStaff.setEnabled(false);
+		}else{
+			btnSchedule.setEnabled(false);
+		}
     }
 
     public void addFrame(JInternalFrame frame){
@@ -128,6 +136,7 @@ public class FlyAWayView extends FrameView {
         desktopPane = new javax.swing.JDesktopPane();
         btnUsers = new javax.swing.JButton();
         lblWelkom = new javax.swing.JLabel();
+        btnSchedule = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -186,28 +195,38 @@ public class FlyAWayView extends FrameView {
         lblWelkom.setText(resourceMap.getString("lblWelkom.text")); // NOI18N
         lblWelkom.setName("lblWelkom"); // NOI18N
 
+        btnSchedule.setText(resourceMap.getString("btnSchedule.text")); // NOI18N
+        btnSchedule.setName("btnSchedule"); // NOI18N
+        btnSchedule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnScheduleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnPlane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnStaff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAirport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFlight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnUsers))
-                .addGap(18, 18, 18)
-                .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE))
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnPlane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnFlight, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                            .addComponent(btnAirport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnStaff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnSchedule)))
+                .addGap(14, 14, 14)
+                .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblWelkom, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(559, 559, 559))
         );
-
-        mainPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAirport, btnFlight, btnPlane, btnStaff});
-
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
@@ -225,7 +244,9 @@ public class FlyAWayView extends FrameView {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnFlight)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnUsers)))
+                        .addComponent(btnUsers)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSchedule)))
                 .addContainerGap())
         );
 
@@ -320,10 +341,17 @@ public class FlyAWayView extends FrameView {
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
+	private void btnScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheduleActionPerformed
+		ScheduleView sv = new ScheduleView();
+		flyaway.FlyAWayApp app = (flyaway.FlyAWayApp)flyaway.FlyAWayApp.getApplication();
+            app.getFlyAwayView().addFrame(sv);
+	}//GEN-LAST:event_btnScheduleActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAirport;
     private javax.swing.JButton btnFlight;
     private javax.swing.JButton btnPlane;
+    private javax.swing.JButton btnSchedule;
     private javax.swing.JButton btnStaff;
     private javax.swing.JButton btnUsers;
     private javax.swing.JDesktopPane desktopPane;

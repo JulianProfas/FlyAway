@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7">
   <NonVisualComponents>
@@ -11,16 +11,24 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnPlane" linkSize="1" alignment="0" max="32767" attributes="1"/>
-                      <Component id="btnStaff" linkSize="1" alignment="0" max="32767" attributes="1"/>
-                      <Component id="btnAirport" linkSize="1" alignment="0" max="32767" attributes="1"/>
-                      <Component id="btnFlight" linkSize="1" alignment="0" max="32767" attributes="1"/>
-                      <Component id="btnUsers" alignment="0" min="-2" max="-2" attributes="1"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btnPlane" alignment="0" max="32767" attributes="1"/>
+                              <Component id="btnFlight" alignment="0" pref="70" max="32767" attributes="1"/>
+                              <Component id="btnAirport" alignment="0" max="32767" attributes="1"/>
+                              <Component id="btnStaff" alignment="0" max="32767" attributes="1"/>
+                              <Component id="btnUsers" alignment="0" max="32767" attributes="1"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnSchedule" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="desktopPane" pref="706" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                  <Component id="desktopPane" pref="701" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
@@ -47,6 +55,8 @@
                           <Component id="btnFlight" linkSize="2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnUsers" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnSchedule" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -113,6 +123,15 @@
             <Property name="text" type="java.lang.String" resourceKey="lblWelkom.text"/>
             <Property name="name" type="java.lang.String" value="lblWelkom" noResource="true"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnSchedule">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="btnSchedule.text"/>
+            <Property name="name" type="java.lang.String" value="btnSchedule" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnScheduleActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

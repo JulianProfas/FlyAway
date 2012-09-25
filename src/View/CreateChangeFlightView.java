@@ -72,6 +72,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
             //Defaulting date to current date.
             DateFormat df = new SimpleDateFormat(Flight.FlightDateFormat);
             txtFieldDate.setText(df.format(new Date()));
+			txtFieldNumber.setText("" + Controller.Instance().getFlightNumber());
         }      
 
     }
@@ -197,6 +198,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
         jLabel7.setName("jLabel7"); // NOI18N
 
+        txtFieldNumber.setEditable(false);
         txtFieldNumber.setText(resourceMap.getString("txtFieldNumber.text")); // NOI18N
         txtFieldNumber.setBorder(javax.swing.BorderFactory.createLineBorder(resourceMap.getColor("txtFieldCoPilot.border.lineColor"))); // NOI18N
         txtFieldNumber.setName("txtFieldNumber"); // NOI18N
@@ -585,7 +587,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
               Logger.getLogger(CreateChangeFlightView.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        if(id == -1 || Controller.Instance().GetFlight(id) != null){
+        if(id == -1 ){
              errorMessage += "Please fill in a correct flight id\n";
         }
         if(errorMessage.isEmpty()){
@@ -608,31 +610,27 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
                 flight.setOtherPersonal(other);
                 flight.setPlane(plane);
 
-//				Flight returnFlight = new Flight();
-//				Calendar c = Calendar.getInstance();
-//				c.setTime(date);
-//				c.add(Calendar.DATE, 1);
-//				returnFlight.setDate(c.getTime());
-//				returnFlight.setNumber(id + 1);
-//				returnFlight.setFrom(destination);
-//				returnFlight.setDestination(from);
-//				returnFlight.setPilots(pilots);
-//				returnFlight.setPlane(plane);
-//				returnFlight.setStops(stops);
-//				returnFlight.setOtherPersonal(other);
-//				returnFlight.setReturnFlight(id);
-//				
-//				flight.setReturnFlight(id + 1);
+				Flight returnFlight = new Flight();
+				Calendar c = Calendar.getInstance();
+				c.setTime(date);
+				c.add(Calendar.DATE, 1);
+				returnFlight.setDate(c.getTime());
+				returnFlight.setNumber(id + 1);
+				returnFlight.setFrom(destination);
+				returnFlight.setDestination(from);
+				returnFlight.setPilots(pilots);
+				returnFlight.setPlane(plane);
+				returnFlight.setStops(stops);
+				returnFlight.setOtherPersonal(other);
+				returnFlight.setReturnFlight(flight);
 				
-                if(Controller.Instance().AddFlight(flight) //&& Controller.Instance().AddFlight(returnFlight))
-						)
+				
+                if(Controller.Instance().AddFlight(flight) && Controller.Instance().AddFlight(returnFlight))
 				{
-					Controller.Instance().ChangeFlight(flight, flight);
-//					Controller.Instance().ChangeFlight(returnFlight, returnFlight);
-					JOptionPane.showMessageDialog(this, "Flight saved");
+					JOptionPane.showMessageDialog(this, "Flights saved");
                     this.dispose();
 				}else{
-                   JOptionPane.showMessageDialog(this, "Unable to save flight");
+                   JOptionPane.showMessageDialog(this, "Unable to save flights");
                 }  
                 
             }
@@ -655,10 +653,29 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
                 newFlight.setOtherPersonal(other);
                 newFlight.setPlane(plane);
 				
+				Flight rf = Controller.Instance().getReturnFlight(id);
+				if(rf != null){
+					
+					Flight newReturnFlight = new Flight();
+					Calendar c = Calendar.getInstance();
+					c.setTime(date);
+					c.add(Calendar.DATE, 1);
+					newReturnFlight.setDate(c.getTime());
+					newReturnFlight.setDestination(from);
+					newReturnFlight.setFrom(destination);
+					newReturnFlight.setNumber(id + 1);
+					newReturnFlight.setOtherPersonal(other);
+					newReturnFlight.setPilots(pilots);
+					newReturnFlight.setPlane(plane);
+					newReturnFlight.setStops(stops);
+					newReturnFlight.setReturnFlight(newFlight);
+					Controller.Instance().ChangeFlight(newReturnFlight, rf);
+					
+				}
 				
 				if(Controller.Instance().ChangeFlight(newFlight, flight))
 				{
-					JOptionPane.showMessageDialog(this, "Flight Saved");
+					JOptionPane.showMessageDialog(this, "Flights Saved");
 					this.dispose();
 				}
 				else{

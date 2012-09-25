@@ -55,11 +55,11 @@ public class Controller extends Observable {
 
     public void ShutDown(){
         
-        if(logedIn != null){
-            if(logedIn.getRank() == User.Rank.admin){//              
-                UserSerializer.writeUsers("users.usr", users);
-            }
-        }
+//        if(logedIn != null){
+//            if(logedIn.getRank() == User.Rank.admin){//              
+//                UserSerializer.writeUsers("users.usr", users);
+//            }
+//        }
     }
 
     public boolean Login(String username, String password){
@@ -117,6 +117,22 @@ public class Controller extends Observable {
         return result;
     }
 
+	public ArrayList<Flight> getScheduledFlights(){
+		ArrayList<Flight> result = new ArrayList<Flight>();
+		Staff s = this.logedIn.getStaffAccount();
+		
+		for(Flight f : flights.values()){
+			
+			Staff[] pilots = f.getPilots();
+			if(pilots[0].getNumber() == s.getNumber() || pilots[1].getNumber() == s.getNumber() || f.getOtherPersonal().contains(s)){
+				result.add(f);
+			}
+		
+		}
+		
+		return result;
+		
+	}
 
     public ArrayList<Staff> getStaff() {
         ArrayList<Staff> result = new ArrayList<Staff>();
@@ -141,7 +157,18 @@ public class Controller extends Observable {
         }
         return foundPlanes;
     }
-
+	
+	public int getFlightNumber(){
+	
+		int result = 0;
+		for(Flight f: flights.values()){
+			if(f.getNumber() > result){
+				result = f.getNumber();
+			}
+		}
+		return result + 1;
+	}
+	
     public Plane getPlaneByNumber(int number){        
        return planes.get(number);
     }
@@ -496,6 +523,24 @@ public class Controller extends Observable {
 		return found;
 	}
 	
+	public Flight getReturnFlight(int number){
+		Flight found = null;
+		for(Flight f : flights.values())
+		{
+			Flight rf = f.getReturnFlight();
+			if(rf != null){
+				
+				if(f.getReturnFlight().getNumber() == number){
+					found = f;
+					break;
+				}	
+			
+			}
+				
+		}
+		return found;
+	}
+	
     public boolean ChangeFlight(Flight newFlight, Flight oldFlight){
         boolean result = false;
 
@@ -521,10 +566,12 @@ public class Controller extends Observable {
 
         if(DatabaseConnectie.deleteFlight(f)){
             flights.remove(f.getNumber());
-//			if(f.getReturnFlight() != 0){
-//				flights.remove(f.getReturnFlight());
-//				notifyObservers(f.getReturnFlight());
-//			}
+			
+			Flight rf = Controller.Instance().getReturnFlight(f.getNumber());
+			if(rf != null){
+				flights.remove(rf.getNumber());
+				notifyObservers(f.getReturnFlight());
+			}
             result = true;
             notifyObservers(f);
 			

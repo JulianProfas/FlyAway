@@ -25,7 +25,7 @@ public class Flight {
     private ArrayList<Airport> stops = new ArrayList<Airport>();
     private Staff[] Pilots = new Staff[2];
     private Plane plane = null;
-    private int returnFlight;
+    private Flight returnFlight;
 
 
     /**
@@ -178,11 +178,16 @@ public class Flight {
         this.number = number;
     }
     
-    public int getReturnFlight() {
+    public Flight getReturnFlight() {
         return returnFlight;
     }
     
-    public void setReturnFlight(int returnFlight){
+    public void setReturnFlight(Flight returnFlight){
         this.returnFlight = returnFlight;
     }
+	
+	@Override
+	public String toString(){
+		return "" + this.getNumber();
+	}
 }

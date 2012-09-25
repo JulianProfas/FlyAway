@@ -21,13 +21,13 @@ public class User implements Serializable{
     private String username;
     private String password;
     private Rank rank;
-	private int staffAccount = 0;
+	private Staff staffAccount;
 
 	
-
     public enum Rank{
         user,
-        admin
+        admin,
+		staff
     }
 
     public User(){
@@ -93,11 +93,11 @@ public class User implements Serializable{
         this.rank = rank;
     }
 
-	public int getStaffAccount() {
+	public Staff getStaffAccount() {
 		return staffAccount;
 	}
 
-	public void setStaffAccount(int staffAccount) {
+	public void setStaffAccount(Staff staffAccount) {
 		this.staffAccount = staffAccount;
 	}
 

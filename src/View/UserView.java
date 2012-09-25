@@ -16,6 +16,7 @@ import Model.User;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -35,6 +36,11 @@ public class UserView extends javax.swing.JInternalFrame  implements Observer {
         GenericTableModel<User> userModel = new GenericTableModel<User>(users);
 
         tblUsers.setModel(userModel);
+		TableColumnModel tcm = tblUsers.getColumnModel();
+        CustomTableCellRenderer tcr = new CustomTableCellRenderer();
+        for(int it = 0; it < tblUsers.getColumnCount(); it++){
+            tcm.getColumn(it).setCellRenderer(tcr);
+        }
     }
 
     /** This method is called from within the constructor to
