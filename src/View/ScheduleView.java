@@ -30,6 +30,7 @@ public class ScheduleView extends javax.swing.JInternalFrame {
 		txtLabelUser.setText("Schedule for staffmember: " + s.getName());
 		
 		fillTable();
+		
 	}
 
 	private void fillTable(){
@@ -41,6 +42,9 @@ public class ScheduleView extends javax.swing.JInternalFrame {
         for(int it = 0; it < flightsModel.getColumnCount(); it++){
             tcm.getColumn(it).setCellRenderer(tcr);
         }
+		if(flights.isEmpty()){
+			txtFlights.setText("You are currently not scheduled for any flights");
+		}
     }
 	/** This method is called from within the constructor to
 	 * initialize the form.
@@ -55,9 +59,13 @@ public class ScheduleView extends javax.swing.JInternalFrame {
         txtLabelUser = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSchedule = new javax.swing.JTable();
+        txtFlights = new javax.swing.JLabel();
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
         setName("Form"); // NOI18N
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(flyaway.FlyAWayApp.class).getContext().getResourceMap(ScheduleView.class);
@@ -77,6 +85,9 @@ public class ScheduleView extends javax.swing.JInternalFrame {
         tblSchedule.setName("tblSchedule"); // NOI18N
         jScrollPane2.setViewportView(tblSchedule);
 
+        txtFlights.setText(resourceMap.getString("txtFlights.text")); // NOI18N
+        txtFlights.setName("txtFlights"); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,7 +96,8 @@ public class ScheduleView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
-                    .addComponent(txtLabelUser))
+                    .addComponent(txtLabelUser)
+                    .addComponent(txtFlights))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -94,8 +106,10 @@ public class ScheduleView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(txtLabelUser)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFlights)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -104,6 +118,7 @@ public class ScheduleView extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblSchedule;
+    private javax.swing.JLabel txtFlights;
     private javax.swing.JLabel txtLabelUser;
     // End of variables declaration//GEN-END:variables
 }

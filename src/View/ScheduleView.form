@@ -11,6 +11,9 @@
     </Container>
   </NonVisualComponents>
   <Properties>
+    <Property name="closable" type="boolean" value="true"/>
+    <Property name="maximizable" type="boolean" value="true"/>
+    <Property name="resizable" type="boolean" value="true"/>
     <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
   </Properties>
   <SyntheticProperties>
@@ -31,11 +34,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane2" alignment="0" pref="374" max="32767" attributes="0"/>
                   <Component id="txtLabelUser" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtFlights" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -47,8 +51,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtLabelUser" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane2" pref="236" max="32767" attributes="0"/>
+              <Component id="jScrollPane2" min="-2" pref="236" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="txtFlights" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -83,5 +89,11 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="txtFlights">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="txtFlights.text"/>
+        <Property name="name" type="java.lang.String" value="txtFlights" noResource="true"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
