@@ -367,6 +367,19 @@ public class Controller extends Observable {
         return foundStaff;
     }
 
+	public User getUserByStaff(Staff s){
+		
+		User found = null;
+				
+		for(User u : users.values()){
+			
+			if(u.getStaffAccount() == s){
+			
+				found = u;	
+			}
+		}
+		return found;
+	}
 
     public Staff getStaffById(int staffId){
         return staff.get(staffId);
@@ -377,6 +390,10 @@ public class Controller extends Observable {
 
         if(DatabaseConnectie.deleteStaff(s)){
             staff.remove(s.getNumber());
+			User u = getUserByStaff(s);
+			if(u != null){
+				users.remove(u.getUsername());
+			}
             result = true;
             notifyObservers(s);
         }
@@ -394,6 +411,19 @@ public class Controller extends Observable {
         return result;
     }
     
+	public int getStaffID(){
+		int result = 0;
+		
+		for(Staff s : staff.values()){
+		
+			if(s.getNumber() > result){
+				result = s.getNumber();
+			}
+		}
+		
+		return result + 1;
+	}
+	
     public boolean ChangeStaff(Staff newStaff, Staff oldStaff){
         boolean result = false;
 

@@ -12,7 +12,7 @@
 package View;
 
 import Model.Staff;
-import javax.swing.ComboBoxModel;
+import Model.User;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,7 +33,9 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         staff = s;
         if(s != null){
             Fill(s);
-        }
+        }else{
+			txtFieldID.setText("" + Controller.Controller.Instance().getStaffID());
+		}
     }
 
     private void Fill(Staff s){
@@ -79,6 +81,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
 
+        txtFieldID.setEditable(false);
         txtFieldID.setText(resourceMap.getString("txtFieldID.text")); // NOI18N
         txtFieldID.setName("txtFieldID"); // NOI18N
 
@@ -168,7 +171,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3))
                 .addGap(16, 16, 16)
                 .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnCancel))
@@ -224,10 +227,20 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                 staff.setNumber(staffId);
                 staff.setType(st);
                 staff.setPrimaryAirport(primaryAirport);
+				
+				User u  = new User();
+				u.setUsername("" + staffId);
+				u.setRank(User.Rank.staff);
+				u.setPassword("flyaway", false);
+				u.setStaffAccount(staff);
 
                 if(Controller.Controller.Instance().AddStaff(staff)){
-                    JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
-                    this.dispose();
+					
+					if(Controller.Controller.Instance().addUser(u)){
+						
+						JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
+						this.dispose();
+					}    
                 }
             }
             else{

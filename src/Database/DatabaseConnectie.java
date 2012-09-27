@@ -111,14 +111,17 @@ public class DatabaseConnectie {
 
         PreparedStatement pstmt;
         try {
-            pstmt = con.prepareStatement("Insert into user values (?,?,?, NULL);");
+            pstmt = con.prepareStatement("Insert into user values (?,?,?,?);");
 
             pstmt.setString(1, u.getUsername());
             pstmt.setString(2, u.getPassword());
             pstmt.setString(3 ,u.getRank().toString());
+			if(u.getStaffAccount() == null){
+				pstmt.setNull(4, java.sql.Types.NULL);
+			}else{
+				pstmt.setInt(4, u.getStaffAccount().getNumber());
+			}
                        
-            
-
             int rowCount = pstmt.executeUpdate();
             if(rowCount == 1){
                 result = true;
@@ -576,8 +579,8 @@ public class DatabaseConnectie {
         try {
             pstmt = con.prepareStatement("Insert into staff values(?, ?, ?, ?);");
             pstmt.setInt(1, s.getNumber());
-            pstmt.setString(2, s.getType().toString());
-            pstmt.setString(3, s.getName());
+            pstmt.setString(2, s.getName());
+            pstmt.setString(3, s.getType().toString());
             pstmt.setString(4, s.getPrimaryAirport());
 
             int rowCount = pstmt.executeUpdate();
