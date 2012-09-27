@@ -110,7 +110,6 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
         tblPersonal.setName("tblPersonal"); // NOI18N
         jScrollPane1.setViewportView(tblPersonal);
 
-        lblErrorMessage.setText(resourceMap.getString("lblErrorMessage.text")); // NOI18N
         lblErrorMessage.setName("lblErrorMessage"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,7 +152,7 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pack();
