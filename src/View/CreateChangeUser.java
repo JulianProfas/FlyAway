@@ -25,7 +25,7 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
     User user = null;
     /** Creates new form CreateChangeUser */
     public CreateChangeUser(User user) {
-        initComponents();
+     /*   initComponents();
         this.user = user;
 
         User.Rank ranks[] = User.Rank.values();
@@ -36,7 +36,7 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
 
         if(user != null){
             fillUser(user);
-        }
+        }*/
 
              
     }
@@ -166,7 +166,7 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        String userName = txtFieldUserName.getText();
+     /*   String userName = txtFieldUserName.getText();
 
         char[] pw = txtFieldPassword.getPassword();
         String password = new String(pw);
@@ -212,7 +212,7 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
         }
         else{
             lblError.setText("Please enter a correct username and or password");
-        }
+        }*/
     }//GEN-LAST:event_btnSaveActionPerformed
 
 

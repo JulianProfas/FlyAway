@@ -35,7 +35,7 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
     }
 
     private void FillFields(){
-        txtFieldNumber.setText(""+plane.getNumber());
+        txtFieldNumber.setText(""+plane.getPlanenumber());
         txtFieldCapacity.setText(""+plane.getCapacity());
         txtFieldType.setText( plane.getType());
     }
@@ -78,6 +78,7 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
         jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
 
+        txtFieldNumber.setEditable(false);
         txtFieldNumber.setText(resourceMap.getString("txtFieldNumber.text")); // NOI18N
         txtFieldNumber.setName("txtFieldNumber"); // NOI18N
 
@@ -196,7 +197,7 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
             }
         }
 
-        if(txtFieldNumber.getText().isEmpty()){
+        /*if(txtFieldNumber.getText().isEmpty()){
             ErrorMessage += "no number entered \n";
         }
         else{
@@ -206,23 +207,22 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
             catch(NumberFormatException nfe){
                 ErrorMessage += "plane number isn't a number \n";
             }
-        }
+        }*/
 
         if(ErrorMessage.isEmpty()){
             
                 if (plane == null) {
                     plane = new Plane();
-                    plane.setNumber(planeNumber);
+                    plane.setPlanenumber(planeNumber);
                     plane.setType(type);
                     plane.setCapacity(capacity);
                     dbResult = Controller.Controller.Instance().AddPlane(plane);
                 } else {
                     Plane p = new Plane();
-                    p.setNumber(planeNumber);
+                    p.setPlanenumber(planeNumber);
                     p.setType(type);
                     p.setCapacity(capacity);
-                    dbResult = Controller.Controller.Instance().ChangePlane(p, plane);
-                    
+                    dbResult = Controller.Controller.Instance().ChangePlane(p, plane); 
                 }
                 if(!dbResult){
                     lblError.setText("Plane saved !");

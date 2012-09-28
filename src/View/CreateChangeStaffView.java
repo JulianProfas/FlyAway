@@ -26,10 +26,10 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     public CreateChangeStaffView(Staff s) {
         initComponents();
 
-        Staff.PersonalType stypes[] = Staff.PersonalType.values();
-        for(Staff.PersonalType st : stypes){
-            cmbBoxPersonalTypes.addItem(st);
-        }
+        //Staff.PersonalType stypes[] = Staff.PersonalType.values();
+        //for(Staff.PersonalType st : stypes){
+        //    cmbBoxPersonalTypes.addItem(st);
+        //}
         staff = s;
         if(s != null){
             Fill(s);
@@ -39,10 +39,10 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     }
 
     private void Fill(Staff s){
-        txtFieldID.setText(""+s.getNumber());
+        txtFieldID.setText(""+s.getStaffnumber());
         txtFieldName.setText(s.getName());
         cmbBoxPersonalTypes.setSelectedItem(s.getType());
-        txtFieldPrimaryAirport.setText(s.getPrimaryAirport());
+        txtFieldPrimaryAirport.setText(s.getAirport().toString());
     }
 
     /** This method is called from within the constructor to
@@ -182,7 +182,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        String name = txtFieldName.getText();
+       /* String name = txtFieldName.getText();
         int staffId = -1;
         Staff.PersonalType st = (Staff.PersonalType)cmbBoxPersonalTypes.getSelectedItem();
         String primaryAirport = txtFieldPrimaryAirport.getText();
@@ -257,7 +257,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
             }
             this.dispose();
         }
-
+*/
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

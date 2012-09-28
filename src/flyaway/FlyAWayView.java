@@ -96,10 +96,11 @@ public class FlyAWayView extends FrameView {
 
         User u = Controller.Instance().getLogedIn();
         lblWelkom.setText("Welcome : " +u.getUsername());
-        if(u.getRank() == User.Rank.admin){
+	System.out.println("Welcome : " +u.getUsername());
+        if(u.getRank() == "admin"){
             btnUsers.setEnabled(true);
 			btnSchedule.setEnabled(false);
-        }else if(u.getRank() == User.Rank.staff){
+        }else if(u.getRank() == "staff"){
 			btnAirport.setEnabled(false);
 			btnFlight.setEnabled(false);
 			btnPlane.setEnabled(false);

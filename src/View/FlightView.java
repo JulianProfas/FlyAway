@@ -39,16 +39,19 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
                  
     }
 
-    private void fillTableModel(ArrayList<Flight> flights){
-         GenericTableModel<Flight> flightsModel = new GenericTableModel<Flight>(flights);
-         tblFlights.setModel(flightsModel);
-          TableColumnModel tcm = tblFlights.getColumnModel();
-        CustomTableCellRenderer tcr = new CustomTableCellRenderer();
-        for(int it = 0; it < flightsModel.getColumnCount(); it++){
-            tcm.getColumn(it).setCellRenderer(tcr);
-        }
+    private void fillTableModel(ArrayList<Flight> flights) {
+	GenericTableModel<Flight> flightsModel = new GenericTableModel<Flight>(flights);
+	tblFlights.setModel(flightsModel);
 
+	TableColumnModel tcm = tblFlights.getColumnModel();
+	CustomTableCellRenderer tcr = new CustomTableCellRenderer();
+	for (int it = 0; it < flightsModel.getColumnCount(); it++) {
+	    tcm.getColumn(it).setCellRenderer(tcr);
+	}
 
+	tblFlights.removeColumn(tblFlights.getColumnModel().getColumn(2));
+	tblFlights.removeColumn(tblFlights.getColumnModel().getColumn(5));
+	tblFlights.removeColumn(tblFlights.getColumnModel().getColumn(8));
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -181,7 +184,7 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
-        int index = tblFlights.getSelectedRow();
+       /* int index = tblFlights.getSelectedRow();
 
         if(index >= 0){
 
@@ -202,11 +205,11 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
             lblErrorMessage.setText("Please select a row first");
         }
 		
-		
+	*/	
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-        int index = tblFlights.getSelectedRow();
+       /* int index = tblFlights.getSelectedRow();
 
         if(index >= 0){
 
@@ -227,11 +230,11 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
         }
         else{
             lblErrorMessage.setText("Please select a row first");
-        }
+        }*/
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        try {
+       /* try {
             String searchDate = txtFieldSearch.getText();
             SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
             Date d = sdf.parse(searchDate);
@@ -242,7 +245,7 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
         } catch (ParseException ex) {
             lblErrorMessage.setText("Fill in a correct date in the format "+ Flight.FlightDateFormat);
             Logger.getLogger(FlightView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }//GEN-LAST:event_btnSearchActionPerformed
 
 

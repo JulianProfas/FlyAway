@@ -41,6 +41,10 @@ public class AirportView extends javax.swing.JInternalFrame implements Observer{
         GenericTableModel<Airport> model = new GenericTableModel<Airport>(airports);
 
         tblAirport.setModel(model);
+	tblAirport.removeColumn(tblAirport.getColumnModel().getColumn(3));
+	tblAirport.removeColumn(tblAirport.getColumnModel().getColumn(3));
+	tblAirport.removeColumn(tblAirport.getColumnModel().getColumn(3));
+	tblAirport.removeColumn(tblAirport.getColumnModel().getColumn(4));
     }
 
     /** This method is called from within the constructor to
@@ -175,7 +179,7 @@ public class AirportView extends javax.swing.JInternalFrame implements Observer{
             found = Controller.Instance().getAirports();
         }
         else{
-            found = Controller.Instance().SearchAirport(searchText);
+            //found = Controller.Instance().SearchAirport(searchText);
         }
         
         GenericTableModel<Airport> model = new GenericTableModel<Airport>(found);

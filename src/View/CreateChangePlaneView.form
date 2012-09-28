@@ -111,6 +111,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtFieldNumber">
       <Properties>
+        <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" resourceKey="txtFieldNumber.text"/>
         <Property name="name" type="java.lang.String" value="txtFieldNumber" noResource="true"/>
       </Properties>

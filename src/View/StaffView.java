@@ -32,9 +32,14 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
         fillTable();
     }
 
-    private void fillTable(){
-         ArrayList<Staff> rows = Controller.Instance().getStaff();
-        tblPersonal.setModel(new GenericTableModel<Staff>(rows));
+    private void fillTable() {
+	ArrayList<Staff> rows = Controller.Instance().getStaff();
+	tblPersonal.setModel(new GenericTableModel<Staff>(rows));
+	tblPersonal.removeColumn(tblPersonal.getColumnModel().getColumn(1));
+	tblPersonal.removeColumn(tblPersonal.getColumnModel().getColumn(2));
+	tblPersonal.removeColumn(tblPersonal.getColumnModel().getColumn(1));
+	tblPersonal.removeColumn(tblPersonal.getColumnModel().getColumn(4));
+	
     }
 
     /** This method is called from within the constructor to
@@ -192,7 +197,7 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        String searchString = txtFieldSearch.getText();
+       /* String searchString = txtFieldSearch.getText();
         ArrayList<Staff> foundStaff = new ArrayList<Staff>();
 
 
@@ -221,7 +226,7 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
             foundStaff.addAll(Controller.Instance().SearchStaff(searchString));
         }
         tblPersonal.setModel(new GenericTableModel<Staff>(foundStaff));
-
+*/
     }//GEN-LAST:event_btnSearchActionPerformed
 
 

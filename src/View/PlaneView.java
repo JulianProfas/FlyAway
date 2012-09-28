@@ -35,7 +35,9 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
 
     private void fillTable(){
         GenericTableModel<Plane> ptm = new GenericTableModel<Plane>(Controller.Instance().getPlanes());
-        tblPlanes.setModel(ptm);
+	tblPlanes.setModel(ptm);
+	tblPlanes.removeColumn(tblPlanes.getColumnModel().getColumn(1));
+	
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -167,7 +169,7 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
 
-        ArrayList<Plane> foundPlanes = new ArrayList<Plane>();
+     /*   ArrayList<Plane> foundPlanes = new ArrayList<Plane>();
 
         String searchString = txtFieldSearch.getText();
 
@@ -188,7 +190,7 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
        
             GenericTableModel<Plane> ptm = new GenericTableModel<Plane>(foundPlanes);
             tblPlanes.setModel(ptm);
-        }
+        }*/
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed

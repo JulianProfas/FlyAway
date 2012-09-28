@@ -33,9 +33,9 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
 
     private void fillFields(){
         this.txtFieldCity.setText(airport.getCity());
-        this.txtFieldCountry.setText(airport.getCountry());
+        this.txtFieldCountry.setText(airport.getCountry().toString());
         this.txtFieldName.setText(airport.getName());
-        this.txtFieldCode.setText(airport.getCode());
+        this.txtFieldCode.setText(airport.getAirportcode());
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -176,7 +176,7 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        String name = txtFieldName.getText();
+    /*    String name = txtFieldName.getText();
         String country = txtFieldCountry.getText();
         String city = txtFieldCity.getText();
         String code = txtFieldCode.getText();
@@ -210,9 +210,9 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
            if(airport == null){
                 airport = new Airport();
                 airport.setCity(city);
-                airport.setCountry(country);
+                //airport.setCountry(country);
                 airport.setName(name);
-                airport.setCode(code);
+                airport.setAirportcode(code);
 
 
                 if(Controller.Controller.Instance().AddAirport(airport)){
@@ -241,7 +241,7 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
        }
       
        lblErrorMessage.setText(""+errorMessage);
-       
+       */
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

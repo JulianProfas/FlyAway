@@ -10,6 +10,7 @@ import Model.Flight;
 import Model.Plane;
 import Model.Staff;
 import Model.User;
+import util.HibernateUtil;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,8 +19,12 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -75,36 +80,57 @@ public class DatabaseConnectie {
         return result;
     }
 
-	public static HashMap<String, User> getUsers(){
-	
-		HashMap<String, User> users = new HashMap<String, User>();
+    public static HashMap<String, User> getUsers() {
 
-        try{
-            PreparedStatement pstmt;
+	/*HashMap<String, User> users = new HashMap<String, User>();
 
-            pstmt = con.prepareStatement("Select * from user;");
+	 try{
+	 PreparedStatement pstmt;
 
-            ResultSet rs;
+	 pstmt = con.prepareStatement("Select * from user;");
 
-                rs = pstmt.executeQuery();
+	 ResultSet rs;
 
-            while(rs.next()){
-                User u = new User();
+	 rs = pstmt.executeQuery();
 
-                u.setUsername(rs.getString("username"));
-				u.setPassword(rs.getString("password"), true);
-				u.setRank(User.Rank.valueOf(rs.getString("rank")));
+	 while(rs.next()){
+	 User u = new User();
+
+	 u.setUsername(rs.getString("username"));
+	 u.setPassword(rs.getString("password"), true);
+	 u.setRank(User.Rank.valueOf(rs.getString("rank")));
 				
-				u.setStaffAccount(Controller.Controller.Instance().getStaffById(rs.getInt("staff")));
+	 u.setStaffAccount(Controller.Controller.Instance().getStaffById(rs.getInt("staff")));
 				
-				users.put(u.getUsername(), u);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return users;
+	 users.put(u.getUsername(), u);
+	 }
+	 } catch (SQLException ex) {
+	 Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
+	 }
+	 return users;*/
+
+	HashMap<String, User> users = new HashMap<String, User>();
+
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	session.beginTransaction();
+	List usersList = session.createQuery("from User").list();
+
+	Iterator itr = usersList.iterator();
+	while (itr.hasNext()) {
+
+	    Model.User user = (Model.User) itr.next();
+	    User u = new User();
+
+	    u.setUsername(user.getUsername());
+	    u.setPassword(user.getPassword(), false); //don't hash the password
+	    //System.out.println("Passwords: "+user.getPassword());
+	    u.setRank(user.getRank());
+	    u.setStaff(user.getStaff());
+	    users.put(user.getUsername(), u);
 	}
-	
+	return users;
+    }
+	/*
 	public static boolean insertUser(User u){
 	
 		boolean result = false;
@@ -131,7 +157,7 @@ public class DatabaseConnectie {
         }
         return result;
 	}
-	
+	*/
 	public static boolean updateUser(User uNew, User uOld){
 	
 		boolean result = false;
@@ -177,35 +203,54 @@ public class DatabaseConnectie {
 	}
 	
 	
-    public static HashMap<Integer, Plane> getPlanes(){
-        HashMap<Integer, Plane> planes = new HashMap<Integer, Plane>();
+    public static HashMap<Integer, Plane> getPlanes() {
+	/*HashMap<Integer, Plane> planes = new HashMap<Integer, Plane>();
 
-        try{
-            PreparedStatement pstmt;
+	 try{
+	 PreparedStatement pstmt;
 
-            pstmt = con.prepareStatement("Select * from plane;");
+	 pstmt = con.prepareStatement("Select * from plane;");
 
-            ResultSet rs;
+	 ResultSet rs;
 
-                rs = pstmt.executeQuery();
+	 rs = pstmt.executeQuery();
 
 
-            while(rs.next()){
-                Plane p = new Plane();
+	 while(rs.next()){
+	 Plane p = new Plane();
 
-                p.setCapacity(rs.getInt("capacity"));
-                p.setNumber(rs.getInt("planenumber"));
-                p.setType(rs.getString("type"));
-                planes.put(p.getNumber(), p);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return planes;
+	 p.setCapacity(rs.getInt("capacity"));
+	 p.setNumber(rs.getInt("planenumber"));
+	 p.setType(rs.getString("type"));
+	 planes.put(p.getNumber(), p);
+	 }
+	 } catch (SQLException ex) {
+	 Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
+	 }
+	 return planes;*/
+
+	HashMap<Integer, Plane> planes = new HashMap<Integer, Plane>();
+
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	session.beginTransaction();
+	List planesList = session.createQuery("from Plane").list();
+
+	Iterator itr = planesList.iterator();
+	while (itr.hasNext()) {
+
+	    Model.Plane plane = (Model.Plane) itr.next();
+	    Plane p = new Plane();
+
+	    p.setPlanenumber(plane.getPlanenumber());
+	    p.setCapacity(plane.getCapacity());
+	    p.setType(plane.getType());
+	    planes.put(plane.getPlanenumber(), p);
+	}
+	return planes;
     }
 
     public static HashMap<String, Airport> getAirports(){
-        HashMap<String, Airport> airports = new  HashMap<String, Airport>();
+        /*HashMap<String, Airport> airports = new  HashMap<String, Airport>();
         try {
             PreparedStatement pstmt;
 
@@ -228,36 +273,74 @@ public class DatabaseConnectie {
         catch (SQLException ex) {
             Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return airports;*/
+	
+	HashMap<String, Airport> airports = new HashMap<String, Airport>();
+        
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List airportsList = session.createQuery("from Airport").list();
+        
+        Iterator itr = airportsList.iterator();
+        while (itr.hasNext()) {
+            Model.Airport airport = (Model.Airport) itr.next();
+            Airport a = new Airport();
+          
+	    a.setAirportcode(airport.getAirportcode());
+	    a.setName(airport.getName());
+	    a.setCity(airport.getCity());
+	    a.setCountry(airport.getCountry());
+            airports.put(airport.getAirportcode(), a);
+        }
         return airports;
     }
 
-    public static HashMap<Integer, Staff> getStaff(){
-       HashMap<Integer, Staff> staff = new HashMap<Integer, Staff>();
+    public static HashMap<Integer, Staff> getStaff() {
+	/*HashMap<Integer, Staff> staff = new HashMap<Integer, Staff>();
 
-        try{
-            PreparedStatement pstmt = con.prepareStatement("Select * from staff;");
+	 try{
+	 PreparedStatement pstmt = con.prepareStatement("Select * from staff;");
 
-            ResultSet rs = pstmt.executeQuery();
+	 ResultSet rs = pstmt.executeQuery();
 
-            while(rs.next()){
-                Staff s = new Staff();
-                s.setName(rs.getString("name"));
-                s.setNumber(rs.getInt("staffnumber"));
-                s.setType(Staff.PersonalType.valueOf( rs.getString("type")));
-                s.setPrimaryAirport(rs.getString("primaryairport"));
+	 while(rs.next()){
+	 Staff s = new Staff();
+	 s.setName(rs.getString("name"));
+	 s.setNumber(rs.getInt("staffnumber"));
+	 s.setType(Staff.PersonalType.valueOf( rs.getString("type")));
+	 s.setPrimaryAirport(rs.getString("primaryairport"));
 
-                staff.put(s.getNumber(), s);
-            }
+	 staff.put(s.getNumber(), s);
+	 }
 
-        }
-        catch (SQLException ex) {
-            Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return staff;
+	 }
+	 catch (SQLException ex) {
+	 Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
+	 }
+	 return staff;*/
+
+	HashMap<Integer, Staff> staff = new HashMap<Integer, Staff>();
+
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	session.beginTransaction();
+	List staffList = session.createQuery("from Staff").list();
+
+	Iterator itr = staffList.iterator();
+	while (itr.hasNext()) {
+	    Model.Staff aStaff = (Model.Staff) itr.next();
+	    Staff s = new Staff();
+
+	    s.setName(aStaff.getName());
+	    s.setStaffnumber(aStaff.getStaffnumber());
+	    s.setAirport(aStaff.getAirport());
+	    s.setType(aStaff.getType());
+	    staff.put(aStaff.getStaffnumber(), s);
+	}
+	return staff;
     }
 
     public static HashMap<Integer, Flight> getFlights() {
-        HashMap<Integer, Flight> flights = new HashMap<Integer, Flight>();
+        /*HashMap<Integer, Flight> flights = new HashMap<Integer, Flight>();
 
         try {
             PreparedStatement pstmt = con.prepareStatement("Select * from flight;");
@@ -268,13 +351,13 @@ public class DatabaseConnectie {
                 f.setNumber(rs.getInt("flightnumber"));
 				f.setDate(rs.getDate("date"));
 				
-//                SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
-//                try {
-//                    f.setDate(sdf.parse(rs.getString("date")));
-//                } catch (ParseException ex) {
-//                    Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
-//                    continue;
-//                }
+//BSC                SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
+//BSC                try {
+//BSC                    f.setDate(sdf.parse(rs.getString("date")));
+//BSC                } catch (ParseException ex) {
+//BSC                    Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
+//BSC                    continue;
+//BSC                }
 				
                 Airport destination = Controller.Controller.Instance().getAirportByCode(rs.getString("airportdestination"));
                 Airport from = Controller.Controller.Instance().getAirportByCode(rs.getString("airportfrom"));
@@ -348,9 +431,35 @@ public class DatabaseConnectie {
             Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
         }
 		
+        return flights;*/
+		
+	HashMap<Integer, Flight> flights = new HashMap<Integer, Flight>();
+        
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List flightssList = session.createQuery("from Flight").list();
+        
+        Iterator itr = flightssList.iterator();
+        while (itr.hasNext()) {
+            
+            Model.Flight flight = (Model.Flight) itr.next();
+            Flight f = new Flight();
+	    
+            f.setFlightnumber(flight.getFlightnumber());
+	    f.setDate(flight.getDate());
+	    f.setAirportByAirportdestination(flight.getAirportByAirportdestination());
+	    f.setAirportByAirportfrom(flight.getAirportByAirportfrom());
+	    f.setFlight(flight.getFlight());
+	    f.setStaffByPilot(flight.getStaffByPilot());
+	    f.setStaffByCopilot(flight.getStaffByCopilot());
+	    f.setFlight(flight.getFlight());
+	    f.setPlane(flight.getPlane());
+	    
+            flights.put(flight.getFlightnumber(), f);
+        }
         return flights;
     }
-
+/*
     public static boolean insertFlight(Flight f){
         boolean result = false;
 
@@ -416,8 +525,8 @@ public class DatabaseConnectie {
 
         return result;
     }
-
-    public static boolean updateFlight(Flight newFlight, Flight oldFlight){
+*/
+    /*public static boolean updateFlight(Flight newFlight, Flight oldFlight){
         boolean result = false;
 
         PreparedStatement pstmt;
@@ -474,8 +583,8 @@ public class DatabaseConnectie {
         }
         return result;
     }
-
-    public static boolean deleteFlight(Flight f){
+*/
+    /*public static boolean deleteFlight(Flight f){
         boolean result = false;
 
         PreparedStatement pstmt;
@@ -503,8 +612,8 @@ public class DatabaseConnectie {
         return result;
 
     }
-
-    public static boolean insertAirport(Airport a){
+*/
+    /*public static boolean insertAirport(Airport a){
         boolean result = false;
 
         PreparedStatement pstmt;
@@ -527,8 +636,8 @@ public class DatabaseConnectie {
         }
         return result;
     }
-
-    public static boolean updateAirport(Airport airportNew, Airport airportOld) {
+*/
+    /*public static boolean updateAirport(Airport airportNew, Airport airportOld) {
         boolean result = false;
 
         PreparedStatement pstmt;
@@ -553,7 +662,7 @@ public class DatabaseConnectie {
         }
         return result;
     }
-
+*/
     public static boolean deleteAirport(Airport a){
         boolean result = false;
 
@@ -572,7 +681,7 @@ public class DatabaseConnectie {
         return result;
     }
     
-    public static boolean insertStaff(Staff s){
+    /*public static boolean insertStaff(Staff s){
         boolean result = false;
         
         PreparedStatement pstmt;
@@ -594,17 +703,17 @@ public class DatabaseConnectie {
         
         return result;
     }
-
+*/
     public static boolean updateStaff(Staff newStaff, Staff oldStaff){
         boolean result = false;
 
         PreparedStatement pstmt;
         try {
             pstmt = con.prepareStatement("Update staff set staffnumber = ?, type = ?, name = ? where staffnumber = ?;");
-            pstmt.setInt(1, newStaff.getNumber());
+            pstmt.setInt(1, newStaff.getStaffnumber());
             pstmt.setString(2, newStaff.getType().toString());
             pstmt.setString(3, newStaff.getName());
-            pstmt.setInt(4, oldStaff.getNumber());
+            pstmt.setInt(4, oldStaff.getStaffnumber());
 
             int rowCount = pstmt.executeUpdate();
 
@@ -626,7 +735,7 @@ public class DatabaseConnectie {
         PreparedStatement pstmt;
         try {
             pstmt = con.prepareStatement("Delete from staff where staffnumber = ?;");
-            pstmt.setInt(1, s.getNumber());
+            pstmt.setInt(1, s.getStaffnumber());
 
             int rowCount = pstmt.executeUpdate();
 
@@ -643,7 +752,7 @@ public class DatabaseConnectie {
     }
     
     public static boolean insertPlane(Plane p){
-        boolean result = false;
+        /*boolean result = false;
         
         PreparedStatement pstmt;
         try {
@@ -662,19 +771,33 @@ public class DatabaseConnectie {
             Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
         }        
         
-        return result;        
+        return result;*/
+
+	
+	boolean result = true; // todo: add hibernate exception handling
+	
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Plane plane = new Plane();
+	plane.setPlanenumber(p.getPlanenumber());
+	plane.setCapacity(p.getCapacity());
+	plane.setType(p.getType());
+        session.save(plane);
+        session.getTransaction().commit();
+	
+	return result;
     }
 
     public static boolean updatePlane(Plane newPlane, Plane oldPlane){
-        boolean result = false;
+        /*boolean result = false;
 
         PreparedStatement pstmt;
         try {
             pstmt = con.prepareStatement("Update Plane set capacity = ?, planenumber = ?, type = ? where planenumber = ?;");
             pstmt.setInt(1, newPlane.getCapacity());
-            pstmt.setInt(2, newPlane.getNumber());
+            pstmt.setInt(2, newPlane.getPlanenumber());
             pstmt.setString(3, newPlane.getType());
-            pstmt.setInt(4, oldPlane.getNumber());
+            pstmt.setInt(4, oldPlane.getPlanenumber());
 
             int rowCount = pstmt.executeUpdate();
             if(rowCount == 1){
@@ -685,11 +808,26 @@ public class DatabaseConnectie {
         }
 
 
+        return result;*/
+        
+        boolean result = true;
+        
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        
+        Plane plane = (Plane)session.load(Plane.class, oldPlane.getPlanenumber());
+	System.out.println("Plane: " + oldPlane.getPlanenumber() + " updated");
+        plane.setPlanenumber(newPlane.getPlanenumber());
+        plane.setCapacity(newPlane.getCapacity());
+        plane.setType(newPlane.getType());
+	session.update(plane);
+	session.getTransaction().commit();
+        
         return result;
     }
 
     public static boolean deletePlane(Plane p){
-        boolean result = false;
+        /*boolean result = false;
 
         PreparedStatement pstmt;
         try {
@@ -704,6 +842,26 @@ public class DatabaseConnectie {
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return result;*/
+        
+        boolean result = true;
+        
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        //**Plane plane = (Plane) session.get(Plane.class, p.getNumber());
+        //Query query = session.createQuery("delete Plane where planenumber = :stockCode");
+        //**List planesList = session.createQuery("from Plane p order by p.planenumber asc").list();
+        //query.setParameter("stockCode", p.getPlanenumber());
+        //int resultt = query.executeUpdate();
+
+        //session.save(resultt);
+        //session.getTransaction().commit();
+        
+	Plane plane = (Plane)session.load(Plane.class, p.getPlanenumber());
+	System.out.println("Plane: " + plane.getPlanenumber() + " deleted");
+	session.delete(plane);
+	session.getTransaction().commit();
+	
         return result;
     }
 

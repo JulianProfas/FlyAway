@@ -63,7 +63,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 
     /** Creates new form CreateChangeFlightView */
     public CreateChangeFlightView(Flight f) {
-        initComponents();
+       /* initComponents();
         flight = f;
         if(f != null){
             fill(f);
@@ -73,12 +73,12 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
             DateFormat df = new SimpleDateFormat(Flight.FlightDateFormat);
             txtFieldDate.setText(df.format(new Date()));
 			txtFieldNumber.setText("" + Controller.Instance().getFlightNumber());
-        }      
+        }      */
 
     }
 
     private void fill(Flight f){
-        txtFieldNumber.setText(""+f.getNumber());
+        /*txtFieldNumber.setText(""+f.getNumber());
         SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
         String sdate = sdf.format(f.getDate());
         txtFieldDate.setText(sdate);
@@ -98,7 +98,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         plane = f.getPlane();
 
         other = f.getOtherPersonal();
-        date = f.getDate();
+        date = f.getDate();*/
     }
 
     public void keyPressed(KeyEvent e) {
@@ -116,25 +116,25 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 
     private void searchPilot(){
         String searchString = txtFieldPilot.getText();
-        listSearchResults.setListData(Controller.Instance().SearchStaffPilots(searchString).toArray());
+        //listSearchResults.setListData(Controller.Instance().SearchStaffPilots(searchString).toArray());
     }
 
      private void searchCoPilot(){
        
         String searchString = txtFieldCoPilot.getText();
-        listSearchResults.setListData(Controller.Instance().SearchStaffPilots(searchString).toArray());
+        //listSearchResults.setListData(Controller.Instance().SearchStaffPilots(searchString).toArray());
 
     }
 
      private void searchFrom(){
         
          String searchString = txtFieldFrom.getText();
-         listSearchResults.setListData(Controller.Instance().SearchAirport(searchString).toArray());
+         //listSearchResults.setListData(Controller.Instance().SearchAirport(searchString).toArray());
      }
 
      private void searchDestination(){       
          String searchString = txtFieldDestination.getText();
-         listSearchResults.setListData(Controller.Instance().SearchAirport(searchString).toArray());
+         //listSearchResults.setListData(Controller.Instance().SearchAirport(searchString).toArray());
      }    
 
     /** This method is called from within the constructor to
@@ -438,7 +438,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFieldDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldDateFocusLost
-        try {
+       /* try {
             txtFieldDate.setBackground(Color.WHITE);
             DateFormat d = new SimpleDateFormat(Flight.FlightDateFormat);
             date = d.parse(txtFieldDate.getText());
@@ -446,7 +446,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         } catch (ParseException ex) {
             Logger.getLogger(CreateChangeFlightView.class.getName()).log(Level.SEVERE, null, ex);
             txtFieldDate.setBackground(Color.RED);
-        }    
+        }   */ 
 		
 
     }//GEN-LAST:event_txtFieldDateFocusLost
@@ -529,7 +529,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     }//GEN-LAST:event_txtFieldDestinationFocusLost
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        String errorMessage = "";
+       /* String errorMessage = "";
 
         if(pilot == null){
             errorMessage += "Please insert a correct pilot \n ";
@@ -686,7 +686,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         }
         else{
             lblError.setText(errorMessage);
-        }
+        }*/
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPersonalMouseClicked
@@ -717,14 +717,14 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         txtFieldPilot.setBorder(BorderFactory.createLineBorder(Color.orange));
         currentField = FieldEditing.PILOT;
         listSearchResults.setEnabled(true);
-        listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());        // TODO add your handling code here:
+        //listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());        // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldPilotFocusGained
 
     private void txtFieldCoPilotFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldCoPilotFocusGained
         txtFieldCoPilot.setBorder(BorderFactory.createLineBorder(Color.orange));
         currentField = FieldEditing.COPILOT;
         listSearchResults.setEnabled(true);
-        listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());        // TODO add your handling code here:
+        //listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());        // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldCoPilotFocusGained
 
     private void txtFieldFromFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldFromFocusGained

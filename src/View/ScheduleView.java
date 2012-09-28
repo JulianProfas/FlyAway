@@ -25,16 +25,16 @@ public class ScheduleView extends javax.swing.JInternalFrame {
 	/** Creates new form ScheduleView */
 	public ScheduleView() {
 		initComponents();
-		Staff s = Controller.Instance().getLogedIn().getStaffAccount();
+		/*Staff s = Controller.Instance().getLogedIn().getStaffAccount();
 		
-		txtLabelUser.setText("Schedule for staffmember: " + s.getName());
+		txtLabelUser.setText("Schedule for staffmember: " + s.getName());*/
 		
 		fillTable();
 		
 	}
 
 	private void fillTable(){
-		ArrayList<Flight> flights = Controller.Instance().getScheduledFlights();
+		/*ArrayList<Flight> flights = Controller.Instance().getScheduledFlights();
        GenericTableModel<Flight> flightsModel = new GenericTableModel<Flight>(flights);
          tblSchedule.setModel(flightsModel);
           TableColumnModel tcm = tblSchedule.getColumnModel();
@@ -44,7 +44,7 @@ public class ScheduleView extends javax.swing.JInternalFrame {
         }
 		if(flights.isEmpty()){
 			txtFlights.setText("You are currently not scheduled for any flights");
-		}
+		}*/
     }
 	/** This method is called from within the constructor to
 	 * initialize the form.
