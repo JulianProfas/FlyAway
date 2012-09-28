@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 22, 2012 1:35:27 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="flyaway" name="Model.User" table="user">
+    <id name="username" type="string">
+      <column length="50" name="username"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="Model.Staff" fetch="select" name="staff">
+      <column name="staff"/>
+    </many-to-one>
+    <property name="password" type="string">
+      <column length="32" name="password" not-null="true"/>
+    </property>
+    <property name="rank" type="string">
+      <column length="25" name="rank" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

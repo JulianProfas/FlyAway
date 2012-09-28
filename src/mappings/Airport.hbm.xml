@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 22, 2012 1:35:27 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="flyaway" name="Model.Airport" table="airport">
+    <id name="airportcode" type="string">
+      <column length="3" name="airportcode"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one class="Model.Country" fetch="select" name="country">
+      <column length="2" name="country" not-null="true"/>
+    </many-to-one>
+    <property name="name" type="string">
+      <column length="50" name="name" not-null="true"/>
+    </property>
+    <property name="city" type="string">
+      <column length="50" name="city" not-null="true"/>
+    </property>
+    <set inverse="true" name="flightsForAirportdestination">
+      <key>
+        <column length="3" name="airportdestination" not-null="true"/>
+      </key>
+      <one-to-many class="Model.Flight"/>
+    </set>
+    <set inverse="true" name="staffs">
+      <key>
+        <column length="3" name="primaryairport" not-null="true"/>
+      </key>
+      <one-to-many class="Model.Staff"/>
+    </set>
+    <set inverse="false" name="flights" table="flightstops">
+      <key>
+        <column length="3" name="airport" not-null="true"/>
+      </key>
+      <many-to-many entity-name="Model.Flight">
+        <column name="flight" not-null="true"/>
+      </many-to-many>
+    </set>
+    <set inverse="true" name="flightsForAirportfrom">
+      <key>
+        <column length="3" name="airportfrom" not-null="true"/>
+      </key>
+      <one-to-many class="Model.Flight"/>
+    </set>
+  </class>
+</hibernate-mapping>

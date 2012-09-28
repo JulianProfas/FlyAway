@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 22, 2012 1:35:27 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="flyaway" name="Model.Flight" table="flight">
+    <id name="flightnumber" type="java.lang.Integer">
+      <column name="flightnumber"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="Model.Airport" fetch="select" name="airportByAirportdestination">
+      <column length="3" name="airportdestination" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="Model.Staff" fetch="select" name="staffByPilot">
+      <column name="pilot" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="Model.Staff" fetch="select" name="staffByCopilot">
+      <column name="copilot" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="Model.Plane" fetch="select" name="plane">
+      <column name="plane" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="Model.Airport" fetch="select" name="airportByAirportfrom">
+      <column length="3" name="airportfrom" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="Model.Flight" fetch="select" name="flight">
+      <column name="returnflight"/>
+    </many-to-one>
+    <property name="date" type="date">
+      <column length="10" name="date" not-null="true"/>
+    </property>
+    <set inverse="false" name="airports" table="flightstops">
+      <key>
+        <column name="flight" not-null="true"/>
+      </key>
+      <many-to-many entity-name="Model.Airport">
+        <column length="3" name="airport" not-null="true"/>
+      </many-to-many>
+    </set>
+    <set inverse="true" name="flights">
+      <key>
+        <column name="returnflight"/>
+      </key>
+      <one-to-many class="Model.Flight"/>
+    </set>
+    <set inverse="false" name="staffs" table="flightstaff">
+      <key>
+        <column name="flight" not-null="true"/>
+      </key>
+      <many-to-many entity-name="Model.Staff">
+        <column name="staff" not-null="true"/>
+      </many-to-many>
+    </set>
+  </class>
+</hibernate-mapping>

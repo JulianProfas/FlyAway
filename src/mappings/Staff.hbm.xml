@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 22, 2012 1:35:27 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="flyaway" name="Model.Staff" table="staff">
+    <id name="staffnumber" type="java.lang.Integer">
+      <column name="staffnumber"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="Model.Airport" fetch="select" name="airport">
+      <column length="3" name="primaryairport" not-null="true"/>
+    </many-to-one>
+    <property name="name" type="string">
+      <column length="50" name="name" not-null="true"/>
+    </property>
+    <property name="type" type="string">
+      <column length="25" name="type" not-null="true"/>
+    </property>
+    <set inverse="true" name="users">
+      <key>
+        <column name="staff"/>
+      </key>
+      <one-to-many class="Model.User"/>
+    </set>
+    <set inverse="true" name="flightsForCopilot">
+      <key>
+        <column name="copilot" not-null="true"/>
+      </key>
+      <one-to-many class="Model.Flight"/>
+    </set>
+    <set inverse="true" name="flightsForPilot">
+      <key>
+        <column name="pilot" not-null="true"/>
+      </key>
+      <one-to-many class="Model.Flight"/>
+    </set>
+    <set inverse="false" name="flights" table="flightstaff">
+      <key>
+        <column name="staff" not-null="true"/>
+      </key>
+      <many-to-many entity-name="Model.Flight">
+        <column name="flight" not-null="true"/>
+      </many-to-many>
+    </set>
+  </class>
+</hibernate-mapping>

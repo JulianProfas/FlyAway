@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 22, 2012 1:35:27 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="flyaway" name="Model.Plane" table="plane">
+    <id name="planenumber" type="java.lang.Integer">
+      <column name="planenumber"/>
+      <generator class="identity"/>
+    </id>
+    <property name="capacity" type="int">
+      <column name="capacity" not-null="true"/>
+    </property>
+    <property name="type" type="string">
+      <column length="50" name="type" not-null="true"/>
+    </property>
+    <set inverse="true" name="flights">
+      <key>
+        <column name="plane" not-null="true"/>
+      </key>
+      <one-to-many class="Model.Flight"/>
+    </set>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="Model.Airport" table="airport"/>
+  <class name="Model.Country" table="country"/>
+  <class name="Model.Flight" table="flight"/>
+  <class name="Model.Plane" table="plane"/>
+  <class name="Model.Staff" table="staff"/>
+  <class name="Model.User" table="user"/>
+</hibernate-mapping>
