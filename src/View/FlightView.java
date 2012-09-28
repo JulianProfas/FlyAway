@@ -184,14 +184,14 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
-       /* int index = tblFlights.getSelectedRow();
+        int index = tblFlights.getSelectedRow();
 
         if(index >= 0){
 
             GenericTableModel<Flight> gtm = (GenericTableModel<Flight>)tblFlights.getModel();
             Flight f = gtm.getRow(index);
 
-			if(f.getReturnFlight() == null){
+			if(f.getFlight() == null){
 			
 				CreateChangeFlightView ccfv = new CreateChangeFlightView(f);
 				 flyaway.FlyAWayApp app = (flyaway.FlyAWayApp)flyaway.FlyAWayApp.getApplication();
@@ -205,32 +205,23 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
             lblErrorMessage.setText("Please select a row first");
         }
 		
-	*/	
+		
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-       /* int index = tblFlights.getSelectedRow();
+        int index = tblFlights.getSelectedRow();
 
-        if(index >= 0){
-
-			
-            GenericTableModel<Flight> gtm = (GenericTableModel<Flight>)tblFlights.getModel();
+        if (index >= 0) {
+            GenericTableModel<Flight> gtm = (GenericTableModel<Flight>) tblFlights.getModel();
             Flight f = gtm.getRow(index);
-			
-			if(f.getReturnFlight() == null){
-				
-				Controller.Instance().removeFlight(f);
-				
-			}else{
-				
-				lblErrorMessage.setText("You have selected a automatically generated flight, this cannot be removed");
-			
-			}
-            
-        }
-        else{
+            if (f.getFlight() == null) {
+                Controller.Instance().removeFlight(f);
+            } else {
+                lblErrorMessage.setText("You have selected a automatically generated flight, this cannot be removed");
+            }
+        } else {
             lblErrorMessage.setText("Please select a row first");
-        }*/
+        }
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed

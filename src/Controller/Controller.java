@@ -402,7 +402,7 @@ public class Controller extends Observable {
         return result;
     }
 
-    /*public boolean AddStaff(Staff s){
+    public boolean AddStaff(Staff s){
         boolean result = false;
         if(DatabaseConnectie.insertStaff(s)){
 
@@ -412,7 +412,6 @@ public class Controller extends Observable {
         }
         return result;
     }
-    */
 	public int getStaffID(){
 		int result = 0;
 		
@@ -502,7 +501,7 @@ public class Controller extends Observable {
 
         return result;
     }
-/*
+
     public boolean AddAirport(Airport a){
         boolean result = false;
 
@@ -515,7 +514,7 @@ public class Controller extends Observable {
         }
         return result;
     }
-*/
+
   /*  public boolean ChangeAirport(Airport newAirport, Airport oldAirport){
         boolean result = false;
 
@@ -533,10 +532,10 @@ public class Controller extends Observable {
         result = true;
         return result;
     }
-/*
+*/
 
 //Flights
-   /* public boolean AddFlight(Flight f){
+    public boolean AddFlight(Flight f){
         boolean result = false;
 
         if(flights.get(f.getFlightnumber()) == null){
@@ -550,7 +549,7 @@ public class Controller extends Observable {
 
         return result;
     }
-*/
+
 	public Flight GetFlight(int number){
 		Flight found = null;
 		for(Flight f : flights.values())
@@ -601,16 +600,16 @@ public class Controller extends Observable {
     }
 */
 
-  /*  public boolean removeFlight(Flight f){
+    public boolean removeFlight(Flight f){
         boolean result = false;
 
         if(DatabaseConnectie.deleteFlight(f)){
-            flights.remove(f.getNumber());
+            flights.remove(f.getFlightnumber());
 			
-			Flight rf = Controller.Instance().getReturnFlight(f.getNumber());
+			Flight rf = Controller.Instance().GetFlight(f.getFlightnumber());
 			if(rf != null){
-				flights.remove(rf.getNumber());
-				notifyObservers(f.getReturnFlight());
+				flights.remove(rf.getFlightnumber());
+				notifyObservers(f.getFlight());
 			}
             result = true;
             notifyObservers(f);
@@ -618,7 +617,7 @@ public class Controller extends Observable {
         }
         return result;
     }
-*/
+
     public ArrayList<Flight> searchFlight(Date date) {
         ArrayList<Flight> result = new ArrayList<Flight>(); 
 
@@ -658,7 +657,7 @@ public class Controller extends Observable {
         return result;        
     }
 
-   /* public boolean addUser(User user){
+    public boolean addUser(User user){
         boolean result = false;
 
         if(users.get(user.getUsername()) == null){
@@ -671,7 +670,7 @@ public class Controller extends Observable {
 			
         }
         return result;
-    }*/
+    }
 
     public boolean removeUser(User user){
         boolean result = false;

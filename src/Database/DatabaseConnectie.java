@@ -123,16 +123,15 @@ public class DatabaseConnectie {
 
 	    u.setUsername(user.getUsername());
 	    u.setPassword(user.getPassword(), false); //don't hash the password
-	    //System.out.println("Passwords: "+user.getPassword());
 	    u.setRank(user.getRank());
 	    u.setStaff(user.getStaff());
 	    users.put(user.getUsername(), u);
 	}
 	return users;
     }
-	/*
-	public static boolean insertUser(User u){
 	
+	public static boolean insertUser(User u){
+	/*
 		boolean result = false;
 
         PreparedStatement pstmt;
@@ -155,13 +154,28 @@ public class DatabaseConnectie {
          } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return result;
-	}
-	*/
+        return result;*/
+	
+            boolean result = true; // todo: add hibernate exception handling
+
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            session.beginTransaction();
+            User user = new User();
+            user.setUsername(u.getUsername());
+            user.setPassword(u.getPassword());
+            user.setRank(u.getRank());
+            user.setStaff(u.getStaff());
+            session.save(user);
+            session.getTransaction().commit();
+
+            return result;
+        
+        }
+	
 	public static boolean updateUser(User uNew, User uOld){
 	
 		boolean result = false;
-
+/*
         PreparedStatement pstmt;
         try {
             pstmt = con.prepareStatement("Update user set username = ?, password = ?, rank = ?, staff = NULL where username = ?;");
@@ -178,13 +192,13 @@ public class DatabaseConnectie {
             Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
+*/
         return result;
 	}
 	
 	public static boolean deleteUser(User u){
 	
-		boolean result = false;
+		/*boolean result = false;
 
         PreparedStatement pstmt;
         try {
@@ -199,7 +213,17 @@ public class DatabaseConnectie {
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return result;
+        return result;*/
+            
+            boolean result = true;      //todo: Add hibernate exception
+
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            session.beginTransaction();
+            User user = (User) session.load(User.class, u.getUsername());
+            session.delete(user);
+            session.getTransaction().commit();
+
+            return result;
 	}
 	
 	
@@ -459,9 +483,9 @@ public class DatabaseConnectie {
         }
         return flights;
     }
-/*
+
     public static boolean insertFlight(Flight f){
-        boolean result = false;
+        /*boolean result = false;
 
         PreparedStatement pstmt;
         try {
@@ -523,9 +547,27 @@ public class DatabaseConnectie {
             }
         }
 
-        return result;
+        return result;*/
+        
+        boolean result = true; // todo: add hibernate exception handling
+	
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Flight flight = new Flight();
+        flight.setFlightnumber(f.getFlightnumber());
+        flight.setDate(f.getDate());
+        flight.setAirportByAirportdestination(f.getAirportByAirportdestination());
+        flight.setAirportByAirportfrom(f.getAirportByAirportfrom());
+        flight.setStaffByPilot(f.getStaffByPilot());
+        flight.setStaffByCopilot(f.getStaffByCopilot());
+        flight.setPlane(f.getPlane());
+        flight.setFlight(f.getFlight());
+        session.save(flight);
+        session.getTransaction().commit();
+	
+	return result;
     }
-*/
+
     /*public static boolean updateFlight(Flight newFlight, Flight oldFlight){
         boolean result = false;
 
@@ -584,8 +626,8 @@ public class DatabaseConnectie {
         return result;
     }
 */
-    /*public static boolean deleteFlight(Flight f){
-        boolean result = false;
+    public static boolean deleteFlight(Flight f){
+        /*boolean result = false;
 
         PreparedStatement pstmt;
         try {
@@ -609,12 +651,21 @@ public class DatabaseConnectie {
             Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return result;
+        return result;*/
 
+        boolean result = true;      //todo: Add hibernate exception
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Flight flight = (Flight) session.load(Flight.class, f.getFlightnumber());
+        session.delete(flight);
+        session.getTransaction().commit();
+
+        return result;
     }
-*/
-    /*public static boolean insertAirport(Airport a){
-        boolean result = false;
+
+    public static boolean insertAirport(Airport a){
+        /*boolean result = false;
 
         PreparedStatement pstmt;
         try {
@@ -634,9 +685,23 @@ public class DatabaseConnectie {
          } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return result;
+        return result;*/
+        
+        boolean result = true; // todo: add hibernate exception handling
+	
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Airport airport = new Airport();
+	airport.setAirportcode(a.getAirportcode());
+        airport.setName(a.getName());
+        airport.setCountry(a.getCountry());
+        airport.setCity(a.getCity());
+        session.save(airport);
+        session.getTransaction().commit();
+	
+	return result;
     }
-*/
+    
     /*public static boolean updateAirport(Airport airportNew, Airport airportOld) {
         boolean result = false;
 
@@ -664,7 +729,7 @@ public class DatabaseConnectie {
     }
 */
     public static boolean deleteAirport(Airport a){
-        boolean result = false;
+        /*boolean result = false;
 
         PreparedStatement pstmt;
         try {
@@ -678,11 +743,21 @@ public class DatabaseConnectie {
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return result;*/
+        boolean result = true;      //todo: Add hibernate exception
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Airport airport = (Airport) session.load(Airport.class, a.getAirportcode());
+        session.delete(airport);
+        session.getTransaction().commit();
+
         return result;
+    
     }
     
-    /*public static boolean insertStaff(Staff s){
-        boolean result = false;
+    public static boolean insertStaff(Staff s){
+        /*boolean result = false;
         
         PreparedStatement pstmt;
         try {
@@ -701,9 +776,23 @@ public class DatabaseConnectie {
             Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return result;
+        return result;*/
+        
+        boolean result = true; // todo: add hibernate exception handling
+	
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Staff staff = new Staff();
+	staff.setStaffnumber(s.getStaffnumber());
+        staff.setName(s.getName());
+        staff.setAirport(s.getAirport());
+        staff.setType(s.getType());
+        session.save(staff);
+        session.getTransaction().commit();
+	
+	return result;
     }
-*/
+
     public static boolean updateStaff(Staff newStaff, Staff oldStaff){
         boolean result = false;
 
@@ -730,7 +819,7 @@ public class DatabaseConnectie {
     }
 
     public static boolean deleteStaff(Staff s){
-        boolean result = false;
+        /*boolean result = false;
 
         PreparedStatement pstmt;
         try {
@@ -748,7 +837,18 @@ public class DatabaseConnectie {
         }
 
 
+        return result;*/
+        
+        boolean result = true;      //todo: Add hibernate exception
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Staff staff = (Staff) session.load(Staff.class, s.getStaffnumber());
+        session.delete(staff);
+        session.getTransaction().commit();
+
         return result;
+        
     }
     
     public static boolean insertPlane(Plane p){
@@ -816,7 +916,7 @@ public class DatabaseConnectie {
         session.beginTransaction();
         
         Plane plane = (Plane)session.load(Plane.class, oldPlane.getPlanenumber());
-	System.out.println("Plane: " + oldPlane.getPlanenumber() + " updated");
+	//System.out.println("Plane: " + oldPlane.getPlanenumber() + " updated");
         plane.setPlanenumber(newPlane.getPlanenumber());
         plane.setCapacity(newPlane.getCapacity());
         plane.setType(newPlane.getType());
@@ -844,21 +944,11 @@ public class DatabaseConnectie {
         }
         return result;*/
         
-        boolean result = true;
+        boolean result = true;      //todo: Add hibernate exception
         
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        //**Plane plane = (Plane) session.get(Plane.class, p.getNumber());
-        //Query query = session.createQuery("delete Plane where planenumber = :stockCode");
-        //**List planesList = session.createQuery("from Plane p order by p.planenumber asc").list();
-        //query.setParameter("stockCode", p.getPlanenumber());
-        //int resultt = query.executeUpdate();
-
-        //session.save(resultt);
-        //session.getTransaction().commit();
-        
 	Plane plane = (Plane)session.load(Plane.class, p.getPlanenumber());
-	System.out.println("Plane: " + plane.getPlanenumber() + " deleted");
 	session.delete(plane);
 	session.getTransaction().commit();
 	
