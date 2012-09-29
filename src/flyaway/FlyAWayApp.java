@@ -1,7 +1,6 @@
 /*
  * FlyAWayApp.java
  */
-
 package flyaway;
 
 import View.LoginView;
@@ -14,19 +13,20 @@ import org.jdesktop.application.SingleFrameApplication;
 public class FlyAWayApp extends SingleFrameApplication {
 
     private FlyAWayView flyAwayView = null;
-    
+
     /**
      * At startup create and show the main frame of the application.
      */
-    @Override protected void startup() {
+    @Override
+    protected void startup() {
         Controller.Controller.Instance().Initialize();
         LoginView lv = new LoginView();
-        show(lv);       
+        show(lv);
     }
 
-    public void showMainApp(){
-        flyAwayView = new FlyAWayView(this);        
-        show(flyAwayView);        
+    public void showMainApp() {
+        flyAwayView = new FlyAWayView(this);
+        show(flyAwayView);
     }
 
     /**
@@ -34,7 +34,8 @@ public class FlyAWayApp extends SingleFrameApplication {
      * Windows shown in our application come fully initialized from the GUI
      * builder, so this additional configuration is not needed.
      */
-    @Override protected void configureWindow(java.awt.Window root) {
+    @Override
+    protected void configureWindow(java.awt.Window root) {
     }
 
     /**
@@ -55,8 +56,4 @@ public class FlyAWayApp extends SingleFrameApplication {
     public FlyAWayView getFlyAwayView() {
         return flyAwayView;
     }
-
-    
-
-    
 }

@@ -29,8 +29,10 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
         initComponents();
         plane = p;
 
-        if(p != null){
+        if (p != null) {
             FillFields();
+        } else {
+            txtFieldNumber.setText("" + Controller.Controller.Instance().getPlaneNumber());
         }
     }
 
@@ -197,8 +199,8 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
             }
         }
 
-        /*if(txtFieldNumber.getText().isEmpty()){
-            ErrorMessage += "no number entered \n";
+        if(txtFieldNumber.getText().isEmpty()){
+            //ErrorMessage += "no number entered \n";
         }
         else{
             try{
@@ -207,7 +209,7 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
             catch(NumberFormatException nfe){
                 ErrorMessage += "plane number isn't a number \n";
             }
-        }*/
+        }
 
         if(ErrorMessage.isEmpty()){
             
@@ -224,7 +226,7 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
                     p.setCapacity(capacity);
                     dbResult = Controller.Controller.Instance().ChangePlane(p, plane); 
                 }
-                if(!dbResult){
+                if(dbResult){
                     lblError.setText("Plane saved !");
                     lblError.setForeground(Color.GREEN);
 

@@ -1,9 +1,7 @@
 /*
  * FlyAWayView.java
  */
-
 package flyaway;
-
 
 import Controller.Controller;
 import Model.User;
@@ -36,11 +34,12 @@ public class FlyAWayView extends FrameView {
     public FlyAWayView(SingleFrameApplication app) {
         super(app);
 
-        initComponents();        
+        initComponents();
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
         int messageTimeout = resourceMap.getInteger("StatusBar.messageTimeout");
         messageTimer = new Timer(messageTimeout, new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 statusMessageLabel.setText("");
             }
@@ -51,6 +50,7 @@ public class FlyAWayView extends FrameView {
             busyIcons[i] = resourceMap.getIcon("StatusBar.busyIcons[" + i + "]");
         }
         busyIconTimer = new Timer(busyAnimationRate, new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 busyIconIndex = (busyIconIndex + 1) % busyIcons.length;
                 statusAnimationLabel.setIcon(busyIcons[busyIconIndex]);
@@ -63,6 +63,7 @@ public class FlyAWayView extends FrameView {
         // connecting action tasks to status bar via TaskMonitor
         TaskMonitor taskMonitor = new TaskMonitor(getApplication().getContext());
         taskMonitor.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 String propertyName = evt.getPropertyName();
                 if ("started".equals(propertyName)) {
@@ -79,11 +80,11 @@ public class FlyAWayView extends FrameView {
                     progressBar.setVisible(false);
                     progressBar.setValue(0);
                 } else if ("message".equals(propertyName)) {
-                    String text = (String)(evt.getNewValue());
+                    String text = (String) (evt.getNewValue());
                     statusMessageLabel.setText((text == null) ? "" : text);
                     messageTimer.restart();
                 } else if ("progress".equals(propertyName)) {
-                    int value = (Integer)(evt.getNewValue());
+                    int value = (Integer) (evt.getNewValue());
                     progressBar.setVisible(true);
                     progressBar.setIndeterminate(false);
                     progressBar.setValue(value);
@@ -95,30 +96,29 @@ public class FlyAWayView extends FrameView {
         this.getFrame().addWindowListener(new FlyAwayWindowListener());
 
         User u = Controller.Instance().getLogedIn();
-        lblWelkom.setText("Welcome : " +u.getUsername());
-	System.out.println("Welcome : " +u.getUsername());
-        if(u.getRank() == "admin"){
+        lblWelkom.setText("Welcome : " + u.getUsername());
+        if (u.getRank().equals("admin")) {
             btnUsers.setEnabled(true);
-			btnSchedule.setEnabled(false);
-        }else if(u.getRank() == "staff"){
-			btnAirport.setEnabled(false);
-			btnFlight.setEnabled(false);
-			btnPlane.setEnabled(false);
-			btnStaff.setEnabled(false);
-		}else{
-			btnSchedule.setEnabled(false);
-		}
+            btnSchedule.setEnabled(false);
+        } else if (u.getRank().equals("staff")) {
+            btnAirport.setEnabled(false);
+            btnFlight.setEnabled(false);
+            btnPlane.setEnabled(false);
+            btnStaff.setEnabled(false);
+        } else {
+            btnSchedule.setEnabled(false);
+        }
     }
 
-    public void addFrame(JInternalFrame frame){
-         frame.show();
+    public void addFrame(JInternalFrame frame) {
+        frame.show();
         this.desktopPane.add(frame);
         try {
             frame.setSelected(true);
         } catch (PropertyVetoException ex) {
             Logger.getLogger(FlyAWayView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } 
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -312,8 +312,8 @@ public class FlyAWayView extends FrameView {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPlaneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlaneActionPerformed
-       PlaneView pv = new PlaneView();
-       addFrame(pv);
+        PlaneView pv = new PlaneView();
+        addFrame(pv);
     }//GEN-LAST:event_btnPlaneActionPerformed
 
     private void btnStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStaffActionPerformed
@@ -333,21 +333,20 @@ public class FlyAWayView extends FrameView {
 
     private void btnUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsersActionPerformed
         UserView uv = new UserView();
-            flyaway.FlyAWayApp app = (flyaway.FlyAWayApp)flyaway.FlyAWayApp.getApplication();
-            app.getFlyAwayView().addFrame(uv);
+        flyaway.FlyAWayApp app = (flyaway.FlyAWayApp) flyaway.FlyAWayApp.getApplication();
+        app.getFlyAwayView().addFrame(uv);
     }//GEN-LAST:event_btnUsersActionPerformed
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-        Controller.Instance().ShutDown();
+        //Controller.Instance().ShutDown();
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
 	private void btnScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheduleActionPerformed
-		ScheduleView sv = new ScheduleView();
-		flyaway.FlyAWayApp app = (flyaway.FlyAWayApp)flyaway.FlyAWayApp.getApplication();
+            ScheduleView sv = new ScheduleView();
+            flyaway.FlyAWayApp app = (flyaway.FlyAWayApp) flyaway.FlyAWayApp.getApplication();
             app.getFlyAwayView().addFrame(sv);
 	}//GEN-LAST:event_btnScheduleActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAirport;
     private javax.swing.JButton btnFlight;
@@ -364,12 +363,9 @@ public class FlyAWayView extends FrameView {
     private javax.swing.JLabel statusMessageLabel;
     private javax.swing.JPanel statusPanel;
     // End of variables declaration//GEN-END:variables
-
     private final Timer messageTimer;
     private final Timer busyIconTimer;
     private final Icon idleIcon;
     private final Icon[] busyIcons = new Icon[15];
     private int busyIconIndex = 0;
-
-    
 }

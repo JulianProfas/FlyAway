@@ -25,18 +25,18 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
     User user = null;
     /** Creates new form CreateChangeUser */
     public CreateChangeUser(User user) {
-     /*   initComponents();
+        initComponents();
         this.user = user;
 
-        User.Rank ranks[] = User.Rank.values();
-        for(User.Rank r : ranks){
-            cmbBoxType.addItem(r);
-        }
-        cmbBoxType.setSelectedItem(User.Rank.user);
+        cmbBoxType.addItem("admin");
+        cmbBoxType.addItem("user");
+        cmbBoxType.addItem("staff");
+
+        cmbBoxType.setSelectedItem("staff");
 
         if(user != null){
             fillUser(user);
-        }*/
+        }
 
              
     }
@@ -123,14 +123,14 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
                         .addGap(10, 10, 10)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblError, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                    .addComponent(lblError, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(btnSave)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnClose))
-                    .addComponent(txtFieldPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                    .addComponent(txtFieldUserName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                    .addComponent(cmbBoxType, javax.swing.GroupLayout.Alignment.LEADING, 0, 126, Short.MAX_VALUE))
+                    .addComponent(txtFieldPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addComponent(txtFieldUserName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addComponent(cmbBoxType, javax.swing.GroupLayout.Alignment.LEADING, 0, 154, Short.MAX_VALUE))
                 .addGap(110, 110, 110))
         );
         layout.setVerticalGroup(
@@ -155,7 +155,7 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblError)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         pack();
@@ -166,7 +166,7 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-     /*   String userName = txtFieldUserName.getText();
+        String userName = txtFieldUserName.getText();
 
         char[] pw = txtFieldPassword.getPassword();
         String password = new String(pw);
@@ -176,13 +176,11 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
         if(!userName.isEmpty() && !password.isEmpty()){
 
             if(user == null){
-                
-
                 User u = new User();
 
                 u.setUsername(userName);
-                u.setPassword(password, false);
-                u.setRank((User.Rank)cmbBoxType.getSelectedItem());
+                u.setPassword(password, true);
+                u.setRank(cmbBoxType.getSelectedItem().toString());
 
                 if(Controller.Instance().addUser(u)){
                     JOptionPane.showMessageDialog(this, "User saved");
@@ -194,11 +192,10 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
             }
             else{
                 User u = new User();
-                u.CopyUser(user);
+                //u.CopyUser(user);
                 u.setUsername(userName);
-                u.setPassword(password, false);
-
-                u.setRank((User.Rank)cmbBoxType.getSelectedItem());
+                u.setPassword(password, true);
+                u.setRank(cmbBoxType.getSelectedItem().toString());
 
                 if(Controller.Instance().ChangeUser(user, u))
                 {
@@ -212,7 +209,7 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
         }
         else{
             lblError.setText("Please enter a correct username and or password");
-        }*/
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
 

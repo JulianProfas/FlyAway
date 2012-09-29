@@ -21,21 +21,21 @@ import javax.swing.JOptionPane;
  */
 public class CreateChangeStaffView extends javax.swing.JInternalFrame {
 
-    Staff staff = null;
+    private Staff staff = null;
     /** Creates new form CreateChangeStaffView */
     public CreateChangeStaffView(Staff s) {
         initComponents();
 
-        //Staff.PersonalType stypes[] = Staff.PersonalType.values();
-        //for(Staff.PersonalType st : stypes){
-        //    cmbBoxPersonalTypes.addItem(st);
-        //}
+        //add profession choices to combobox selection
+        cmbBoxPersonalTypes.addItem("Pilot");
+        cmbBoxPersonalTypes.addItem("Stewardess");
+
         staff = s;
-        if(s != null){
+        if (s != null) {
             Fill(s);
-        }else{
-			txtFieldID.setText("" + Controller.Controller.Instance().getStaffID());
-		}
+        } else {
+            txtFieldID.setText("" + Controller.Controller.Instance().getStaffID());
+        }
     }
 
     private void Fill(Staff s){
@@ -182,7 +182,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-       /* String name = txtFieldName.getText();
+        /*String name = txtFieldName.getText();
         int staffId = -1;
         Staff.PersonalType st = (Staff.PersonalType)cmbBoxPersonalTypes.getSelectedItem();
         String primaryAirport = txtFieldPrimaryAirport.getText();
@@ -246,7 +246,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
             else{
                 Staff newStaff = new Staff();
                 newStaff.setName(name);
-                newStaff.setNumber(staffId);
+                newStaff.setStaffnumber(staffId)setNumber(staffId);
                 newStaff.setType(st);
                 newStaff.setPrimaryAirport(primaryAirport);
 

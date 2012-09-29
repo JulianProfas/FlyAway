@@ -27,7 +27,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="22" max="32767" attributes="0"/>
+              <EmptySpace pref="51" max="32767" attributes="0"/>
               <Component id="lblErrorMessage" min="-2" pref="362" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -48,8 +48,8 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtFieldName" pref="284" max="32767" attributes="0"/>
-                          <Component id="txtFieldID" alignment="0" pref="284" max="32767" attributes="1"/>
+                          <Component id="txtFieldName" pref="304" max="32767" attributes="0"/>
+                          <Component id="txtFieldID" alignment="0" pref="304" max="32767" attributes="1"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -60,8 +60,8 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtFieldPrimaryAirport" alignment="1" pref="280" max="32767" attributes="0"/>
-                          <Component id="cmbBoxPersonalTypes" alignment="0" pref="280" max="32767" attributes="1"/>
+                          <Component id="txtFieldPrimaryAirport" alignment="1" pref="282" max="32767" attributes="0"/>
+                          <Component id="cmbBoxPersonalTypes" alignment="0" pref="282" max="32767" attributes="1"/>
                       </Group>
                   </Group>
               </Group>

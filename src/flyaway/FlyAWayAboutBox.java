@@ -1,7 +1,6 @@
 /*
  * FlyAWayAboutBox.java
  */
-
 package flyaway;
 
 import org.jdesktop.application.Action;
@@ -14,7 +13,8 @@ public class FlyAWayAboutBox extends javax.swing.JDialog {
         getRootPane().setDefaultButton(closeButton);
     }
 
-    @Action public void closeAboutBox() {
+    @Action
+    public void closeAboutBox() {
         dispose();
     }
 
@@ -129,9 +129,7 @@ public class FlyAWayAboutBox extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
     // End of variables declaration//GEN-END:variables
-    
 }
