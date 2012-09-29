@@ -28,6 +28,7 @@ import java.util.Calendar;
 
 import java.util.Date;
 import java.util.Locale;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -59,22 +60,22 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     public CreateChangeFlightView(Flight f) {
         initComponents();
         flight = f;
-        if(f != null){
+        if(f != null){          //CREATE FLIGHT
         fill(f);
         }
         else{
         //Defaulting date to current date.
-        //DateFormat df = new SimpleDateFormat(Flight.FlightDateFormat);
-        //txtFieldDate.setText(df.format(new Date()));
+        DateFormat df = new SimpleDateFormat(Flight.FlightDateFormat);
+        txtFieldDate.setText(df.format(new Date()));
         txtFieldNumber.setText("" + Controller.Instance().getFlightNumber());
         }      
     }
 
     private void fill(Flight f) {
         txtFieldNumber.setText("" + f.getFlightnumber());
-        //SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
-        //String sdate = sdf.format(f.getDate());
-        //txtFieldDate.setText(sdate);
+        SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
+        String sdate = sdf.format(f.getDate());
+        txtFieldDate.setText(sdate);
         txtFieldCoPilot.setText(f.getStaffByCopilot().toString());
         txtFieldPilot.setText(f.getStaffByPilot().toString());
         txtFieldDestination.setText(f.getAirportByAirportdestination().toString());
@@ -87,10 +88,10 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         coPilot = f.getStaffByCopilot();
         from = f.getAirportByAirportfrom();
         destination = f.getAirportByAirportdestination();
-        //stops = f.getFlights();
+        stops = (ArrayList<Airport>) f.getFlights();
         plane = f.getPlane();
 
-        //other = f.getStaffs();
+        other = (ArrayList<Staff>) f.getStaffs();
         date = f.getDate();
     }
 
@@ -428,7 +429,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFieldDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldDateFocusLost
-        /* try {
+         try {
         txtFieldDate.setBackground(Color.WHITE);
         DateFormat d = new SimpleDateFormat(Flight.FlightDateFormat);
         date = d.parse(txtFieldDate.getText());
@@ -436,7 +437,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         } catch (ParseException ex) {
         Logger.getLogger(CreateChangeFlightView.class.getName()).log(Level.SEVERE, null, ex);
         txtFieldDate.setBackground(Color.RED);
-        }   */
+        }
     }//GEN-LAST:event_txtFieldDateFocusLost
 
     private void txtFieldPlaneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldPlaneFocusGained
@@ -517,7 +518,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     }//GEN-LAST:event_txtFieldDestinationFocusLost
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        /* String errorMessage = "";
+         String errorMessage = "";
         
         if(pilot == null){
         errorMessage += "Please insert a correct pilot \n ";
@@ -584,18 +585,19 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         if(flight == null){
         flight = new Flight();
         flight.setDate(date);
-        flight.setDestination(destination);
-        flight.setFrom(from);
-        flight.setNumber(id);
+        flight.setAirportByAirportdestination(destination);
+        flight.setAirportByAirportfrom(from);
+        flight.setFlightnumber(id);
         Staff[] pilots = new Staff[2];
         
         pilots[0] = pilot;
         pilots[1] = coPilot;
         
-        flight.setStops(stops);
+        flight.setAirports((Set)stops);
         
-        flight.setPilots(pilots);
-        flight.setOtherPersonal(other);
+        flight.setStaffByPilot(pilot);
+        flight.setStaffByCopilot(coPilot);
+        flight.setStaffs((Set)other);
         flight.setPlane(plane);
         
         Flight returnFlight = new Flight();
@@ -603,14 +605,15 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         c.setTime(date);
         c.add(Calendar.DATE, 1);
         returnFlight.setDate(c.getTime());
-        returnFlight.setNumber(id + 1);
-        returnFlight.setFrom(destination);
-        returnFlight.setDestination(from);
-        returnFlight.setPilots(pilots);
+        returnFlight.setFlightnumber(id + 1);
+        returnFlight.setAirportByAirportfrom(destination);
+        returnFlight.setAirportByAirportdestination(from);
+        returnFlight.setStaffByPilot(pilot);
+        returnFlight.setStaffByCopilot(coPilot);
         returnFlight.setPlane(plane);
-        returnFlight.setStops(stops);
-        returnFlight.setOtherPersonal(other);
-        returnFlight.setReturnFlight(flight);
+        returnFlight.setAirports((Set)stops);
+        returnFlight.setStaffs((Set)other);
+        returnFlight.setFlight(flight);
         
         
         if(Controller.Instance().AddFlight(flight) && Controller.Instance().AddFlight(returnFlight))
@@ -627,18 +630,19 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         Flight newFlight = new Flight();
         
         newFlight.setDate(date);
-        newFlight.setDestination(destination);
-        newFlight.setFrom(from);
-        newFlight.setNumber(id);
+        newFlight.setAirportByAirportdestination(destination);
+        newFlight.setAirportByAirportfrom(from);
+        newFlight.setFlightnumber(id);
         Staff[] pilots = new Staff[2];
         
         pilots[0] = pilot;
         pilots[1] = coPilot;
         
-        newFlight.setStops(stops);
+        newFlight.setStaffs((Set)stops);
         
-        newFlight.setPilots(pilots);
-        newFlight.setOtherPersonal(other);
+        newFlight.setStaffByPilot(pilot);
+        newFlight.setStaffByCopilot(coPilot);
+        newFlight.setStaffs((Set)other);
         newFlight.setPlane(plane);
         
         Flight rf = Controller.Instance().getReturnFlight(id);
@@ -649,14 +653,15 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         c.setTime(date);
         c.add(Calendar.DATE, 1);
         newReturnFlight.setDate(c.getTime());
-        newReturnFlight.setDestination(from);
-        newReturnFlight.setFrom(destination);
-        newReturnFlight.setNumber(id + 1);
-        newReturnFlight.setOtherPersonal(other);
-        newReturnFlight.setPilots(pilots);
+        newReturnFlight.setAirportByAirportdestination(from);
+        newReturnFlight.setAirportByAirportfrom(destination);
+        newReturnFlight.setFlightnumber(id + 1);
+        newReturnFlight.setStaffs((Set)other);
+        newReturnFlight.setStaffByPilot(pilot);
+        newReturnFlight.setStaffByPilot(coPilot);
         newReturnFlight.setPlane(plane);
-        newReturnFlight.setStops(stops);
-        newReturnFlight.setReturnFlight(newFlight);
+        newReturnFlight.setAirports((Set)stops);
+        newReturnFlight.setFlight(newFlight);
         Controller.Instance().ChangeFlight(newReturnFlight, rf);
         
         }
@@ -674,7 +679,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         }
         else{
         lblError.setText(errorMessage);
-        }*/
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPersonalMouseClicked
@@ -707,14 +712,14 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         txtFieldPilot.setBorder(BorderFactory.createLineBorder(Color.orange));
         currentField = FieldEditing.PILOT;
         listSearchResults.setEnabled(true);
-        //listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());        // TODO add your handling code here:
+        listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());        // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldPilotFocusGained
 
     private void txtFieldCoPilotFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldCoPilotFocusGained
         txtFieldCoPilot.setBorder(BorderFactory.createLineBorder(Color.orange));
         currentField = FieldEditing.COPILOT;
         listSearchResults.setEnabled(true);
-        //listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());        // TODO add your handling code here:
+        listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());        // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldCoPilotFocusGained
 
     private void txtFieldFromFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldFromFocusGained

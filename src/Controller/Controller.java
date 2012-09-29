@@ -12,6 +12,7 @@ import Model.Plane;
 import Model.User;
 import Model.Country;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Observable;
@@ -95,30 +96,31 @@ public class Controller extends Observable {
         return result;
     }
 
-    /*	
-    public ArrayList<Flight> getScheduledFlights(){
-    ArrayList<Flight> result = new ArrayList<Flight>();
-    Staff s = this.logedIn.getStaffAccount();
-    Calendar c = Calendar.getInstance();
-    c.setTime(new Date());
-    c.roll(Calendar.DAY_OF_MONTH, false);
-    c.set(Calendar.HOUR_OF_DAY, 23);
-    c.set(Calendar.MINUTE, 59);
-    Date d = c.getTime();
-    
-    for(Flight f : flights.values()){
-    
-    Staff[] pilots = f.getPilots();
-    if((pilots[0].getNumber() == s.getNumber() || pilots[1].getNumber() == s.getNumber() || f.getOtherPersonal().contains(s)) && f.getDate().after(d)){
-    result.add(f);
+    public ArrayList<Flight> getScheduledFlights() {
+        ArrayList<Flight> result = new ArrayList<Flight>();
+        Staff s = this.logedInUser.getStaff();
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.roll(Calendar.DAY_OF_MONTH, false);
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        Date d = c.getTime();
+
+        for (Flight f : flights.values()) {
+
+            Staff pilots = f.getStaffByPilot();
+            Staff coPilots = f.getStaffByCopilot();
+            //add flight to the schedule if you're a pilot, copilot or other personnel and date is current
+            if ((pilots.getStaffnumber() == s.getStaffnumber() || coPilots.getStaffnumber() == s.getStaffnumber() || f.getStaffs().contains(s)) && f.getDate().after(d)) {
+                result.add(f);
+            }
+
+        }
+
+        return result;
+
     }
-    
-    }
-    
-    return result;
-    
-    }
-     */
+
     public ArrayList<Staff> getStaff() {
         ArrayList<Staff> result = new ArrayList<Staff>();
         result.addAll(staff.values());
@@ -244,8 +246,8 @@ public class Controller extends Observable {
         }
         return result;
     }
-    /*
-    public ArrayList<Staff> SearchStaff(Staff.PersonalType st) {
+
+    /*public ArrayList<Staff> SearchStaff(Staff.PersonalType st) {
     ArrayList<Staff> result = new ArrayList<Staff>();
     
     for (Staff s : staff.values()) {
@@ -254,20 +256,17 @@ public class Controller extends Observable {
     }
     }
     return result;
-    }
-     *//*
-    public ArrayList<Staff> SearchStaffPilots(String name){
-    ArrayList<Staff> result = new ArrayList<Staff>();
-    
-    for (Staff s : staff.values()) {
-    if (s.getName().contains(name) && s.getType().equals(Staff.PersonalType.Pilot)) {
-    result.add(s);
-    }
-    }
-    return result;
-    }
-     */
+    }*/
+    public ArrayList<Staff> SearchStaffPilots(String name) {
+        ArrayList<Staff> result = new ArrayList<Staff>();
 
+        for (Staff s : staff.values()) {
+            if (s.getName().contains(name) && s.getType().equals("Pilot")) {
+                result.add(s);
+            }
+        }
+        return result;
+    }
 
     public ArrayList<Staff> SearchStaff(int staffId) {
         ArrayList<Staff> result = new ArrayList<Staff>();
@@ -316,43 +315,45 @@ public class Controller extends Observable {
         return foundStaff;
     }
 
-    /*           public ArrayList<Staff> SearchStaffPilotsAvailable(Date d){
-    
-    ArrayList<Staff> foundStaff = new ArrayList<Staff>();
-    for(Staff s : staff.values()){
-    if(s.getType() != Staff.PersonalType.Pilot) continue; // only looking for pilots, so if this isn't a pilot, continue to the next staff member
-    boolean dontAdd = false;
-    for (Flight f : flights.values()) {
-    if (f.getPilots()[0].equals(s) || f.getPilots()[1].equals(s)){
-    Date nextDay = (Date) d.clone();
-    nextDay.setDate(d.getDate() + 1);
-    Date previousDay = (Date) d.clone();
-    previousDay.setDate(d.getDate() - 1);
-    
-    
-    if((f.getDate().getDate() == d.getDate() &&
-    f.getDate().getMonth() == d.getMonth() &&
-    f.getDate().getYear() == d.getYear()) || // staff is already on a plane today
-    (f.getDate().getDate() == nextDay.getDate() &&
-    f.getDate().getMonth() == nextDay.getMonth() &&
-    f.getDate().getYear() == nextDay.getYear()) || // staff is already on a plane tomorrow
-    (f.getDate().getDate() == previousDay.getDate() &&
-    f.getDate().getMonth() == previousDay.getMonth() &&
-    f.getDate().getYear() == previousDay.getYear()) // staff was already on a plane yesterday
-    ){
-    
-    dontAdd = true;
-    
+    public ArrayList<Staff> SearchStaffPilotsAvailable(Date d) {
+
+        ArrayList<Staff> foundStaff = new ArrayList<Staff>();
+        for (Staff s : staff.values()) {
+            if (!"Pilot".equals(s.getType())) {
+                continue; // only looking for pilots, so if this isn't a pilot, continue to the next staff member
+            }
+            boolean dontAdd = false;
+            for (Flight f : flights.values()) {
+                if (f.getStaffByPilot().equals(s) || f.getStaffByCopilot().equals(s)) {
+                    Date nextDay = (Date) d.clone();
+                    nextDay.setDate(d.getDate() + 1);
+                    Date previousDay = (Date) d.clone();
+                    previousDay.setDate(d.getDate() - 1);
+
+
+                    if ((f.getDate().getDate() == d.getDate()
+                            && f.getDate().getMonth() == d.getMonth()
+                            && f.getDate().getYear() == d.getYear()) || // staff is already on a plane today
+                            (f.getDate().getDate() == nextDay.getDate()
+                            && f.getDate().getMonth() == nextDay.getMonth()
+                            && f.getDate().getYear() == nextDay.getYear()) || // staff is already on a plane tomorrow
+                            (f.getDate().getDate() == previousDay.getDate()
+                            && f.getDate().getMonth() == previousDay.getMonth()
+                            && f.getDate().getYear() == previousDay.getYear()) // staff was already on a plane yesterday
+                            ) {
+
+                        dontAdd = true;
+
+                    }
+                }
+            }
+            if (!dontAdd) {
+                foundStaff.add(s);
+            }
+        }
+        return foundStaff;
     }
-    }
-    }
-    if (!dontAdd) {
-    foundStaff.add(s);
-    }
-    }
-    return foundStaff;
-    }
-     */
+
     public User getUserFromStaff(Staff s) {
 
         User found = null;

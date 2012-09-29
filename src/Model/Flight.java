@@ -6,6 +6,8 @@ import java.util.Set;
 
 public class Flight implements java.io.Serializable {
 
+    public static final String FlightDateFormat = "dd-MM-yyyy";
+    
     private Integer flightnumber;
     private Airport airportByAirportdestination;
     private Staff staffByPilot;
