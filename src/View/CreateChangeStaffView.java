@@ -11,8 +11,10 @@
 
 package View;
 
+import Model.Airport;
 import Model.Staff;
 import Model.User;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,19 +32,26 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         cmbBoxPersonalTypes.addItem("Pilot");
         cmbBoxPersonalTypes.addItem("Stewardess");
 
+        //get all airports
+        ArrayList<Airport> airports = Controller.Controller.Instance().getAirports();
+        //add airport choices to combobox selection
+        for(Airport a:airports){
+        cmbBoxPrimaryAirport.addItem(a);
+        }
+        
         staff = s;
-        if (s != null) {
+        if (s != null) {    //Change Staff
             Fill(s);
-        } else {
+        } else {            //Create Staff
             txtFieldID.setText("" + Controller.Controller.Instance().getStaffID());
         }
     }
 
-    private void Fill(Staff s){
+    private void Fill(Staff s){ //Change staff
         txtFieldID.setText(""+s.getStaffnumber());
         txtFieldName.setText(s.getName());
         cmbBoxPersonalTypes.setSelectedItem(s.getType());
-        txtFieldPrimaryAirport.setText(s.getAirport().toString());
+        //cmbBoxPrimaryAirport.setSelectedItem(s.getAirport());
     }
 
     /** This method is called from within the constructor to
@@ -63,8 +72,8 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         lblErrorMessage = new javax.swing.JLabel();
-        txtFieldPrimaryAirport = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        cmbBoxPrimaryAirport = new javax.swing.JComboBox();
 
         setClosable(true);
         setIconifiable(true);
@@ -109,17 +118,17 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
 
         lblErrorMessage.setName("lblErrorMessage"); // NOI18N
 
-        txtFieldPrimaryAirport.setName("txtFieldPrimaryAirport"); // NOI18N
-
         jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
+
+        cmbBoxPrimaryAirport.setName("cmbBoxPrimaryAirport"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+                .addContainerGap(51, Short.MAX_VALUE)
                 .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -137,8 +146,8 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-                            .addComponent(txtFieldID, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)))
+                            .addComponent(txtFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                            .addComponent(txtFieldID, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -146,14 +155,14 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFieldPrimaryAirport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                            .addComponent(cmbBoxPersonalTypes, 0, 280, Short.MAX_VALUE))))
+                            .addComponent(cmbBoxPrimaryAirport, 0, 285, Short.MAX_VALUE)
+                            .addComponent(cmbBoxPersonalTypes, 0, 285, Short.MAX_VALUE))))
                 .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -167,8 +176,8 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                     .addComponent(cmbBoxPersonalTypes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFieldPrimaryAirport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(cmbBoxPrimaryAirport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
@@ -182,10 +191,10 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        /*String name = txtFieldName.getText();
+        String name = txtFieldName.getText();
         int staffId = -1;
-        Staff.PersonalType st = (Staff.PersonalType)cmbBoxPersonalTypes.getSelectedItem();
-        String primaryAirport = txtFieldPrimaryAirport.getText();
+        String st = (String) cmbBoxPersonalTypes.getSelectedItem();
+        //String primaryAirport = txtFieldPrimaryAirport.getText();
 
         String errorMessage = "";
         name.trim();
@@ -205,7 +214,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
             }
         }
         
-        if(txtFieldPrimaryAirport.getText().isEmpty()){
+        /*if(txtFieldPrimaryAirport.getText().isEmpty()){
             errorMessage += "Please enter a Primary Airport first  \n";
         }
         else{
@@ -215,7 +224,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
             catch(NumberFormatException exception){
                 errorMessage += "Primary Airport isn't a number \n";
             }
-        }
+        }*/
 
         if(!errorMessage.isEmpty()){
             lblErrorMessage.setText(errorMessage);
@@ -224,15 +233,15 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
             if(staff == null){
                 staff = new Staff();
                 staff.setName(name);
-                staff.setNumber(staffId);
+                staff.setStaffnumber(staffId);
                 staff.setType(st);
-                staff.setPrimaryAirport(primaryAirport);
+                //staff.setPrimaryAirport(primaryAirport);
 				
 				User u  = new User();
 				u.setUsername("" + staffId);
-				u.setRank(User.Rank.staff);
+				//u.setRank(rank);
 				u.setPassword("flyaway", false);
-				u.setStaffAccount(staff);
+				u.setStaff(staff);
 
                 if(Controller.Controller.Instance().AddStaff(staff)){
 					
@@ -246,9 +255,9 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
             else{
                 Staff newStaff = new Staff();
                 newStaff.setName(name);
-                newStaff.setStaffnumber(staffId)setNumber(staffId);
+                newStaff.setStaffnumber(staffId);
                 newStaff.setType(st);
-                newStaff.setPrimaryAirport(primaryAirport);
+                //newStaff.setPrimaryAirport(primaryAirport);
 
                 if(Controller.Controller.Instance().ChangeStaff(newStaff, staff)){
                     JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
@@ -257,7 +266,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
             }
             this.dispose();
         }
-*/
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -270,13 +279,13 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox cmbBoxPersonalTypes;
+    private javax.swing.JComboBox cmbBoxPrimaryAirport;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblErrorMessage;
     private javax.swing.JTextField txtFieldID;
     private javax.swing.JTextField txtFieldName;
-    private javax.swing.JTextField txtFieldPrimaryAirport;
     // End of variables declaration//GEN-END:variables
 
 }

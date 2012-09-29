@@ -12,6 +12,8 @@
 package View;
 
 import Model.Airport;
+import Model.Country;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +26,15 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
     /** Creates new form CreateChangeAirportView */
     public CreateChangeAirportView(Airport airport) {
         initComponents();
+        
+        //get all countries
+        ArrayList<Country> countries = Controller.Controller.Instance().getCountries();
+
+        //add country choices to combobox selection
+        for(Country c:countries){
+        cmbBoxCountry.addItem(c);
+        }
+        
         this.airport = airport;
         if(airport != null){
             fillFields();
@@ -33,7 +44,8 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
 
     private void fillFields(){
         this.txtFieldCity.setText(airport.getCity());
-        this.txtFieldCountry.setText(airport.getCountry().toString());
+        this.cmbBoxCountry.setSelectedItem(airport.getCountry());
+        //this.txtFieldCountry.setText(airport.getCountry().toString());
         this.txtFieldName.setText(airport.getName());
         this.txtFieldCode.setText(airport.getAirportcode());
     }
@@ -50,13 +62,13 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtFieldName = new javax.swing.JTextField();
-        txtFieldCountry = new javax.swing.JTextField();
         txtFieldCity = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         lblErrorMessage = new javax.swing.JLabel();
         txtFieldCode = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        cmbBoxCountry = new javax.swing.JComboBox();
 
         setClosable(true);
         setIconifiable(true);
@@ -76,9 +88,6 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
 
         txtFieldName.setText(resourceMap.getString("txtFieldName.text")); // NOI18N
         txtFieldName.setName("txtFieldName"); // NOI18N
-
-        txtFieldCountry.setText(resourceMap.getString("txtFieldCountry.text")); // NOI18N
-        txtFieldCountry.setName("txtFieldCountry"); // NOI18N
 
         txtFieldCity.setText(resourceMap.getString("txtFieldCity.text")); // NOI18N
         txtFieldCity.setName("txtFieldCity"); // NOI18N
@@ -109,6 +118,8 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
         jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
         jLabel4.setName("jLabel4"); // NOI18N
 
+        cmbBoxCountry.setName("cmbBoxCountry"); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,12 +133,16 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)
                             .addComponent(jLabel4))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtFieldName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                            .addComponent(txtFieldCountry, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                            .addComponent(txtFieldCity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                            .addComponent(txtFieldCode, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtFieldCity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                    .addComponent(txtFieldCode, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                    .addComponent(txtFieldName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbBoxCountry, 0, 193, Short.MAX_VALUE)))
                         .addGap(252, 252, 252))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSave)
@@ -137,8 +152,6 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
                         .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtFieldCity, txtFieldCountry, txtFieldName});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3});
 
@@ -156,7 +169,7 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtFieldCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbBoxCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -167,17 +180,18 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
                         .addComponent(btnSave)
                         .addComponent(btnCancel))
                     .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtFieldCity, txtFieldCountry, txtFieldName});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtFieldCity, txtFieldName});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-    /*    String name = txtFieldName.getText();
-        String country = txtFieldCountry.getText();
+        String name = txtFieldName.getText();
+        Country country = (Country)cmbBoxCountry.getSelectedItem();
+        //String country = txtFieldCountry.getText();
         String city = txtFieldCity.getText();
         String code = txtFieldCode.getText();
 
@@ -187,12 +201,12 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
            errorMessage += "Please fill in a name\n";
        }
 
-       country = country.trim();
+       /*country = country.trim();
        if(country.isEmpty()){
            errorMessage += "pleade fill in a country \n";
        } else if (country.length() > 2) {
            errorMessage += "please fill in a valid country code (2 characters max) \n";
-       }
+       }*/
 
        city = city.trim();
        if(city.isEmpty()){
@@ -210,7 +224,9 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
            if(airport == null){
                 airport = new Airport();
                 airport.setCity(city);
-                //airport.setCountry(country);
+                //Country myCountry = Controller.Controller.Instance().getCountryByCode(txtFieldCountry.getText());
+                
+                airport.setCountry(country);
                 airport.setName(name);
                 airport.setAirportcode(code);
 
@@ -226,9 +242,10 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
            else{
                Airport airportNew = new Airport();
                airportNew.setCity(city);
+               //Country myCountry = Controller.Controller.Instance().getCountryByCode(txtFieldCountry.getText());
                airportNew.setCountry(country);
                airportNew.setName(name);
-               airportNew.setCode(code);
+               airportNew.setAirportcode(code);
 
                if(Controller.Controller.Instance().ChangeAirport(airportNew, airport)){
                    JOptionPane.showMessageDialog(this, "Airport saved");
@@ -241,7 +258,7 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
        }
       
        lblErrorMessage.setText(""+errorMessage);
-       */
+       
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -252,6 +269,7 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox cmbBoxCountry;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -259,7 +277,6 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblErrorMessage;
     private javax.swing.JTextField txtFieldCity;
     private javax.swing.JTextField txtFieldCode;
-    private javax.swing.JTextField txtFieldCountry;
     private javax.swing.JTextField txtFieldName;
     // End of variables declaration//GEN-END:variables
 

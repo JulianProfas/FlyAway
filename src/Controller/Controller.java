@@ -10,6 +10,7 @@ import Model.Flight;
 import Model.Staff;
 import Model.Plane;
 import Model.User;
+import Model.Country;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,12 +28,15 @@ public class Controller extends Observable {
     HashMap<Integer, Staff> staff;
     HashMap<Integer, Flight> flights;
     HashMap<String, User> users;
+    HashMap<String, Country> countries;
+    
     User logedIn;
 
     private void DBSetup() {
         airports = Database.DatabaseConnectie.getAirports();
         staff = Database.DatabaseConnectie.getStaff();
         planes = Database.DatabaseConnectie.getPlanes();
+        countries = Database.DatabaseConnectie.getCountries();
         //We need to add flights as last.
         flights = Database.DatabaseConnectie.getFlights();
     }
@@ -130,6 +134,14 @@ public class Controller extends Observable {
         ArrayList<Plane> result = new ArrayList<Plane>();
 
         result.addAll(planes.values());
+        return result;
+    }
+    
+    public ArrayList<Country> getCountries() {
+
+        ArrayList<Country> result = new ArrayList<Country>();
+
+        result.addAll(countries.values());
         return result;
     }
     
@@ -479,6 +491,18 @@ public class Controller extends Observable {
             }
         }
         return foundAirport;
+    }
+    
+    public Country getCountryByCode(String code) {
+        Country foundCountry = null;
+        for (Country c : countries.values()) {
+
+            if (c.getCountrycode().equals(code)) {
+                foundCountry = c;
+                break;
+            }
+        }
+        return foundCountry;
     }
 
     public boolean RemoveAirport(Airport a) {

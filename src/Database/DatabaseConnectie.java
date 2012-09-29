@@ -5,6 +5,7 @@
 package Database;
 
 import Model.Airport;
+import Model.Country;
 import Model.Flight;
 import Model.Plane;
 import Model.Staff;
@@ -135,6 +136,27 @@ public class DatabaseConnectie {
             airports.put(airport.getAirportcode(), a);
         }
         return airports;
+    }
+    
+    public static HashMap<String, Country> getCountries() {
+
+        HashMap<String, Country> countries = new HashMap<String, Country>();
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List countriesList = session.createQuery("from Country").list();
+
+        Iterator itr = countriesList.iterator();
+        while (itr.hasNext()) {
+            Model.Country country = (Model.Country) itr.next();
+            Country c = new Country();
+
+            c.setCountrycode(country.getCountrycode());
+            c.setRegioncode(country.getRegioncode());
+            c.setName(country.getName());
+            countries.put(country.getCountrycode(), c);
+        }
+        return countries;
     }
 
     public static HashMap<Integer, Staff> getStaff() {
@@ -386,6 +408,19 @@ public class DatabaseConnectie {
         session.beginTransaction();
         Plane plane = (Plane) session.load(Plane.class, p.getPlanenumber());
         session.delete(plane);
+        session.getTransaction().commit();
+
+        return result;
+    }
+    
+    public static boolean deleteCountry(Country c) {
+
+        boolean result = true;      //todo: Add hibernate exception
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Country country = (Country) session.load(Country.class, c.getCountrycode());
+        session.delete(country);
         session.getTransaction().commit();
 
         return result;

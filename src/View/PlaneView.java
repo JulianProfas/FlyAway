@@ -12,13 +12,9 @@ package View;
 
 import Controller.Controller;
 import Model.Plane;
-//import flyaway.FlyAWayApp;
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

@@ -60,8 +60,8 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtFieldPrimaryAirport" alignment="1" pref="282" max="32767" attributes="0"/>
-                          <Component id="cmbBoxPersonalTypes" alignment="0" pref="282" max="32767" attributes="1"/>
+                          <Component id="cmbBoxPrimaryAirport" pref="285" max="32767" attributes="1"/>
+                          <Component id="cmbBoxPersonalTypes" alignment="0" pref="285" max="32767" attributes="1"/>
                       </Group>
                   </Group>
               </Group>
@@ -72,7 +72,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtFieldID" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -89,8 +89,8 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtFieldPrimaryAirport" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbBoxPrimaryAirport" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               <Component id="lblErrorMessage" min="-2" pref="16" max="-2" attributes="0"/>
@@ -167,15 +167,18 @@
         <Property name="name" type="java.lang.String" value="lblErrorMessage" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtFieldPrimaryAirport">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="txtFieldPrimaryAirport" noResource="true"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" resourceKey="jLabel3.text"/>
         <Property name="name" type="java.lang.String" value="jLabel3" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbBoxPrimaryAirport">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="cmbBoxPrimaryAirport" noResource="true"/>
       </Properties>
     </Component>
   </SubComponents>

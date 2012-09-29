@@ -36,12 +36,19 @@
                           <Component id="jLabel1" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="txtFieldName" linkSize="1" alignment="0" pref="162" max="32767" attributes="1"/>
-                          <Component id="txtFieldCountry" linkSize="1" alignment="0" pref="162" max="32767" attributes="0"/>
-                          <Component id="txtFieldCity" linkSize="1" alignment="0" pref="162" max="32767" attributes="0"/>
-                          <Component id="txtFieldCode" alignment="0" pref="162" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="txtFieldCity" alignment="0" pref="192" max="32767" attributes="0"/>
+                                  <Component id="txtFieldCode" alignment="0" pref="192" max="32767" attributes="0"/>
+                                  <Component id="txtFieldName" alignment="0" pref="192" max="32767" attributes="1"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cmbBoxCountry" pref="193" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="252" max="-2" attributes="0"/>
                   </Group>
@@ -73,7 +80,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtFieldCountry" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbBoxCountry" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -88,7 +95,7 @@
                   </Group>
                   <Component id="lblErrorMessage" min="-2" pref="18" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="49" max="32767" attributes="0"/>
+              <EmptySpace pref="52" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -116,12 +123,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" resourceKey="txtFieldName.text"/>
         <Property name="name" type="java.lang.String" value="txtFieldName" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtFieldCountry">
-      <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="txtFieldCountry.text"/>
-        <Property name="name" type="java.lang.String" value="txtFieldCountry" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFieldCity">
@@ -167,6 +168,14 @@
         </Property>
         <Property name="text" type="java.lang.String" resourceKey="jLabel4.text"/>
         <Property name="name" type="java.lang.String" value="jLabel4" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbBoxCountry">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="cmbBoxCountry" noResource="true"/>
       </Properties>
     </Component>
   </SubComponents>

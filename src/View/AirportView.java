@@ -217,10 +217,9 @@ public class AirportView extends javax.swing.JInternalFrame implements Observer{
         if(selectedRow >= 0){
             GenericTableModel<Airport> gtm = (GenericTableModel<Airport>)tblAirport.getModel();
             Airport a = gtm.getRow(selectedRow);
-
             
             Controller.Instance().RemoveAirport(a);
-            gtm.removeRow(a);
+            ((GenericTableModel<Airport>) tblAirport.getModel()).removeRow(a);
         }
         else{
             lblErrorMessage.setText("Please select a row first.");
