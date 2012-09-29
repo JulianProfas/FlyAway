@@ -8,7 +8,6 @@
  *
  * Created on 7-feb-2010, 19:30:32
  */
-
 package View;
 
 import Controller.Controller;
@@ -21,8 +20,8 @@ import javax.swing.JOptionPane;
  */
 public class CreateChangeUser extends javax.swing.JInternalFrame {
 
-
     User user = null;
+
     /** Creates new form CreateChangeUser */
     public CreateChangeUser(User user) {
         initComponents();
@@ -32,24 +31,22 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
         cmbBoxType.addItem("admin");
         cmbBoxType.addItem("user");
         cmbBoxType.addItem("staff");
-        
+
         //set the default account type
         cmbBoxType.setSelectedItem("staff");
 
-        if(user != null){
+        if (user != null) {
             fillUser(user);
         }
-
-             
     }
 
-
-    private void fillUser(User user){
+    private void fillUser(User user) {
         txtFieldUserName.setText(user.getUsername());
         txtFieldPassword.setText(user.getPassword());
         cmbBoxType.setSelectedItem(user.getRank());
         txtFieldStaffId.setText(user.getStaff().toString());
     }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -69,7 +66,7 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
         btnClose = new javax.swing.JButton();
         lblError = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtFieldStaffId = new javax.swing.JPasswordField();
+        txtFieldStaffId = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -161,10 +158,10 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbBoxType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFieldStaffId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(txtFieldStaffId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(lblError)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -189,9 +186,9 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
 
         userName.trim();
         password.trim();
-        if(!userName.isEmpty() && !password.isEmpty()){
+        if (!userName.isEmpty() && !password.isEmpty()) {
 
-            if(user == null){
+            if (user == null) {
                 User u = new User();
 
                 u.setUsername(userName);
@@ -199,37 +196,30 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
                 u.setRank(cmbBoxType.getSelectedItem().toString());
                 u.setStaff(null);
 
-                if(Controller.Instance().addUser(u)){
+                if (Controller.Instance().addUser(u)) {
                     JOptionPane.showMessageDialog(this, "User saved");
-                       this.dispose();
-                }
-                else{
+                    this.dispose();
+                } else {
                     lblError.setText("UserName already exsists");
                 }
-            }
-            else{
+            } else {
                 User u = new User();
                 //u.CopyUser(user);
                 u.setUsername(userName);
                 u.setPassword(password, true);
                 u.setRank(cmbBoxType.getSelectedItem().toString());
 
-                if(Controller.Instance().ChangeUser(user, u))
-                {
+                if (Controller.Instance().ChangeUser(user, u)) {
                     JOptionPane.showMessageDialog(this, "User saved");
                     this.dispose();
-                }
-                else{
+                } else {
                     lblError.setText("Change User failed username already exsists");
                 }
             }
-        }
-        else{
+        } else {
             lblError.setText("Please enter a correct username and or password");
         }
     }//GEN-LAST:event_btnSaveActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnSave;
@@ -240,8 +230,7 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lblError;
     private javax.swing.JPasswordField txtFieldPassword;
-    private javax.swing.JPasswordField txtFieldStaffId;
+    private javax.swing.JTextField txtFieldStaffId;
     private javax.swing.JTextField txtFieldUserName;
     // End of variables declaration//GEN-END:variables
-
 }

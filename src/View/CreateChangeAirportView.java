@@ -45,9 +45,12 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
     private void fillFields(){
         this.txtFieldCity.setText(airport.getCity());
         this.cmbBoxCountry.setSelectedItem(airport.getCountry());
-        //this.txtFieldCountry.setText(airport.getCountry().toString());
         this.txtFieldName.setText(airport.getName());
         this.txtFieldCode.setText(airport.getAirportcode());
+        
+        //add selected airport and add to airports combobox
+        cmbBoxCountry.addItem(airport.getCountry());
+        cmbBoxCountry.setSelectedItem(airport.getCountry());
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -191,7 +194,6 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         String name = txtFieldName.getText();
         Country country = (Country)cmbBoxCountry.getSelectedItem();
-        //String country = txtFieldCountry.getText();
         String city = txtFieldCity.getText();
         String code = txtFieldCode.getText();
 
@@ -224,8 +226,6 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
            if(airport == null){
                 airport = new Airport();
                 airport.setCity(city);
-                //Country myCountry = Controller.Controller.Instance().getCountryByCode(txtFieldCountry.getText());
-                
                 airport.setCountry(country);
                 airport.setName(name);
                 airport.setAirportcode(code);
@@ -242,7 +242,6 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
            else{
                Airport airportNew = new Airport();
                airportNew.setCity(city);
-               //Country myCountry = Controller.Controller.Instance().getCountryByCode(txtFieldCountry.getText());
                airportNew.setCountry(country);
                airportNew.setName(name);
                airportNew.setAirportcode(code);

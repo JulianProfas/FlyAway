@@ -8,7 +8,6 @@
  *
  * Created on 19-jan-2010, 10:09:59
  */
-
 package View;
 
 import Model.Airport;
@@ -24,6 +23,7 @@ import javax.swing.JOptionPane;
 public class CreateChangeStaffView extends javax.swing.JInternalFrame {
 
     private Staff staff = null;
+
     /** Creates new form CreateChangeStaffView */
     public CreateChangeStaffView(Staff s) {
         initComponents();
@@ -35,10 +35,10 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         //get all airports
         ArrayList<Airport> airports = Controller.Controller.Instance().getAirports();
         //add airport choices to combobox selection
-        for(Airport a:airports){
-        cmbBoxPrimaryAirport.addItem(a);
+        for (Airport a : airports) {
+            cmbBoxPrimaryAirport.addItem(a);
         }
-        
+
         staff = s;
         if (s != null) {    //Change Staff
             Fill(s);
@@ -47,11 +47,15 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         }
     }
 
-    private void Fill(Staff s){ //Change staff
-        txtFieldID.setText(""+s.getStaffnumber());
+    private void Fill(Staff s) {
+        //fill in form for staff that is about to be changed
+        txtFieldID.setText("" + s.getStaffnumber());
         txtFieldName.setText(s.getName());
         cmbBoxPersonalTypes.setSelectedItem(s.getType());
-        //cmbBoxPrimaryAirport.setSelectedItem(s.getAirport());
+        
+        //add selected airport and add to airports combobox
+        cmbBoxPrimaryAirport.addItem(s.getAirport());
+        cmbBoxPrimaryAirport.setSelectedItem(s.getAirport());
     }
 
     /** This method is called from within the constructor to
@@ -194,72 +198,69 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         String name = txtFieldName.getText();
         int staffId = -1;
         String st = (String) cmbBoxPersonalTypes.getSelectedItem();
-        //String primaryAirport = txtFieldPrimaryAirport.getText();
+        Airport selectedAirport = (Airport) cmbBoxPrimaryAirport.getSelectedItem();
+        System.out.println("Selected Airport is " + selectedAirport.getName());
 
         String errorMessage = "";
         name.trim();
-        if(name.isEmpty()){
+        if (name.isEmpty()) {
             errorMessage += "Please enter a name first \n";
         }
 
-        if(txtFieldID.getText().isEmpty()){
+        if (txtFieldID.getText().isEmpty()) {
             errorMessage += "Please enter a correct staff id first  \n";
-        }
-        else{
-            try{
+        } else {
+            try {
                 staffId = Integer.parseInt(txtFieldID.getText());
-            }
-            catch(NumberFormatException exception){
+            } catch (NumberFormatException exception) {
                 errorMessage += "plane number isn't a number \n";
             }
         }
-        
-        /*if(txtFieldPrimaryAirport.getText().isEmpty()){
-            errorMessage += "Please enter a Primary Airport first  \n";
-        }
-        else{
-            try{
-                primaryAirport = txtFieldPrimaryAirport.getText();
-            }
-            catch(NumberFormatException exception){
-                errorMessage += "Primary Airport isn't a number \n";
-            }
-        }*/
 
-        if(!errorMessage.isEmpty()){
+        //if(txtFieldPrimaryAirport.getText().isEmpty()){
+        //    errorMessage += "Please enter a Primary Airport first  \n";
+        //}
+        //else{
+        //    try{
+        //        primaryAirport = txtFieldPrimaryAirport.getText();
+        //    }
+        //    catch(NumberFormatException exception){
+        //        errorMessage += "Primary Airport isn't a number \n";
+        //    }
+        //}
+
+        if (!errorMessage.isEmpty()) {
             lblErrorMessage.setText(errorMessage);
-        }
-        else{
-            if(staff == null){
+        } else {
+            if (staff == null) {
                 staff = new Staff();
                 staff.setName(name);
                 staff.setStaffnumber(staffId);
                 staff.setType(st);
-                //staff.setPrimaryAirport(primaryAirport);
-				
-				User u  = new User();
-				u.setUsername("" + staffId);
-				//u.setRank(rank);
-				u.setPassword("flyaway", false);
-				u.setStaff(staff);
+                staff.setAirport(selectedAirport);
 
-                if(Controller.Controller.Instance().AddStaff(staff)){
-					
-					if(Controller.Controller.Instance().addUser(u)){
-						
-						JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
-						this.dispose();
-					}    
+                User u = new User();
+                u.setUsername("" + staffId);
+                u.setRank("staff");
+                u.setPassword("flyaway", true);
+                u.setStaff(staff);
+
+                if (Controller.Controller.Instance().AddStaff(staff)) {
+
+                    if (Controller.Controller.Instance().addUser(u)) {
+
+                        JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
+                        this.dispose();
+                    }
                 }
-            }
-            else{
+            } else {
                 Staff newStaff = new Staff();
                 newStaff.setName(name);
                 newStaff.setStaffnumber(staffId);
                 newStaff.setType(st);
-                //newStaff.setPrimaryAirport(primaryAirport);
+                newStaff.setAirport(selectedAirport);
 
-                if(Controller.Controller.Instance().ChangeStaff(newStaff, staff)){
+                if (Controller.Controller.Instance().ChangeStaff(newStaff, staff)) {
                     JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
                     this.dispose();
                 }
@@ -272,8 +273,6 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Name;
     private javax.swing.JButton btnCancel;
@@ -287,5 +286,4 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtFieldID;
     private javax.swing.JTextField txtFieldName;
     // End of variables declaration//GEN-END:variables
-
 }
