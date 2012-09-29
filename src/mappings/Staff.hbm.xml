@@ -16,7 +16,7 @@
     <property name="type" type="string">
       <column length="25" name="type" not-null="true"/>
     </property>
-    <set inverse="true" name="users" cascade="delete">
+    <set cascade="delete" inverse="true" name="users">
       <key>
         <column name="staff"/>
       </key>

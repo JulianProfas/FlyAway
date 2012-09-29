@@ -43,7 +43,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         if (s != null) {    //Change Staff
             Fill(s);
         } else {            //Create Staff
-            txtFieldID.setText("" + Controller.Controller.Instance().getStaffID());
+            txtFieldID.setText("" + Controller.Controller.Instance().getNextStaffNumber());
         }
     }
 

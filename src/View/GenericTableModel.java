@@ -31,7 +31,7 @@ public class GenericTableModel<T> extends AbstractTableModel {
 
     public int getColumnCount() {
         int columnCount = 0;
-        if(rows.size() != 0){
+        if(!rows.isEmpty()){
             try {
                 Class c = rows.get(0).getClass();
                 BeanInfo testBeanInfo = Introspector.getBeanInfo(c, Object.class);
@@ -58,7 +58,7 @@ public class GenericTableModel<T> extends AbstractTableModel {
             Method m = pd.getReadMethod();
 
             if( m!= null){
-                return m.invoke(rows.get(row), null);
+                return m.invoke(rows.get(row), (Object) null);
             }
 
         } catch (IllegalAccessException ex) {
@@ -76,7 +76,7 @@ public class GenericTableModel<T> extends AbstractTableModel {
 
     @Override
     public Class<?> getColumnClass(int column) {       
-        if(rows.size() != 0){
+        if(!rows.isEmpty()){
            return getValueAt(0, column).getClass();
         }
         return null;
@@ -84,7 +84,7 @@ public class GenericTableModel<T> extends AbstractTableModel {
 
     @Override
     public String getColumnName(int column) {
-        if(rows.size() != 0){
+        if(!rows.isEmpty()){
             try {
                 Class c = rows.get(0).getClass();
                 BeanInfo testBeanInfo = Introspector.getBeanInfo(c, Object.class);

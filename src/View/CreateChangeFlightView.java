@@ -8,7 +8,6 @@
  *
  * Created on 26-jan-2010, 14:30:08
  */
-
 package View;
 
 import Controller.Controller;
@@ -34,19 +33,18 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Jeroen
  */
 public class CreateChangeFlightView extends javax.swing.JInternalFrame implements KeyListener {
-    private enum FieldEditing { PILOT, COPILOT, FROM, DESTINATION, PLANE }
 
+    private enum FieldEditing {
+
+        PILOT, COPILOT, FROM, DESTINATION, PLANE
+    }
     private FieldEditing currentField = null;
-
     private Flight flight = null; //The object to save.
-
-
     //Objects used to create / change the flight
     private Staff pilot = null;
     private Staff coPilot = null;
@@ -56,86 +54,78 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     private ArrayList<Staff> other = new ArrayList<Staff>();
     private Date date = new Date();
     private ArrayList<Airport> stops = new ArrayList<Airport>();
-  
-
-    
-
 
     /** Creates new form CreateChangeFlightView */
     public CreateChangeFlightView(Flight f) {
-       /* initComponents();
+        initComponents();
         flight = f;
         if(f != null){
-            fill(f);
+        fill(f);
         }
         else{
-            //Defaulting date to current date.
-            DateFormat df = new SimpleDateFormat(Flight.FlightDateFormat);
-            txtFieldDate.setText(df.format(new Date()));
-			txtFieldNumber.setText("" + Controller.Instance().getFlightNumber());
-        }      */
-
+        //Defaulting date to current date.
+        //DateFormat df = new SimpleDateFormat(Flight.FlightDateFormat);
+        //txtFieldDate.setText(df.format(new Date()));
+        txtFieldNumber.setText("" + Controller.Instance().getFlightNumber());
+        }      
     }
 
-    private void fill(Flight f){
-        /*txtFieldNumber.setText(""+f.getNumber());
-        SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
-        String sdate = sdf.format(f.getDate());
-        txtFieldDate.setText(sdate);
-        txtFieldCoPilot.setText(f.getPilots()[1].toString());
-        txtFieldPilot.setText(f.getPilots()[0].toString());
-        txtFieldDestination.setText(f.getDestination().toString());
-        txtFieldFrom.setText(f.getFrom().toString());
+    private void fill(Flight f) {
+        txtFieldNumber.setText("" + f.getFlightnumber());
+        //SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
+        //String sdate = sdf.format(f.getDate());
+        //txtFieldDate.setText(sdate);
+        txtFieldCoPilot.setText(f.getStaffByCopilot().toString());
+        txtFieldPilot.setText(f.getStaffByPilot().toString());
+        txtFieldDestination.setText(f.getAirportByAirportdestination().toString());
+        txtFieldFrom.setText(f.getAirportByAirportfrom().toString());
         txtFieldPlane.setText(f.getPlane().toString());
-        txtPersonal.setText(f.getOtherPersonal().toString());
-        txtFieldStops.setText(f.getStops().toString());
+        txtPersonal.setText(f.getStaffs().toString());
+        txtFieldStops.setText(f.getFlights().toString());
 
-        pilot = f.getPilots()[0];
-        coPilot = f.getPilots()[1];
-        from = f.getFrom();
-        destination = f.getDestination();
-        stops = f.getStops();
+        pilot = f.getStaffByPilot();
+        coPilot = f.getStaffByCopilot();
+        from = f.getAirportByAirportfrom();
+        destination = f.getAirportByAirportdestination();
+        //stops = f.getFlights();
         plane = f.getPlane();
 
-        other = f.getOtherPersonal();
-        date = f.getDate();*/
+        //other = f.getStaffs();
+        date = f.getDate();
     }
 
     public void keyPressed(KeyEvent e) {
-
-            
     }
 
     public void keyReleased(KeyEvent e) {
-
     }
 
-    public void keyTyped(KeyEvent e) {       
+    public void keyTyped(KeyEvent e) {
         //Do nothing but we need the function.
-    }      
+    }
 
-    private void searchPilot(){
+    private void searchPilot() {
         String searchString = txtFieldPilot.getText();
         //listSearchResults.setListData(Controller.Instance().SearchStaffPilots(searchString).toArray());
     }
 
-     private void searchCoPilot(){
-       
+    private void searchCoPilot() {
+
         String searchString = txtFieldCoPilot.getText();
         //listSearchResults.setListData(Controller.Instance().SearchStaffPilots(searchString).toArray());
 
     }
 
-     private void searchFrom(){
-        
-         String searchString = txtFieldFrom.getText();
-         //listSearchResults.setListData(Controller.Instance().SearchAirport(searchString).toArray());
-     }
+    private void searchFrom() {
 
-     private void searchDestination(){       
-         String searchString = txtFieldDestination.getText();
-         //listSearchResults.setListData(Controller.Instance().SearchAirport(searchString).toArray());
-     }    
+        String searchString = txtFieldFrom.getText();
+        //listSearchResults.setListData(Controller.Instance().SearchAirport(searchString).toArray());
+    }
+
+    private void searchDestination() {
+        String searchString = txtFieldDestination.getText();
+        //listSearchResults.setListData(Controller.Instance().SearchAirport(searchString).toArray());
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -438,17 +428,15 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtFieldDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldDateFocusLost
-       /* try {
-            txtFieldDate.setBackground(Color.WHITE);
-            DateFormat d = new SimpleDateFormat(Flight.FlightDateFormat);
-            date = d.parse(txtFieldDate.getText());
-			
+        /* try {
+        txtFieldDate.setBackground(Color.WHITE);
+        DateFormat d = new SimpleDateFormat(Flight.FlightDateFormat);
+        date = d.parse(txtFieldDate.getText());
+        
         } catch (ParseException ex) {
-            Logger.getLogger(CreateChangeFlightView.class.getName()).log(Level.SEVERE, null, ex);
-            txtFieldDate.setBackground(Color.RED);
-        }   */ 
-		
-
+        Logger.getLogger(CreateChangeFlightView.class.getName()).log(Level.SEVERE, null, ex);
+        txtFieldDate.setBackground(Color.RED);
+        }   */
     }//GEN-LAST:event_txtFieldDateFocusLost
 
     private void txtFieldPlaneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldPlaneFocusGained
@@ -459,43 +447,43 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     }//GEN-LAST:event_txtFieldPlaneFocusGained
 
     private void listSearchResultsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listSearchResultsValueChanged
-        switch(currentField){
+        switch (currentField) {
             case PLANE:
-                Plane tmpPlane = (Plane)listSearchResults.getSelectedValue();
+                Plane tmpPlane = (Plane) listSearchResults.getSelectedValue();
 
-                if(tmpPlane != null){
+                if (tmpPlane != null) {
                     plane = tmpPlane;
                     txtFieldPlane.setText(plane.toString());
                 }
                 break;
             case PILOT:
-                Staff tmpPilot = (Staff)listSearchResults.getSelectedValue();
+                Staff tmpPilot = (Staff) listSearchResults.getSelectedValue();
 
-                if(tmpPilot != null){
+                if (tmpPilot != null) {
                     pilot = tmpPilot;
                     txtFieldPilot.setText(pilot.toString());
                 }
                 break;
             case COPILOT:
-                Staff tmpCoPilot = (Staff)listSearchResults.getSelectedValue();
+                Staff tmpCoPilot = (Staff) listSearchResults.getSelectedValue();
 
-                if(tmpCoPilot != null){
+                if (tmpCoPilot != null) {
                     coPilot = tmpCoPilot;
                     txtFieldCoPilot.setText(coPilot.toString());
                 }
                 break;
             case FROM:
-                Airport tmpFrom = (Airport)listSearchResults.getSelectedValue();
+                Airport tmpFrom = (Airport) listSearchResults.getSelectedValue();
 
-                if(tmpFrom != null){
+                if (tmpFrom != null) {
                     from = tmpFrom;
                     txtFieldFrom.setText(from.toString());
                 }
                 break;
             case DESTINATION:
-                Airport tmpDestination = (Airport)listSearchResults.getSelectedValue();
+                Airport tmpDestination = (Airport) listSearchResults.getSelectedValue();
 
-                if(tmpDestination != null){
+                if (tmpDestination != null) {
                     destination = tmpDestination;
                     txtFieldDestination.setText(destination.toString());
                 }
@@ -529,163 +517,163 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     }//GEN-LAST:event_txtFieldDestinationFocusLost
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-       /* String errorMessage = "";
-
+        /* String errorMessage = "";
+        
         if(pilot == null){
-            errorMessage += "Please insert a correct pilot \n ";
+        errorMessage += "Please insert a correct pilot \n ";
         }
         if(coPilot == null){
-            errorMessage += "Please insert a correct co pilot \n";
+        errorMessage += "Please insert a correct co pilot \n";
         }
         if(from == null){
-            errorMessage += "Please insert a correct Airfield: From field \n";
+        errorMessage += "Please insert a correct Airfield: From field \n";
         }
         if(destination == null){
-            errorMessage += "Please insert a correct Airfield: Destination Field \n";
+        errorMessage += "Please insert a correct Airfield: Destination Field \n";
         }
         if(plane == null){
-            errorMessage += "Please insert a coorect Plane \n";
+        errorMessage += "Please insert a coorect Plane \n";
         }
-
+        
         if(pilot != null && coPilot != null && pilot == coPilot){
-            errorMessage += "Pilot and CoPilot can't be the same \n";
+        errorMessage += "Pilot and CoPilot can't be the same \n";
         }
-
+        
         if(destination != null && from != null && destination == from){
-            errorMessage += "Destination and From airfield can't be the same \n";
+        errorMessage += "Destination and From airfield can't be the same \n";
         }
-
+        
         if(other.contains(pilot) || other.contains(coPilot)){
-            errorMessage += "A pilot or copilot cannot also be registered as other personal \n";
+        errorMessage += "A pilot or copilot cannot also be registered as other personal \n";
         }
-
+        
         if(stops.contains(from) || stops.contains(destination)){
-            errorMessage += "An airport cannot be booked as a stop if it is also the origin or the destination \n";
+        errorMessage += "An airport cannot be booked as a stop if it is also the origin or the destination \n";
         }
-
+        
         if(flight == null){
-            Calendar cal = Calendar.getInstance(Locale.FRANCE);
-            Date today = new Date(cal.get(Calendar.YEAR) - 1900, cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
-            
-			DateFormat d = new SimpleDateFormat(Flight.FlightDateFormat);
-			
-            if(date.before(today)){
-                errorMessage += "A flight cannot be booked in the past \n";
-            }
-			if (!d.format(date).equals(txtFieldDate.getText()))
-			{
-			  errorMessage = "The date that you provided is invalid.";
-			}
+        Calendar cal = Calendar.getInstance(Locale.FRANCE);
+        Date today = new Date(cal.get(Calendar.YEAR) - 1900, cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
+        
+        DateFormat d = new SimpleDateFormat(Flight.FlightDateFormat);
+        
+        if(date.before(today)){
+        errorMessage += "A flight cannot be booked in the past \n";
         }
-
+        if (!d.format(date).equals(txtFieldDate.getText()))
+        {
+        errorMessage = "The date that you provided is invalid.";
+        }
+        }
+        
         int id = -1;
-
+        
         try{
-            id = Integer.parseInt(txtFieldNumber.getText());
+        id = Integer.parseInt(txtFieldNumber.getText());
         }
         catch(NumberFormatException ex){
-              Logger.getLogger(CreateChangeFlightView.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(CreateChangeFlightView.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         if(id == -1 ){
-             errorMessage += "Please fill in a correct flight id\n";
+        errorMessage += "Please fill in a correct flight id\n";
         }
         if(errorMessage.isEmpty()){
-            lblError.setText("");
-
-            if(flight == null){
-                flight = new Flight();
-                flight.setDate(date);
-                flight.setDestination(destination);
-                flight.setFrom(from);
-                flight.setNumber(id);
-                Staff[] pilots = new Staff[2];
-
-                pilots[0] = pilot;
-                pilots[1] = coPilot;
-				
-				flight.setStops(stops);
-
-                flight.setPilots(pilots);
-                flight.setOtherPersonal(other);
-                flight.setPlane(plane);
-
-				Flight returnFlight = new Flight();
-				Calendar c = Calendar.getInstance();
-				c.setTime(date);
-				c.add(Calendar.DATE, 1);
-				returnFlight.setDate(c.getTime());
-				returnFlight.setNumber(id + 1);
-				returnFlight.setFrom(destination);
-				returnFlight.setDestination(from);
-				returnFlight.setPilots(pilots);
-				returnFlight.setPlane(plane);
-				returnFlight.setStops(stops);
-				returnFlight.setOtherPersonal(other);
-				returnFlight.setReturnFlight(flight);
-				
-				
-                if(Controller.Instance().AddFlight(flight) && Controller.Instance().AddFlight(returnFlight))
-				{
-					JOptionPane.showMessageDialog(this, "Flights saved");
-                    this.dispose();
-				}else{
-                   JOptionPane.showMessageDialog(this, "Unable to save flights");
-                }  
-                
-            }
-            else{
-
-                Flight newFlight = new Flight();
-
-                newFlight.setDate(date);
-                newFlight.setDestination(destination);
-                newFlight.setFrom(from);
-                newFlight.setNumber(id);
-                Staff[] pilots = new Staff[2];
-
-                pilots[0] = pilot;
-                pilots[1] = coPilot;
-				
-				newFlight.setStops(stops);
-
-                newFlight.setPilots(pilots);
-                newFlight.setOtherPersonal(other);
-                newFlight.setPlane(plane);
-				
-				Flight rf = Controller.Instance().getReturnFlight(id);
-				if(rf != null){
-					
-					Flight newReturnFlight = new Flight();
-					Calendar c = Calendar.getInstance();
-					c.setTime(date);
-					c.add(Calendar.DATE, 1);
-					newReturnFlight.setDate(c.getTime());
-					newReturnFlight.setDestination(from);
-					newReturnFlight.setFrom(destination);
-					newReturnFlight.setNumber(id + 1);
-					newReturnFlight.setOtherPersonal(other);
-					newReturnFlight.setPilots(pilots);
-					newReturnFlight.setPlane(plane);
-					newReturnFlight.setStops(stops);
-					newReturnFlight.setReturnFlight(newFlight);
-					Controller.Instance().ChangeFlight(newReturnFlight, rf);
-					
-				}
-				
-				if(Controller.Instance().ChangeFlight(newFlight, flight))
-				{
-					JOptionPane.showMessageDialog(this, "Flights Saved");
-					this.dispose();
-				}
-				else{
-				   JOptionPane.showMessageDialog(this, "Unable to Save flight");
-				}     
-
-            }
+        lblError.setText("");
+        
+        if(flight == null){
+        flight = new Flight();
+        flight.setDate(date);
+        flight.setDestination(destination);
+        flight.setFrom(from);
+        flight.setNumber(id);
+        Staff[] pilots = new Staff[2];
+        
+        pilots[0] = pilot;
+        pilots[1] = coPilot;
+        
+        flight.setStops(stops);
+        
+        flight.setPilots(pilots);
+        flight.setOtherPersonal(other);
+        flight.setPlane(plane);
+        
+        Flight returnFlight = new Flight();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, 1);
+        returnFlight.setDate(c.getTime());
+        returnFlight.setNumber(id + 1);
+        returnFlight.setFrom(destination);
+        returnFlight.setDestination(from);
+        returnFlight.setPilots(pilots);
+        returnFlight.setPlane(plane);
+        returnFlight.setStops(stops);
+        returnFlight.setOtherPersonal(other);
+        returnFlight.setReturnFlight(flight);
+        
+        
+        if(Controller.Instance().AddFlight(flight) && Controller.Instance().AddFlight(returnFlight))
+        {
+        JOptionPane.showMessageDialog(this, "Flights saved");
+        this.dispose();
+        }else{
+        JOptionPane.showMessageDialog(this, "Unable to save flights");
+        }  
+        
         }
         else{
-            lblError.setText(errorMessage);
+        
+        Flight newFlight = new Flight();
+        
+        newFlight.setDate(date);
+        newFlight.setDestination(destination);
+        newFlight.setFrom(from);
+        newFlight.setNumber(id);
+        Staff[] pilots = new Staff[2];
+        
+        pilots[0] = pilot;
+        pilots[1] = coPilot;
+        
+        newFlight.setStops(stops);
+        
+        newFlight.setPilots(pilots);
+        newFlight.setOtherPersonal(other);
+        newFlight.setPlane(plane);
+        
+        Flight rf = Controller.Instance().getReturnFlight(id);
+        if(rf != null){
+        
+        Flight newReturnFlight = new Flight();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, 1);
+        newReturnFlight.setDate(c.getTime());
+        newReturnFlight.setDestination(from);
+        newReturnFlight.setFrom(destination);
+        newReturnFlight.setNumber(id + 1);
+        newReturnFlight.setOtherPersonal(other);
+        newReturnFlight.setPilots(pilots);
+        newReturnFlight.setPlane(plane);
+        newReturnFlight.setStops(stops);
+        newReturnFlight.setReturnFlight(newFlight);
+        Controller.Instance().ChangeFlight(newReturnFlight, rf);
+        
+        }
+        
+        if(Controller.Instance().ChangeFlight(newFlight, flight))
+        {
+        JOptionPane.showMessageDialog(this, "Flights Saved");
+        this.dispose();
+        }
+        else{
+        JOptionPane.showMessageDialog(this, "Unable to Save flight");
+        }     
+        
+        }
+        }
+        else{
+        lblError.setText(errorMessage);
         }*/
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -694,6 +682,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 
         staff.setVisible(true);
         staff.getOKButton().addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 ChangePersonal(staff.getSelectedObjects());
                 staff.dispose();
@@ -706,6 +695,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 
         stopAirports.setVisible(true);
         stopAirports.getOKButton().addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 ChangeStops(stopAirports.getSelectedObjects());
                 stopAirports.dispose();
@@ -742,21 +732,20 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     }//GEN-LAST:event_txtFieldDestinationFocusGained
 
 	private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-		this.dispose();
+            this.dispose();
 	}//GEN-LAST:event_btnCancelActionPerformed
 
-    private void ChangePersonal(ArrayList<Staff> staff){
+    private void ChangePersonal(ArrayList<Staff> staff) {
         other = staff;
         txtPersonal.setText(other.toString());
         txtPersonal.repaint();
     }
 
-    private void ChangeStops(ArrayList<Airport> stops){
+    private void ChangeStops(ArrayList<Airport> stops) {
         this.stops = stops;
         txtFieldStops.setText(stops.toString());
         txtFieldStops.repaint();
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
@@ -782,5 +771,4 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     private javax.swing.JTextField txtFieldStops;
     private javax.swing.JTextField txtPersonal;
     // End of variables declaration//GEN-END:variables
-
 }

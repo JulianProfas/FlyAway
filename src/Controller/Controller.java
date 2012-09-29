@@ -29,10 +29,9 @@ public class Controller extends Observable {
     HashMap<Integer, Flight> flights;
     HashMap<String, User> users;
     HashMap<String, Country> countries;
-    
-    User logedIn;
+    User logedInUser;
 
-    private void DBSetup() {
+    public void Initialize() {
         airports = Database.DatabaseConnectie.getAirports();
         staff = Database.DatabaseConnectie.getStaff();
         planes = Database.DatabaseConnectie.getPlanes();
@@ -41,28 +40,24 @@ public class Controller extends Observable {
         flights = Database.DatabaseConnectie.getFlights();
     }
 
-    public void Initialize() {
-        DBSetup();
-    }
-
     public boolean Login(String username, String password) {
         boolean result = false;
 
         users = Database.DatabaseConnectie.getUsers();
         if (users != null) {
-            User test = new User();
-            test.setPassword(password, true); //hash the password
-            test.setUsername(username);
+            User allowedUser = new User();
+            allowedUser.setPassword(password, true); //hash the password
+            allowedUser.setUsername(username);
 
-            User test2 = users.get(username);
+            User currentUser = users.get(username);
 
-            if (test2 != null) {
-                if (test2.getPassword().equals(test.getPassword())) {
-                    this.logedIn = test2;
+            if (currentUser != null) {
+                if (currentUser.getPassword().equals(allowedUser.getPassword())) {
+                    this.logedInUser = currentUser;
                     result = true;
                 }
             }
-            this.logedIn = test2;
+            this.logedInUser = currentUser;
         }
 
         return result;
@@ -72,6 +67,7 @@ public class Controller extends Observable {
         planes = new HashMap<Integer, Plane>();
         airports = new HashMap<String, Airport>();
         staff = new HashMap<Integer, Staff>();
+        countries = new HashMap<String, Country>();
         flights = new HashMap<Integer, Flight>();
     }
 
@@ -136,7 +132,7 @@ public class Controller extends Observable {
         result.addAll(planes.values());
         return result;
     }
-    
+
     public ArrayList<Country> getCountries() {
 
         ArrayList<Country> result = new ArrayList<Country>();
@@ -144,17 +140,16 @@ public class Controller extends Observable {
         result.addAll(countries.values());
         return result;
     }
-    
-    public ArrayList<Plane> SearchPlanes(int number ){
-    ArrayList<Plane> foundPlanes = new ArrayList<Plane>();
-    for(Plane p : planes.values()){
-    if(p.getPlanenumber() == number){                
-    foundPlanes.add(p);
+
+    public ArrayList<Plane> SearchPlanes(int number) {
+        ArrayList<Plane> foundPlanes = new ArrayList<Plane>();
+        for (Plane p : planes.values()) {
+            if (p.getPlanenumber() == number) {
+                foundPlanes.add(p);
+            }
+        }
+        return foundPlanes;
     }
-    }
-    return foundPlanes;
-    }
-     
 
     public int getFlightNumber() {
 
@@ -358,7 +353,7 @@ public class Controller extends Observable {
     return foundStaff;
     }
      */
-    public User getUserByStaff(Staff s) {
+    public User getUserFromStaff(Staff s) {
 
         User found = null;
 
@@ -372,8 +367,8 @@ public class Controller extends Observable {
         return found;
     }
 
-    public Staff getStaffById(int staffId) {
-        return staff.get(staffId);
+    public Staff getStaffByNumber(int staffNumber) {
+        return staff.get(staffNumber);
     }
 
     public boolean DeleteStaff(Staff s) {
@@ -381,7 +376,7 @@ public class Controller extends Observable {
 
         if (DatabaseConnectie.deleteStaff(s)) {
             staff.remove(s.getStaffnumber());
-            User u = getUserByStaff(s);
+            User u = getUserFromStaff(s);
             if (u != null) {
                 users.remove(u.getUsername());
             }
@@ -402,7 +397,7 @@ public class Controller extends Observable {
         return result;
     }
 
-    public int getStaffID() {
+    public int getNextStaffNumber() {
         int result = 0;
 
         for (Staff s : staff.values()) {
@@ -415,7 +410,7 @@ public class Controller extends Observable {
         return result + 1;
     }
 
-    public int getPlaneNumber() {
+    public int getNextPlaneNumber() {
         int result = 0;
 
         for (Plane p : planes.values()) {
@@ -492,7 +487,7 @@ public class Controller extends Observable {
         }
         return foundAirport;
     }
-    
+
     public Country getCountryByCode(String code) {
         Country foundCountry = null;
         for (Country c : countries.values()) {
@@ -648,8 +643,8 @@ public class Controller extends Observable {
         return result;
     }
 
-    public User getLogedIn() {
-        return logedIn;
+    public User getLogedInUser() {
+        return logedInUser;
     }
 
     public boolean ChangeUser(User oldUser, User newUser) {

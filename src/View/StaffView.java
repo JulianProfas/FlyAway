@@ -34,11 +34,11 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
 
     private void fillTable() {
 	ArrayList<Staff> rows = Controller.Instance().getStaff();
-	tblPersonal.setModel(new GenericTableModel<Staff>(rows));
-	tblPersonal.removeColumn(tblPersonal.getColumnModel().getColumn(1));
-	tblPersonal.removeColumn(tblPersonal.getColumnModel().getColumn(2));
-	tblPersonal.removeColumn(tblPersonal.getColumnModel().getColumn(1));
-	tblPersonal.removeColumn(tblPersonal.getColumnModel().getColumn(4));
+	tblPersonnel.setModel(new GenericTableModel<Staff>(rows));
+	tblPersonnel.removeColumn(tblPersonnel.getColumnModel().getColumn(1));
+	tblPersonnel.removeColumn(tblPersonnel.getColumnModel().getColumn(2));
+	tblPersonnel.removeColumn(tblPersonnel.getColumnModel().getColumn(1));
+	tblPersonnel.removeColumn(tblPersonnel.getColumnModel().getColumn(4));
 	
     }
 
@@ -57,7 +57,7 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
         btnRemove = new javax.swing.JButton();
         txtFieldSearch = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblPersonal = new javax.swing.JTable();
+        tblPersonnel = new javax.swing.JTable();
         lblErrorMessage = new javax.swing.JLabel();
 
         setClosable(true);
@@ -105,7 +105,7 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
-        tblPersonal.setModel(new javax.swing.table.DefaultTableModel(
+        tblPersonnel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -113,8 +113,8 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
 
             }
         ));
-        tblPersonal.setName("tblPersonal"); // NOI18N
-        jScrollPane1.setViewportView(tblPersonal);
+        tblPersonnel.setName("tblPersonnel"); // NOI18N
+        jScrollPane1.setViewportView(tblPersonnel);
 
         lblErrorMessage.setName("lblErrorMessage"); // NOI18N
 
@@ -173,10 +173,10 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
-        int selectedIndex = tblPersonal.getSelectedRow();
+        int selectedIndex = tblPersonnel.getSelectedRow();
 
         if(selectedIndex >= 0){
-            Staff s = ((GenericTableModel<Staff>)tblPersonal.getModel()).getRow(selectedIndex);
+            Staff s = ((GenericTableModel<Staff>)tblPersonnel.getModel()).getRow(selectedIndex);
 
             CreateChangeStaffView ccsv = new CreateChangeStaffView(s);
             flyaway.FlyAWayApp app = (flyaway.FlyAWayApp)flyaway.FlyAWayApp.getApplication();
@@ -188,11 +188,11 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        int selectedIndex = tblPersonal.getSelectedRow();
+        int selectedIndex = tblPersonnel.getSelectedRow();
         if(selectedIndex >= 0 ){
-             Staff s = ((GenericTableModel<Staff>)tblPersonal.getModel()).getRow(selectedIndex);
+             Staff s = ((GenericTableModel<Staff>)tblPersonnel.getModel()).getRow(selectedIndex);
              Controller.Instance().DeleteStaff(s);
-             ((GenericTableModel<Staff>) tblPersonal.getModel()).removeRow(s);
+             ((GenericTableModel<Staff>) tblPersonnel.getModel()).removeRow(s);
         }
         else{
             lblErrorMessage.setText("Please select a row first");
@@ -240,7 +240,7 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
     private javax.swing.JButton btnSearch;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblErrorMessage;
-    private javax.swing.JTable tblPersonal;
+    private javax.swing.JTable tblPersonnel;
     private javax.swing.JTextField txtFieldSearch;
     // End of variables declaration//GEN-END:variables
 

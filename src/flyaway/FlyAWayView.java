@@ -95,7 +95,7 @@ public class FlyAWayView extends FrameView {
         this.getFrame().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.getFrame().addWindowListener(new FlyAwayWindowListener());
 
-        User u = Controller.Instance().getLogedIn();
+        User u = Controller.Instance().getLogedInUser();
         lblWelkom.setText("Welcome : " + u.getUsername());
         if (u.getRank().equals("admin")) {
             btnUsers.setEnabled(true);

@@ -32,7 +32,7 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
         if (p != null) {
             FillFields();
         } else {
-            txtFieldNumber.setText("" + Controller.Controller.Instance().getPlaneNumber());
+            txtFieldNumber.setText("" + Controller.Controller.Instance().getNextPlaneNumber());
         }
     }
 
