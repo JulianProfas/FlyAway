@@ -42,7 +42,7 @@ public class Controller extends Observable {
     }
 
     public boolean Login(String username, String password) {
-        boolean result = true;
+        boolean result = false;
 
         users = Database.DatabaseConnectie.getUsers();
         if (users != null) {
