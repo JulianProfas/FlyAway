@@ -26,22 +26,22 @@ public class Flight implements java.io.Serializable{
     private Staff pilot = null;
 	private Staff copilot = null;
     private Plane plane = null;
-   // private Flight returnFlight = null;
+    private Flight returnFlight = null;
 
 	public Flight() {
 	}
 
 	
-	public Flight(Airport destination, Airport From, int number, Staff pilot, Staff copilot, Plane plane) {
+	public Flight(Airport destination, Airport From, int number, List<Staff> otherPersonal, List<Airport> stops, Staff pilot, Staff copilot, Plane plane,Flight returnFlight) {
 		this.destination = destination;
 		this.From = From;
 		this.number = number;
-		//this.otherPersonal = otherPersonal;
-		//this.stops = stops;
+		this.otherPersonal = otherPersonal;
+		this.stops = stops;
 		this.pilot = pilot;
 		this.copilot = copilot;
 		this.plane = plane;
-		//this.returnFlight = returnFlight;
+		this.returnFlight = returnFlight;
 	}
 
 	
@@ -195,14 +195,14 @@ public class Flight implements java.io.Serializable{
         this.number = number;
     }
     
-//    public Flight getReturnFlight() {
-//        return returnFlight;
-//    }
+    public Flight getReturnFlight() {
+        return returnFlight;
+    }
     
-//    public void setReturnFlight(Flight returnFlight){
-//        this.returnFlight = returnFlight;
-//    }
-//	
+    public void setReturnFlight(Flight returnFlight){
+        this.returnFlight = returnFlight;
+    }
+	
 	@Override
 	public String toString(){
 		return "" + this.getNumber();

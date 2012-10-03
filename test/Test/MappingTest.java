@@ -258,14 +258,14 @@ public class MappingTest {
 		Staff s3 = new Staff(3, PersonalType.Stewardess, "Arie", a3);
 		Staff s4 = new Staff(4, PersonalType.Stewardess, "Loes", a2);
 		Plane p = new Plane(1, "ufo", 8);
-		//List<Staff> staff = new ArrayList<Staff>();
-		//staff.add(s3);
-		//staff.add(s4);
-		//List<Airport> stops = new ArrayList<Airport>();
-		//stops.add(a3);
-		//stops.add(a4);
+		List<Staff> staff = new ArrayList<Staff>();
+		staff.add(s3);
+		staff.add(s4);
+		List<Airport> stops = new ArrayList<Airport>();
+		stops.add(a3);
+		stops.add(a4);
 		
-		Flight f = new Flight(a1, a2, 1, s1, s2, p);
+		Flight f = new Flight(a1, a2, 1, staff, stops, s1, s2, p, null);
 		
 		List<Flight> result = null;
 		Flight test = null;
