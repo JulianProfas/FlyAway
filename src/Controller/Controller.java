@@ -5,6 +5,7 @@
 package Controller;
 
 import Database.DatabaseConnectie;
+import HibernateUtil.HibernateUtil;
 import Model.Airport;
 import Model.Flight;
 import Model.PersonalType;
@@ -12,10 +13,11 @@ import Model.Staff;
 import Model.Plane;
 import Model.User;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Observable;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 
 /**
  *
@@ -98,6 +100,31 @@ public class Controller extends Observable {
         return controller;
     }
 
+	public boolean saveObject(Object o){
+	
+		boolean result = false;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+		
+		try{
+		
+			session.save(o);
+			
+			if(session.contains(o)){
+				result = true;
+				this.notifyObservers(o);
+			}
+			
+			session.getTransaction().commit();
+			
+		}catch(HibernateException he){
+			System.out.println(he);
+		}
+		return result;
+	}
+	
+	
+	
     public ArrayList<Airport> getAirports() {
         ArrayList<Airport> results = new ArrayList<Airport>();
 
