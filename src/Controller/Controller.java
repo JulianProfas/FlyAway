@@ -211,6 +211,7 @@ public class Controller extends Observable {
 		}
 		return result;
 	}
+	
 //    public ArrayList<Flight> getScheduledFlights() {
 //        ArrayList<Flight> result = new ArrayList<Flight>();
 //        Staff s = this.logedIn.getStaffAccount();

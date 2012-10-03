@@ -12,6 +12,7 @@
 package View;
 
 
+import Controller.InputChecker;
 import Model.Plane;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -31,6 +32,7 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
 
         if(p != null){
             FillFields();
+			txtFieldNumber.setEditable(false);
         }
     }
 
@@ -114,7 +116,6 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -129,8 +130,9 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSave)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancel)))
-                .addContainerGap(587, Short.MAX_VALUE))
+                        .addComponent(btnCancel))
+                    .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtFieldCapacity, txtFieldNumber, txtFieldType});
@@ -174,67 +176,69 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         String type = txtFieldType.getText();
-        lblError.setText("");
-        boolean dbResult = false;
         int capacity = -1;
         int planeNumber = -1;
-        String ErrorMessage = "";
-        type.trim();
-        if(type.isEmpty()){
-            ErrorMessage += "No type entered \n";
+		
+		lblError.setText("");
+		String ErrorMessage = "";
+        
+		InputChecker ip = new InputChecker();
+		
+        if(!ip.checkText(type, true, true)){
+            ErrorMessage += "No type entered. \n";
         }
-
-        if(txtFieldCapacity.getText().isEmpty()){
-            ErrorMessage += "no Capacity entered \n";
-        }
-        else{
-            try{
-                capacity = Integer.parseInt(txtFieldCapacity.getText());
-            }
-            catch(NumberFormatException nfe){
-                ErrorMessage += "Capacity isn't a number \n";
-            }
-        }
-
-        if(txtFieldNumber.getText().isEmpty()){
-            ErrorMessage += "no number entered \n";
-        }
-        else{
-            try{
-                planeNumber = Integer.parseInt(txtFieldNumber.getText());
-            }
-            catch(NumberFormatException nfe){
-                ErrorMessage += "plane number isn't a number \n";
-            }
-        }
-
+		
+		if(!ip.checkMaxLength(type, 50)){
+			ErrorMessage += "Type has a maximum length of 50 chars. \n";	
+		}
+       
+		try{
+			capacity = Integer.parseInt(txtFieldCapacity.getText());
+			
+			if(!ip.checkNumberRange(capacity, 1, 1000)){
+				ErrorMessage += "Capacity must be a number in the range of 1-1000. \n";
+			}
+			
+		}catch(NumberFormatException nfe){
+			ErrorMessage += "Capacity is not a valid number. \n";
+		}
+		
+		try{
+			planeNumber = Integer.parseInt(txtFieldNumber.getText());
+			
+			if(Controller.Controller.Instance().getPlaneByNumber(planeNumber) != null){
+				ErrorMessage += "Plane already exists with planenumber: " + planeNumber + " \n";
+			}
+			
+		}catch(NumberFormatException nfe){
+			ErrorMessage += "Planenumber is not a valid number. \n";
+		}
+        
         if(ErrorMessage.isEmpty()){
             
                 if (plane == null) {
-                    plane = new Plane();
-                    plane.setNumber(planeNumber);
-                    plane.setType(type);
-                    plane.setCapacity(capacity);
-//                    dbResult = Controller.Controller.Instance().AddPlane(plane);
-                } else {
-                    Plane p = new Plane();
-                    p.setNumber(planeNumber);
-                    p.setType(type);
-                    p.setCapacity(capacity);
-                 //   dbResult = Controller.Controller.Instance().ChangePlane(p, plane);
+                    plane = new Plane(planeNumber, type, capacity);
                     
+					if(Controller.Controller.Instance().saveObject(plane)){
+						JOptionPane.showMessageDialog(null, "Plane saved");
+					}else{
+						JOptionPane.showMessageDialog(null, "Error saving plane");
+					}
+					
+                } else {
+                    
+                    plane.setNumber(planeNumber);
+					plane.setType(type);
+					plane.setCapacity(capacity);
+					
+					if(Controller.Controller.Instance().updateObject(plane)){
+						JOptionPane.showMessageDialog(null, "Plane saved");
+					}else{
+						JOptionPane.showMessageDialog(null, "Error saving plane");
+					}
+					
                 }
-                if(!dbResult){
-                    lblError.setText("Plane saved !");
-                    lblError.setForeground(Color.GREEN);
-
-                    JOptionPane.showMessageDialog(this, "Plane Saved");
-                    this.dispose();
-                }
-                else{
-                    lblError.setText("Error while saving plane !");
-                    lblError.setForeground(Color.RED);
-                }
+                
         }
         else{
             lblError.setText(ErrorMessage);

@@ -22,34 +22,46 @@ public class InputChecker {
 	public boolean checkText(String text, boolean numbersAllowed, boolean spacesAllowed){
 		
 		text = text.trim();
-			
-		if(numbersAllowed == true && spacesAllowed == true){
 		
-			if(text.matches("[A-Za-z0-9 ]+")){
+		if(!text.isEmpty()){
+			
+			if(numbersAllowed == true && spacesAllowed == true){
 
-				return true;
-			}
-		}else if(numbersAllowed == true && spacesAllowed == false){
-		
-			if(text.matches("[A-Za-z0-9]+")){
-				
-				return true;
-			}
-		}else if(numbersAllowed == false && spacesAllowed == true){
-			
-			if(text.matches("[A-Za-z ]+")){
-			
-				return true;
-			}
-		}else{
-		
-			if(text.matches("[A-Za-z]+")){
-			
-				return true;
+				if(text.matches("[A-Za-z0-9 ]+")){
+
+					return true;
+				}
+			}else if(numbersAllowed == true && spacesAllowed == false){
+
+				if(text.matches("[A-Za-z0-9]+")){
+
+					return true;
+				}
+			}else if(numbersAllowed == false && spacesAllowed == true){
+
+				if(text.matches("[A-Za-z ]+")){
+
+					return true;
+				}
+			}else{
+
+				if(text.matches("[A-Za-z]+")){
+
+					return true;
+				}
 			}
 		}
-		
 		return false;
+	}
+	
+	public boolean checkNumberRange(int number, int minValue, int maxValue){
+
+		if(number >= minValue && number <= maxValue){
+			return true;
+		}else{
+			return false;
+		}
+			
 	}
 	
 	public boolean checkNumber(String text){

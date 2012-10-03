@@ -195,9 +195,14 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
         int index = tblPlanes.getSelectedRow();
 
         if(index >= 0){
-             Plane p =   ((GenericTableModel<Plane>) tblPlanes.getModel()).getRow(index);
-//             Controller.Instance().DeletePlane(p);
-             ((GenericTableModel<Plane>) tblPlanes.getModel()).removeRow(p);
+             
+			Plane p =   ((GenericTableModel<Plane>) tblPlanes.getModel()).getRow(index);
+	         
+			 if(Controller.Instance().deleteObject(p)){
+				 ((GenericTableModel<Plane>) tblPlanes.getModel()).removeRow(p);
+			 }else{
+				 lblErrorMessage.setText("Plane cannot be deleted");
+			 } 
         }
         else{
             lblErrorMessage.setText("Please select a row first");
@@ -225,7 +230,7 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
          }
          else{
              lblErrorMessage.setBackground(Color.red);
-             lblErrorMessage.setText("Please select a row firstbefore update");
+             lblErrorMessage.setText("Please select a row first");
          }
     }//GEN-LAST:event_btnChangeActionPerformed
 
