@@ -8,7 +8,7 @@
 	<class catalog="flyaway" name="Plane" table="plane">
 		<id name="number" type="java.lang.Integer">
 			<column name="planenumber"/>
-			<generator class="identity"/>
+			<generator class="assigned"/>
 		</id>
 		<property name="capacity" type="java.lang.Integer">
 			<column name="capacity" not-null="true"/>

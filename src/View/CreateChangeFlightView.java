@@ -623,7 +623,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 				returnFlight.setPlane(plane);
 				returnFlight.setStops(stops);
 				returnFlight.setOtherPersonal(other);
-				returnFlight.setReturnFlight(flight);
+//				returnFlight.setReturnFlight(flight);
 				
 				
                 if(Controller.Instance().AddFlight(flight) && Controller.Instance().AddFlight(returnFlight))
@@ -669,7 +669,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 //					newReturnFlight.setPilots(pilots);
 					newReturnFlight.setPlane(plane);
 					newReturnFlight.setStops(stops);
-					newReturnFlight.setReturnFlight(newFlight);
+//					newReturnFlight.setReturnFlight(newFlight);
 				//	Controller.Instance().ChangeFlight(newReturnFlight, rf);
 					
 				}

@@ -521,15 +521,15 @@ public class Controller extends Observable {
     public Flight getReturnFlight(int number) {
         Flight found = null;
         for (Flight f : flights.values()) {
-            Flight rf = f.getReturnFlight();
-            if (rf != null) {
-
-                if (f.getReturnFlight().getNumber() == number) {
-                    found = f;
-                    break;
-                }
-
-            }
+//            Flight rf = f.getReturnFlight();
+//            if (rf != null) {
+//
+//                if (f.getReturnFlight().getNumber() == number) {
+//                    found = f;
+//                    break;
+//                }
+//
+//            }
 
         }
         return found;
@@ -563,7 +563,7 @@ public class Controller extends Observable {
             Flight rf = Controller.Instance().getReturnFlight(f.getNumber());
             if (rf != null) {
                 flights.remove(rf.getNumber());
-                notifyObservers(f.getReturnFlight());
+//                notifyObservers(f.getReturnFlight());
             }
             result = true;
             notifyObservers(f);

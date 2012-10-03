@@ -188,14 +188,14 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
             GenericTableModel<Flight> gtm = (GenericTableModel<Flight>)tblFlights.getModel();
             Flight f = gtm.getRow(index);
 
-			if(f.getReturnFlight() == null){
-			
-				CreateChangeFlightView ccfv = new CreateChangeFlightView(f);
-				 flyaway.FlyAWayApp app = (flyaway.FlyAWayApp)flyaway.FlyAWayApp.getApplication();
-				 app.getFlyAwayView().addFrame(ccfv);
-			}else{
-				lblErrorMessage.setText("You have selected a automatically generated flight, this cannot be changed");
-			}
+//			if(f.getReturnFlight() == null){
+//			
+//				CreateChangeFlightView ccfv = new CreateChangeFlightView(f);
+//				 flyaway.FlyAWayApp app = (flyaway.FlyAWayApp)flyaway.FlyAWayApp.getApplication();
+//				 app.getFlyAwayView().addFrame(ccfv);
+//			}else{
+//				lblErrorMessage.setText("You have selected a automatically generated flight, this cannot be changed");
+//			}
              
         }
         else{
@@ -214,15 +214,15 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
             GenericTableModel<Flight> gtm = (GenericTableModel<Flight>)tblFlights.getModel();
             Flight f = gtm.getRow(index);
 			
-			if(f.getReturnFlight() == null){
-				
-				Controller.Instance().removeFlight(f);
-				
-			}else{
-				
-				lblErrorMessage.setText("You have selected a automatically generated flight, this cannot be removed");
-			
-			}
+//			if(f.getReturnFlight() == null){
+//				
+//				Controller.Instance().removeFlight(f);
+//				
+//			}else{
+//				
+//				lblErrorMessage.setText("You have selected a automatically generated flight, this cannot be removed");
+//			
+//			}
             
         }
         else{

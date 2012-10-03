@@ -22,23 +22,12 @@
         
         <many-to-one name="from" column="airportfrom" cascade="save-update" not-null="true" class="Airport"/>
         
-        <bag name="stops" table="flightstops" catalog="flyaway" cascade="all">
-            <key column="flightnumber" />
-            <many-to-many column="airportcode" class="Airport" />
-        </bag>
-        
-        <bag name="otherPersonal" table="flightstaff" catalog="flyaway" cascade="all">
-            <key column="flightnumber"/>
-            <many-to-many column="staffnumber" class="Staff" />
-        </bag>
-        
+
         <property name="date" type="date">
             <column name="date" not-null="true" />
         </property>
         
-        <many-to-one name="plane" column="plane" cascade="save-update" not-null="true" class="Plane"/>
-		
-			
+        <many-to-one name="plane" column="plane" cascade="save-update" not-null="true" class="Plane"/>		
         
     </class>
   

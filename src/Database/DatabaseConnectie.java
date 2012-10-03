@@ -338,7 +338,7 @@ public class DatabaseConnectie {
 
 				Flight rf = flights.get(rs.getInt("returnflight"));
 				if(rf != null){
-					f.setReturnFlight(rf);
+//					f.setReturnFlight(rf);
 				}		
 		}
 		
@@ -369,11 +369,11 @@ public class DatabaseConnectie {
             
             pstmt.setString(6, date);
             pstmt.setInt(7, f.getPlane().getNumber());
-			if(f.getReturnFlight() != null){
-				pstmt.setInt(8, f.getReturnFlight().getNumber());
-			}else{
-				pstmt.setNull(8, java.sql.Types.INTEGER);
-			}
+//			if(f.getReturnFlight() != null){
+//				pstmt.setInt(8, f.getReturnFlight().getNumber());
+//			}else{
+//				pstmt.setNull(8, java.sql.Types.INTEGER);
+//			}
 			
 
             int x = pstmt.executeUpdate();
@@ -432,11 +432,11 @@ public class DatabaseConnectie {
             String date = sdf.format(newFlight.getDate());
             pstmt.setString(6, date);
             pstmt.setInt(7, newFlight.getPlane().getNumber());
-			if(newFlight.getReturnFlight() == null){
-				pstmt.setNull(8, java.sql.Types.INTEGER);
-			}else{
-				pstmt.setInt(8, newFlight.getReturnFlight().getNumber());
-			}
+//			if(newFlight.getReturnFlight() == null){
+//				pstmt.setNull(8, java.sql.Types.INTEGER);
+//			}else{
+//				pstmt.setInt(8, newFlight.getReturnFlight().getNumber());
+//			}
             pstmt.setInt(9, oldFlight.getNumber());
 
            

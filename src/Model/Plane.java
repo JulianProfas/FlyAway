@@ -11,7 +11,7 @@ package Model;
  */
 public class Plane implements java.io.Serializable{
 
-    private int number;
+    private int number = -1;
     private String type;
     private int capacity;
 
