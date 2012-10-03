@@ -35,7 +35,7 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
 
     private void fillTable(){
          ArrayList<Staff> rows = Controller.Instance().getStaff();
-        tblPersonal.setModel(new GenericTableModel<Staff>(rows));
+         tblPersonal.setModel(new GenericTableModel<Staff>(rows));
     }
 
     /** This method is called from within the constructor to
@@ -185,8 +185,12 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
         int selectedIndex = tblPersonal.getSelectedRow();
         if(selectedIndex >= 0 ){
              Staff s = ((GenericTableModel<Staff>)tblPersonal.getModel()).getRow(selectedIndex);
-//             Controller.Instance().DeleteStaff(s);
-             ((GenericTableModel<Staff>) tblPersonal.getModel()).removeRow(s);
+             
+			 if(Controller.Instance().deleteObject(s)){
+				((GenericTableModel<Staff>) tblPersonal.getModel()).removeRow(s);
+			 }else{
+				 lblErrorMessage.setText("Staff cannot be deleted, because it is used in one or more flights");
+			 }     
         }
         else{
             lblErrorMessage.setText("Please select a row first");

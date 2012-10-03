@@ -218,32 +218,32 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
 		
         if(ErrorMessage.equals("<html></html>")){
             
-                if (plane == null) {
-                    plane = new Plane(planeNumber, type, capacity);
-                    
-					if(Controller.Controller.Instance().saveObject(plane)){
-						JOptionPane.showMessageDialog(null, "Plane saved");
-						this.dispose();
-					}else{
-						JOptionPane.showMessageDialog(null, "Error saving plane");
-						this.dispose();
-					}
-					
-                } else {
-                    
-                    plane.setNumber(planeNumber);
-					plane.setType(type);
-					plane.setCapacity(capacity);
-					
-					if(Controller.Controller.Instance().updateObject(plane)){
-						JOptionPane.showMessageDialog(null, "Plane saved");
-						this.dispose();
-					}else{
-						JOptionPane.showMessageDialog(null, "Error saving plane");
-						this.dispose();
-					}
-					
-                }
+			if (plane == null) {
+				plane = new Plane(planeNumber, type, capacity);
+
+				if(Controller.Controller.Instance().saveObject(plane)){
+					JOptionPane.showMessageDialog(null, "Plane saved");
+					this.dispose();
+				}else{
+					JOptionPane.showMessageDialog(null, "Error saving plane");
+					this.dispose();
+				}
+
+			} else {
+
+				plane.setNumber(planeNumber);
+				plane.setType(type);
+				plane.setCapacity(capacity);
+
+				if(Controller.Controller.Instance().updateObject(plane)){
+					JOptionPane.showMessageDialog(null, "Plane saved");
+					this.dispose();
+				}else{
+					JOptionPane.showMessageDialog(null, "Error saving plane");
+					this.dispose();
+				}
+
+			}
                 
         }
         else{

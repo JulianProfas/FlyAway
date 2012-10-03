@@ -201,7 +201,7 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
 			 if(Controller.Instance().deleteObject(p)){
 				 ((GenericTableModel<Plane>) tblPlanes.getModel()).removeRow(p);
 			 }else{
-				 lblErrorMessage.setText("Plane cannot be deleted");
+				 lblErrorMessage.setText("Plane cannot be deleted, because it is used in one or more flights");
 			 } 
         }
         else{

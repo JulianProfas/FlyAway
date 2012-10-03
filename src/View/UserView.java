@@ -207,6 +207,8 @@ public class UserView extends javax.swing.JInternalFrame  implements Observer {
             CreateChangeUser ccu = new CreateChangeUser(userModel.getRow(selected));
             flyaway.FlyAWayApp app = (flyaway.FlyAWayApp)flyaway.FlyAWayApp.getApplication();
             app.getFlyAwayView().addFrame(ccu);
+        }else{
+            lblError.setText("Please select a row first");
         }
     }//GEN-LAST:event_btnChangeActionPerformed
 
