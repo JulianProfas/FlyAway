@@ -33,7 +33,7 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
 
     private void fillFields(){
         this.txtFieldCity.setText(airport.getCity());
-        this.txtFieldCountry.setText(airport.getCountry());
+        this.txtFieldCountry.setText(airport.getCountry().getName());
         this.txtFieldName.setText(airport.getName());
         this.txtFieldCode.setText(airport.getCode());
     }
@@ -210,7 +210,7 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
            if(airport == null){
                 airport = new Airport();
                 airport.setCity(city);
-                airport.setCountry(country);
+                //airport.setCountry(country);
                 airport.setName(name);
                 airport.setCode(code);
 
@@ -226,7 +226,7 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
            else{
                Airport airportNew = new Airport();
                airportNew.setCity(city);
-               airportNew.setCountry(country);
+               //airportNew.setCountry(country);
                airportNew.setName(name);
                airportNew.setCode(code);
 

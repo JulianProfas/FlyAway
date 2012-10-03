@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="Model">
+
+  <class catalog="flyaway" name="User" table="user">
+		
+		<id name="username" type="java.lang.String">
+			<column name="username"/>
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="password" type="java.lang.String">
+			<column name="password" not-null="true"/>
+		</property>
+		
+		<property name="rank" column="rank" not-null="true">
+		  <type name="org.hibernate.type.EnumType">
+			 <param name="enumClass">Model.Rank</param>
+			 <param name="type">12</param>
+		  </type>
+		</property>
+
+		<many-to-one name="staffAccount" column="staff" not-null="false" class="Staff">
+		</many-to-one>	
+		
+	</class>
+
+</hibernate-mapping>

@@ -11,8 +11,8 @@
 
 package View;
 
+import Model.PersonalType;
 import Model.Staff;
-import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,8 +26,8 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     public CreateChangeStaffView(Staff s) {
         initComponents();
 
-        Staff.PersonalType stypes[] = Staff.PersonalType.values();
-        for(Staff.PersonalType st : stypes){
+        PersonalType stypes[] = PersonalType.values();
+        for(PersonalType st : stypes){
             cmbBoxPersonalTypes.addItem(st);
         }
         staff = s;
@@ -40,7 +40,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         txtFieldID.setText(""+s.getNumber());
         txtFieldName.setText(s.getName());
         cmbBoxPersonalTypes.setSelectedItem(s.getType());
-        txtFieldPrimaryAirport.setText(s.getPrimaryAirport());
+//        txtFieldPrimaryAirport.setText(s.getPrimaryAirport());
     }
 
     /** This method is called from within the constructor to
@@ -181,7 +181,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         String name = txtFieldName.getText();
         int staffId = -1;
-        Staff.PersonalType st = (Staff.PersonalType)cmbBoxPersonalTypes.getSelectedItem();
+        PersonalType st = (PersonalType)cmbBoxPersonalTypes.getSelectedItem();
         String primaryAirport = txtFieldPrimaryAirport.getText();
 
         String errorMessage = "";
@@ -223,7 +223,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                 staff.setName(name);
                 staff.setNumber(staffId);
                 staff.setType(st);
-                staff.setPrimaryAirport(primaryAirport);
+//                staff.setPrimaryAirport(primaryAirport);
 
                 if(Controller.Controller.Instance().AddStaff(staff)){
                     JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
@@ -235,7 +235,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                 newStaff.setName(name);
                 newStaff.setNumber(staffId);
                 newStaff.setType(st);
-                newStaff.setPrimaryAirport(primaryAirport);
+//                newStaff.setPrimaryAirport(primaryAirport);
 
                 if(Controller.Controller.Instance().ChangeStaff(newStaff, staff)){
                     JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");

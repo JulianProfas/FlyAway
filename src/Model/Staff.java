@@ -5,22 +5,34 @@
 
 package Model;
 
+
 /**
  *
  * @author user
  */
-public class Staff {
+public class Staff implements java.io.Serializable{
 
-    public enum PersonalType{
-        Pilot,
-        Stewardess
-    }
+//    public enum PersonalType{
+//        Pilot,
+//        Stewardess
+//    }
 
      private int number;
      private PersonalType type;
-     private String name;
-     private String primaryairport;
+	 private String name;
+     private Airport primaryAirport;
 
+	public Staff() {
+	}
+
+	public Staff(int number, PersonalType type, String name, Airport primaryAirport) {
+		this.number = number;
+		this.type = type;
+		this.name = name;
+		this.primaryAirport = primaryAirport;
+	}
+
+	 
     /**
      * Get the value of type
      *
@@ -79,16 +91,16 @@ public class Staff {
         this.name = name;
     }
     
-    public void setPrimaryAirport(String primaryairport) {
-        this.primaryairport = primaryairport;
+    public void setPrimaryAirport(Airport primaryairport) {
+        this.primaryAirport = primaryairport;
     }
     
-    public String getPrimaryAirport() {
-        return primaryairport;
+    public Airport getPrimaryAirport() {
+        return primaryAirport;
     }
 
     @Override
     public String toString(){
-        return this.number + " "+this.name+ " : "+ this.type + " : " + this.primaryairport;
+        return this.number + " "+this.name+ " : "+ this.type + " : " + this.primaryAirport;
     }
 }

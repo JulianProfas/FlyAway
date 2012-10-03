@@ -9,29 +9,41 @@ package Model;
  *
  * @author user
  */
-public class Plane {
+public class Plane implements java.io.Serializable{
 
     private int number;
-    private String Type;
+    private String type;
     private int capacity;
+
+	public Plane() {
+	}
+
+	
+	
+	public Plane(int number, String type, int capacity) {
+		this.number = number;
+		this.type = type;
+		this.capacity = capacity;
+	}
     
 
+	
     /**
-     * Get the value of Type
+     * Get the value of type
      *
-     * @return the value of Type
+     * @return the value of type
      */
     public String getType() {
-        return Type;
+        return type;
     }
 
     /**
-     * Set the value of Type
+     * Set the value of type
      *
-     * @param Type new value of Type
+     * @param type new value of type
      */
     public void setType(String Type) {
-        this.Type = Type;
+        this.type = Type;
     }
   
 
@@ -74,7 +86,7 @@ public class Plane {
 
     @Override
     public String toString(){
-        return this.Type + " : " + this.number;
+        return this.type + " : " + this.number;
     }
 
 }

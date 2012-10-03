@@ -6,6 +6,7 @@ package flyaway;
 
 
 import Controller.Controller;
+import Model.Rank;
 import Model.User;
 import View.AirportView;
 import View.FlightView;
@@ -96,10 +97,10 @@ public class FlyAWayView extends FrameView {
 
         User u = Controller.Instance().getLogedIn();
         lblWelkom.setText("Welcome : " +u.getUsername());
-        if(u.getRank() == User.Rank.admin){
+        if(u.getRank() == Rank.admin){
             btnUsers.setEnabled(true);
 			btnSchedule.setEnabled(false);
-        }else if(u.getRank() == User.Rank.staff){
+        }else if(u.getRank() == Rank.staff){
 			btnAirport.setEnabled(false);
 			btnFlight.setEnabled(false);
 			btnPlane.setEnabled(false);

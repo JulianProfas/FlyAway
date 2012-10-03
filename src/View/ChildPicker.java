@@ -16,21 +16,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.AbstractListModel;
-import javax.swing.DefaultListModel;
 
 /**
  *
  * @author Jesse
  */
 public class ChildPicker<T> extends javax.swing.JFrame {
-    private ArrayList<T> mNotSelectedObjects;
-    private ArrayList<T> mSelectedObjects;
+    private List<T> mNotSelectedObjects;
+    private List<T> mSelectedObjects;
 
     /** Creates new form ChildPicker */
-    public ChildPicker(ArrayList<T> allObjects, ArrayList<T> selectedObjects) {
+    public ChildPicker(List<T> allObjects, List<T> selectedObjects) {
         mSelectedObjects = selectedObjects;
-        mNotSelectedObjects = (ArrayList<T>) allObjects.clone();
+        mNotSelectedObjects = allObjects;
         mNotSelectedObjects.removeAll(mSelectedObjects);
 
         initComponents();
@@ -141,7 +141,7 @@ public class ChildPicker<T> extends javax.swing.JFrame {
         jListPossible.repaint();
     }
 
-    public ArrayList<T> getSelectedObjects() { return mSelectedObjects; }
+    public List<T> getSelectedObjects() { return mSelectedObjects; }
     public javax.swing.JButton getOKButton() { return jButtonOk; }
 
     /** This method is called from within the constructor to
@@ -357,9 +357,9 @@ public class ChildPicker<T> extends javax.swing.JFrame {
 
 
     class ChildPickerListModel extends AbstractListModel{
-        private ArrayList mSource;
+        private List mSource;
 
-        public ChildPickerListModel(ArrayList source){
+        public ChildPickerListModel(List source){
             mSource = source;
         }
 

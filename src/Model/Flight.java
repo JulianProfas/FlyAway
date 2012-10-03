@@ -7,27 +7,45 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author user
  */
-public class Flight {
-
+public class Flight implements java.io.Serializable{
 
     public static final String FlightDateFormat = "dd-MM-yyyy";
     
     private Date date = new Date();
-    private Airport destination = null;
-    private Airport From = null;
+    private Airport destination;
+    private Airport From;
     private int number;
-    private ArrayList<Staff> otherPersonal = new ArrayList<Staff>();
-    private ArrayList<Airport> stops = new ArrayList<Airport>();
-    private Staff[] Pilots = new Staff[2];
-    private Plane plane = null;
+    private List<Staff> otherPersonal;
+    private List<Airport> stops;
+    private Staff pilot;
+	private Staff copilot;
+    private Plane plane;
     private Flight returnFlight;
 
+	public Flight() {
+	}
 
+	
+	public Flight(Airport destination, Airport From, int number, List<Staff> otherPersonal, List<Airport> stops, Staff pilot, Staff copilot, Plane plane) {
+		this.destination = destination;
+		this.From = From;
+		this.number = number;
+		this.otherPersonal = otherPersonal;
+		this.stops = stops;
+		this.pilot = pilot;
+		this.copilot = copilot;
+		this.plane = plane;
+		//this.returnFlight = returnFlight;
+	}
+
+	
+	
     /**
      * Get the value of date
      *
@@ -109,7 +127,7 @@ public class Flight {
      *
      * @return the value of otherPersonal
      */
-    public ArrayList<Staff> getOtherPersonal() {
+    public List<Staff> getOtherPersonal() {
         return otherPersonal;
     }
 
@@ -118,7 +136,7 @@ public class Flight {
      *
      * @param otherPersonal new value of otherPersonal
      */
-    public void setOtherPersonal(ArrayList<Staff> otherPersonal) {
+    public void setOtherPersonal(List<Staff> otherPersonal) {
         this.otherPersonal = otherPersonal;
     }
 
@@ -128,7 +146,7 @@ public class Flight {
      *
      * @return the value of stops
      */
-    public ArrayList<Airport> getStops() {
+    public List<Airport> getStops() {
         return stops;
     }
 
@@ -137,29 +155,28 @@ public class Flight {
      *
      * @param otherPersonal new value of stops
      */
-    public void setStops(ArrayList<Airport> stops) {
+    public void setStops(List<Airport> stops) {
         this.stops = stops;
     }
 
+	public Staff getCopilot() {
+		return copilot;
+	}
 
-    /**
-     * Get the value of Pilots
-     *
-     * @return the value of Pilots
-     */
-    public Staff[] getPilots() {
-        return Pilots;
-    }
+	public void setCopilot(Staff copilot) {
+		this.copilot = copilot;
+	}
 
-    /**
-     * Set the value of Pilots
-     *
-     * @param Pilots new value of Pilots
-     */
-    public void setPilots(Staff[] Pilots) {
-        this.Pilots = Pilots;
-    }
+	public Staff getPilot() {
+		return pilot;
+	}
 
+	public void setPilot(Staff pilot) {
+		this.pilot = pilot;
+	}
+
+
+   
     /**
      * Get the value of number
      *

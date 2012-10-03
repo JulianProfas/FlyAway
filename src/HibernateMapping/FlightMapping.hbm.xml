@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="Model">
+	
+	<class name="Flight" table="flight" catalog="flyaway">
+        
+		<id name="number" type="java.lang.Integer">
+            <column name="flightnumber"/>
+            <generator class="assigned" />
+        </id>                
+        
+        <many-to-one name="pilot" column="pilot" cascade="save-update" not-null="true" class="Staff">
+		</many-to-one>	
+        
+        <many-to-one name="copilot" column="copilot" cascade="save-update" not-null="true" class="Staff"/>
+        
+        <many-to-one name="destination" column="airportdestination" cascade="save-update" not-null="true" class="Airport"/>
+        
+        <many-to-one name="from" column="airportfrom" cascade="save-update" not-null="true" class="Airport"/>
+        
+        <bag name="stops" table="flightstops" catalog="flyaway" cascade="all">
+            <key column="flightnumber" />
+            <many-to-many column="airportcode" class="Airport" />
+        </bag>
+        
+        <bag name="otherPersonal" table="flightstaff" catalog="flyaway" cascade="all">
+            <key column="flightnumber"/>
+            <many-to-many column="staffnumber" class="Staff" />
+        </bag>
+        
+        <property name="date" type="date">
+            <column name="date" not-null="true" />
+        </property>
+        
+        <many-to-one name="plane" column="plane" cascade="save-update" not-null="true" class="Plane"/>
+		
+			
+        
+    </class>
+  
+
+</hibernate-mapping>

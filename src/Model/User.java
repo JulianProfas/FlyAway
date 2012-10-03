@@ -24,16 +24,25 @@ public class User implements Serializable{
 	private Staff staffAccount;
 
 	
-    public enum Rank{
-        user,
-        admin,
-		staff
-    }
+//    public enum Rank{
+//        user,
+//        admin,
+//		staff
+//    }
 
     public User(){
-        rank =Rank.user;
+        rank = Rank.user;
     }
 
+	public User(String username, String password, Rank rank) {
+		this.username = username;
+		this.password = password;
+		this.rank = rank;
+	}
+
+	
+	
+	
     /**
      * Get the value of password
      *
@@ -43,6 +52,13 @@ public class User implements Serializable{
         return password;
     }
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	
+	
+	
     /**
      * Set the value of password
      *

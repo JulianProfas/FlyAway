@@ -9,12 +9,26 @@ package Model;
  *
  * @author user
  */
-public class Airport {
-    private String code;
-    private String name = "";
-     private String country;
-     private String city;
+public class Airport implements java.io.Serializable{
+   
+	private String code;
+    private String name;
+    private Country country;
+    private String city;
 
+	public Airport() {
+	}
+
+	public Airport(String code, String name, Country country, String city) {
+		this.code = code;
+		this.name = name;
+		this.country = country;
+		this.city = city;
+	}
+
+	
+
+	 
      /**
       * Get the value of code
       *
@@ -56,7 +70,7 @@ public class Airport {
      *
      * @return the value of country
      */
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
@@ -65,7 +79,7 @@ public class Airport {
      *
      * @param country new value of country
      */
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 

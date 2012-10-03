@@ -8,6 +8,7 @@ package Database;
 import Model.Airport;
 import Model.Flight;
 import Model.Plane;
+import Model.Rank;
 import Model.Staff;
 import Model.User;
 import java.sql.Connection;
@@ -93,7 +94,7 @@ public class DatabaseConnectie {
 
                 u.setUsername(rs.getString("username"));
 				u.setPassword(rs.getString("password"), true);
-				u.setRank(User.Rank.valueOf(rs.getString("rank")));
+				u.setRank(Rank.valueOf(rs.getString("rank")));
 				
 				u.setStaffAccount(Controller.Controller.Instance().getStaffById(rs.getInt("staff")));
 				
@@ -213,7 +214,7 @@ public class DatabaseConnectie {
             while (rs.next()) {
                 Airport a = new Airport();
                 a.setCity(rs.getString("city"));
-                a.setCountry(rs.getString("country"));
+               // a.setCountry(rs.getString("country"));
                 a.setName(rs.getString("name"));
                 a.setCode(rs.getString("airportcode"));
 
@@ -240,8 +241,8 @@ public class DatabaseConnectie {
                 Staff s = new Staff();
                 s.setName(rs.getString("name"));
                 s.setNumber(rs.getInt("staffnumber"));
-                s.setType(Staff.PersonalType.valueOf( rs.getString("type")));
-                s.setPrimaryAirport(rs.getString("primaryairport"));
+//                s.setType(Staff.PersonalType.valueOf( rs.getString("type")));
+//                s.setPrimaryAirport(rs.getString("primaryairport"));
 
                 staff.put(s.getNumber(), s);
             }
@@ -284,7 +285,7 @@ public class DatabaseConnectie {
                 if (destination != null && from != null && pilots[0] != null && pilots[1] != null && plane != null) {
                     f.setDestination(destination);
                     f.setFrom(from);
-                    f.setPilots(pilots);
+//                    f.setPilots(pilots);
                     f.setPlane(plane);
 				}
 				
@@ -363,8 +364,8 @@ public class DatabaseConnectie {
             pstmt.setString(3, f.getDestination().getCode());
 
 
-            pstmt.setInt(4, f.getPilots()[0].getNumber());
-            pstmt.setInt(5, f.getPilots()[1].getNumber());
+//            pstmt.setInt(4, f.getPilots()[0].getNumber());
+         //   pstmt.setInt(5, f.getPilots()[1].getNumber());
             
             pstmt.setString(6, date);
             pstmt.setInt(7, f.getPlane().getNumber());
@@ -425,8 +426,8 @@ public class DatabaseConnectie {
             pstmt.setString(2, newFlight.getFrom().getCode());
             pstmt.setString(3, newFlight.getDestination().getCode());
 
-            pstmt.setInt(4, newFlight.getPilots()[0].getNumber());
-            pstmt.setInt(5, newFlight.getPilots()[1].getNumber());
+//            pstmt.setInt(4, newFlight.getPilots()[0].getNumber());
+    //        pstmt.setInt(5, newFlight.getPilots()[1].getNumber());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
             String date = sdf.format(newFlight.getDate());
             pstmt.setString(6, date);
@@ -510,7 +511,7 @@ public class DatabaseConnectie {
 
             pstmt.setString(1, a.getCode());
             pstmt.setString(2, a.getName());
-            pstmt.setString(3 ,a.getCountry());
+           // pstmt.setString(3 ,a.getCountry());
             pstmt.setString(4, a.getCity());
             
             
@@ -536,7 +537,7 @@ public class DatabaseConnectie {
 
             pstmt.setString(1, airportNew.getName());
             pstmt.setString(2, airportNew.getCity());
-            pstmt.setString(3, airportNew.getCountry());
+         //   pstmt.setString(3, airportNew.getCountry());
             pstmt.setString(4, airportNew.getCode());
             pstmt.setString(5, airportOld.getCode());
 
@@ -578,7 +579,7 @@ public class DatabaseConnectie {
             pstmt.setInt(1, s.getNumber());
             pstmt.setString(2, s.getType().toString());
             pstmt.setString(3, s.getName());
-            pstmt.setString(4, s.getPrimaryAirport());
+//            pstmt.setString(4, s.getPrimaryAirport());
 
             int rowCount = pstmt.executeUpdate();
 

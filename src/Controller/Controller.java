@@ -7,6 +7,7 @@ package Controller;
 import Database.DatabaseConnectie;
 import Model.Airport;
 import Model.Flight;
+import Model.PersonalType;
 import Model.Staff;
 import Model.Plane;
 import Model.User;
@@ -32,7 +33,7 @@ public class Controller extends Observable {
 
     private void DBSetup() {
         // Let op het wachtwoord als je local werkt!
-        Database.DatabaseConnectie.Connect("//localhost:3306/flyaway", "root", "usbw");
+        Database.DatabaseConnectie.Connect("//localhost:3306/flyaway", "root", "");
 //        Database.DatabaseConnectie.Connect("//mysql04.totaalholding.nl/bohnern_flyaway", "bohnern_flyaway", "FlyAWay");
 
         airports = Database.DatabaseConnectie.getAirports();
@@ -111,28 +112,28 @@ public class Controller extends Observable {
         return result;
     }
 
-    public ArrayList<Flight> getScheduledFlights() {
-        ArrayList<Flight> result = new ArrayList<Flight>();
-        Staff s = this.logedIn.getStaffAccount();
-        Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
-        c.roll(Calendar.DAY_OF_MONTH, false);
-        c.set(Calendar.HOUR_OF_DAY, 23);
-        c.set(Calendar.MINUTE, 59);
-        Date d = c.getTime();
-
-        for (Flight f : flights.values()) {
-
-            Staff[] pilots = f.getPilots();
-            if ((pilots[0].getNumber() == s.getNumber() || pilots[1].getNumber() == s.getNumber() || f.getOtherPersonal().contains(s)) && f.getDate().after(d)) {
-                result.add(f);
-            }
-
-        }
-
-        return result;
-
-    }
+//    public ArrayList<Flight> getScheduledFlights() {
+//        ArrayList<Flight> result = new ArrayList<Flight>();
+//        Staff s = this.logedIn.getStaffAccount();
+//        Calendar c = Calendar.getInstance();
+//        c.setTime(new Date());
+//        c.roll(Calendar.DAY_OF_MONTH, false);
+//        c.set(Calendar.HOUR_OF_DAY, 23);
+//        c.set(Calendar.MINUTE, 59);
+//        Date d = c.getTime();
+//
+//        for (Flight f : flights.values()) {
+//
+////            Staff[] pilots = f.getPilots();
+//            if ((pilots[0].getNumber() == s.getNumber() || pilots[1].getNumber() == s.getNumber() || f.getOtherPersonal().contains(s)) && f.getDate().after(d)) {
+//                result.add(f);
+//            }
+//
+//        }
+//
+//        return result;
+//
+//    }
 
     public ArrayList<Staff> getStaff() {
         ArrayList<Staff> result = new ArrayList<Staff>();
@@ -251,7 +252,7 @@ public class Controller extends Observable {
         return result;
     }
 
-    public ArrayList<Staff> SearchStaff(Staff.PersonalType st) {
+    public ArrayList<Staff> SearchStaff(PersonalType st) {
         ArrayList<Staff> result = new ArrayList<Staff>();
 
         for (Staff s : staff.values()) {
@@ -266,7 +267,7 @@ public class Controller extends Observable {
         ArrayList<Staff> result = new ArrayList<Staff>();
 
         for (Staff s : staff.values()) {
-            if (s.getName().contains(name) && s.getType().equals(Staff.PersonalType.Pilot)) {
+            if (s.getName().contains(name) && s.getType().equals(PersonalType.Pilot)) {
                 result.add(s);
             }
         }
@@ -284,80 +285,80 @@ public class Controller extends Observable {
         return result;
     }
 
-    public ArrayList<Staff> SearchStaffAvailable(Date d) {
+//    public ArrayList<Staff> SearchStaffAvailable(Date d) {
+//
+//        ArrayList<Staff> foundStaff = new ArrayList<Staff>();
+//        for (Staff s : staff.values()) {
+//            boolean dontAdd = false;
+//            for (Flight f : flights.values()) {
+////                if (f.getOtherPersonal().contains(s) || f.getPilots()[0].equals(s) || f.getPilots()[1].equals(s)) {
+//                    Date nextDay = (Date) d.clone();
+//                    nextDay.setDate(d.getDate() + 1);
+//                    Date previousDay = (Date) d.clone();
+//                    previousDay.setDate(d.getDate() - 1);
+//
+//
+//                    if ((f.getDate().getDate() == d.getDate()
+//                            && f.getDate().getMonth() == d.getMonth()
+//                            && f.getDate().getYear() == d.getYear()) || // staff is already on a plane today
+//                            (f.getDate().getDate() == nextDay.getDate()
+//                            && f.getDate().getMonth() == nextDay.getMonth()
+//                            && f.getDate().getYear() == nextDay.getYear()) || // staff is already on a plane tomorrow
+//                            (f.getDate().getDate() == previousDay.getDate()
+//                            && f.getDate().getMonth() == previousDay.getMonth()
+//                            && f.getDate().getYear() == previousDay.getYear()) // staff was already on a plane yesterday
+//                            ) {
+//
+//                        dontAdd = true;
+//
+//                    }
+//                }
+//            }
+//            if (!dontAdd) {
+//                foundStaff.add(s);
+//            }
+//        }
+//        return foundStaff;
+//    }
 
-        ArrayList<Staff> foundStaff = new ArrayList<Staff>();
-        for (Staff s : staff.values()) {
-            boolean dontAdd = false;
-            for (Flight f : flights.values()) {
-                if (f.getOtherPersonal().contains(s) || f.getPilots()[0].equals(s) || f.getPilots()[1].equals(s)) {
-                    Date nextDay = (Date) d.clone();
-                    nextDay.setDate(d.getDate() + 1);
-                    Date previousDay = (Date) d.clone();
-                    previousDay.setDate(d.getDate() - 1);
-
-
-                    if ((f.getDate().getDate() == d.getDate()
-                            && f.getDate().getMonth() == d.getMonth()
-                            && f.getDate().getYear() == d.getYear()) || // staff is already on a plane today
-                            (f.getDate().getDate() == nextDay.getDate()
-                            && f.getDate().getMonth() == nextDay.getMonth()
-                            && f.getDate().getYear() == nextDay.getYear()) || // staff is already on a plane tomorrow
-                            (f.getDate().getDate() == previousDay.getDate()
-                            && f.getDate().getMonth() == previousDay.getMonth()
-                            && f.getDate().getYear() == previousDay.getYear()) // staff was already on a plane yesterday
-                            ) {
-
-                        dontAdd = true;
-
-                    }
-                }
-            }
-            if (!dontAdd) {
-                foundStaff.add(s);
-            }
-        }
-        return foundStaff;
-    }
-
-    public ArrayList<Staff> SearchStaffPilotsAvailable(Date d) {
-
-        ArrayList<Staff> foundStaff = new ArrayList<Staff>();
-        for (Staff s : staff.values()) {
-            if (s.getType() != Staff.PersonalType.Pilot) {
-                continue; // only looking for pilots, so if this isn't a pilot, continue to the next staff member
-            }
-            boolean dontAdd = false;
-            for (Flight f : flights.values()) {
-                if (f.getPilots()[0].equals(s) || f.getPilots()[1].equals(s)) {
-                    Date nextDay = (Date) d.clone();
-                    nextDay.setDate(d.getDate() + 1);
-                    Date previousDay = (Date) d.clone();
-                    previousDay.setDate(d.getDate() - 1);
-
-
-                    if ((f.getDate().getDate() == d.getDate()
-                            && f.getDate().getMonth() == d.getMonth()
-                            && f.getDate().getYear() == d.getYear()) || // staff is already on a plane today
-                            (f.getDate().getDate() == nextDay.getDate()
-                            && f.getDate().getMonth() == nextDay.getMonth()
-                            && f.getDate().getYear() == nextDay.getYear()) || // staff is already on a plane tomorrow
-                            (f.getDate().getDate() == previousDay.getDate()
-                            && f.getDate().getMonth() == previousDay.getMonth()
-                            && f.getDate().getYear() == previousDay.getYear()) // staff was already on a plane yesterday
-                            ) {
-
-                        dontAdd = true;
-
-                    }
-                }
-            }
-            if (!dontAdd) {
-                foundStaff.add(s);
-            }
-        }
-        return foundStaff;
-    }
+//    public ArrayList<Staff> SearchStaffPilotsAvailable(Date d) {
+//
+//        ArrayList<Staff> foundStaff = new ArrayList<Staff>();
+//        for (Staff s : staff.values()) {
+//            if (s.getType() != PersonalType.Pilot) {
+//                continue; // only looking for pilots, so if this isn't a pilot, continue to the next staff member
+//            }
+//            boolean dontAdd = false;
+//            for (Flight f : flights.values()) {
+//                if (f.getPilots()[0].equals(s) || f.getPilots()[1].equals(s)) {
+//                    Date nextDay = (Date) d.clone();
+//                    nextDay.setDate(d.getDate() + 1);
+//                    Date previousDay = (Date) d.clone();
+//                    previousDay.setDate(d.getDate() - 1);
+//
+//
+//                    if ((f.getDate().getDate() == d.getDate()
+//                            && f.getDate().getMonth() == d.getMonth()
+//                            && f.getDate().getYear() == d.getYear()) || // staff is already on a plane today
+//                            (f.getDate().getDate() == nextDay.getDate()
+//                            && f.getDate().getMonth() == nextDay.getMonth()
+//                            && f.getDate().getYear() == nextDay.getYear()) || // staff is already on a plane tomorrow
+//                            (f.getDate().getDate() == previousDay.getDate()
+//                            && f.getDate().getMonth() == previousDay.getMonth()
+//                            && f.getDate().getYear() == previousDay.getYear()) // staff was already on a plane yesterday
+//                            ) {
+//
+//                        dontAdd = true;
+//
+//                    }
+//                }
+//            }
+//            if (!dontAdd) {
+//                foundStaff.add(s);
+//            }
+//        }
+//        return foundStaff;
+//    }
 
     public Staff getStaffById(int staffId) {
         return staff.get(staffId);
@@ -409,8 +410,8 @@ public class Controller extends Observable {
         for (Airport a : airports.values()) {
             if (a.getCity().contains(searchString)) {
                 result.add(a);
-            } else if (a.getCountry().contains(searchString)) {
-                result.add(a);
+           // } else if (a.getCountry().contains(searchString)) {
+           //     result.add(a);
             } else if (a.getName().contains(searchString)) {
                 result.add(a);
             } else if (a.getCode().contains(searchString)) {
@@ -534,24 +535,24 @@ public class Controller extends Observable {
         return found;
     }
 
-    public boolean ChangeFlight(Flight newFlight, Flight oldFlight) {
-        boolean result = false;
-
-        result = DatabaseConnectie.updateFlight(newFlight, oldFlight);
-        if (result) {
-            flights.remove(oldFlight.getNumber());
-            oldFlight.setNumber(newFlight.getNumber());
-            oldFlight.setDate(newFlight.getDate());
-            oldFlight.setPilots(newFlight.getPilots());
-            oldFlight.setFrom(newFlight.getFrom());
-            oldFlight.setDestination(newFlight.getDestination());
-            oldFlight.setPlane(newFlight.getPlane());
-            oldFlight.setOtherPersonal(newFlight.getOtherPersonal());
-            flights.put(oldFlight.getNumber(), oldFlight);
-            notifyObservers(oldFlight);
-        }
-        return result;
-    }
+//    public boolean ChangeFlight(Flight newFlight, Flight oldFlight) {
+//        boolean result = false;
+//
+//        result = DatabaseConnectie.updateFlight(newFlight, oldFlight);
+//        if (result) {
+//            flights.remove(oldFlight.getNumber());
+//            oldFlight.setNumber(newFlight.getNumber());
+//            oldFlight.setDate(newFlight.getDate());
+//            oldFlight.setPilots(newFlight.getPilots());
+//            oldFlight.setFrom(newFlight.getFrom());
+//            oldFlight.setDestination(newFlight.getDestination());
+//            oldFlight.setPlane(newFlight.getPlane());
+//            oldFlight.setOtherPersonal(newFlight.getOtherPersonal());
+//            flights.put(oldFlight.getNumber(), oldFlight);
+//            notifyObservers(oldFlight);
+//        }
+//        return result;
+//    }
 
     public boolean removeFlight(Flight f) {
         boolean result = false;

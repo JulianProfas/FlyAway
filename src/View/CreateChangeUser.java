@@ -12,6 +12,7 @@
 package View;
 
 import Controller.Controller;
+import Model.Rank;
 import Model.User;
 import javax.swing.JOptionPane;
 
@@ -28,11 +29,11 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
         initComponents();
         this.user = user;
 
-        User.Rank ranks[] = User.Rank.values();
-        for(User.Rank r : ranks){
+        Rank ranks[] = Rank.values();
+        for(Rank r : ranks){
             cmbBoxType.addItem(r);
         }
-        cmbBoxType.setSelectedItem(User.Rank.user);
+        cmbBoxType.setSelectedItem(Rank.user);
 
         if(user != null){
             fillUser(user);
@@ -182,7 +183,7 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
 
                 u.setUsername(userName);
                 u.setPassword(password, false);
-                u.setRank((User.Rank)cmbBoxType.getSelectedItem());
+                u.setRank((Rank)cmbBoxType.getSelectedItem());
 
                 if(Controller.Instance().addUser(u)){
                     JOptionPane.showMessageDialog(this, "User saved");
@@ -198,7 +199,7 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
                 u.setUsername(userName);
                 u.setPassword(password, false);
 
-                u.setRank((User.Rank)cmbBoxType.getSelectedItem());
+                u.setRank((Rank)cmbBoxType.getSelectedItem());
 
                 if(Controller.Instance().ChangeUser(user, u))
                 {

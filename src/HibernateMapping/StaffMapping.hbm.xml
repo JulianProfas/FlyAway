@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="Model">
+	
+	<class catalog="flyaway" name="Staff" table="staff">
+		
+		<id name="number" type="java.lang.Integer">
+			<column name="staffnumber"/>
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="name" type="java.lang.String">
+			<column name="name" not-null="true" length="50"/>
+		</property>
+		
+		<property name="type" column="type" not-null="true">
+		  <type name="org.hibernate.type.EnumType">
+			 <param name="enumClass">Model.PersonalType</param>
+			 <param name="type">12</param>
+		  </type>
+		</property>
+
+		
+		<many-to-one name="primaryAirport" column="primaryairport" cascade="save-update" not-null="true" class="Airport">
+		</many-to-one>	
+		
+	</class>
+	
+</hibernate-mapping>

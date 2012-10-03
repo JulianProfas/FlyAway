@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,9 +54,9 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     private Airport from = null;
     private Airport destination = null;
     private Plane plane = null;
-    private ArrayList<Staff> other = new ArrayList<Staff>();
+    private List<Staff> other = new ArrayList<Staff>();
     private Date date = new Date();
-    private ArrayList<Airport> stops = new ArrayList<Airport>();
+    private List<Airport> stops = new ArrayList<Airport>();
   
 
     
@@ -82,16 +83,16 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
         String sdate = sdf.format(f.getDate());
         txtFieldDate.setText(sdate);
-        txtFieldCoPilot.setText(f.getPilots()[1].toString());
-        txtFieldPilot.setText(f.getPilots()[0].toString());
+//        txtFieldCoPilot.setText(f.getPilots()[1].toString());
+      //  txtFieldPilot.setText(f.getPilots()[0].toString());
         txtFieldDestination.setText(f.getDestination().toString());
         txtFieldFrom.setText(f.getFrom().toString());
         txtFieldPlane.setText(f.getPlane().toString());
         txtPersonal.setText(f.getOtherPersonal().toString());
         txtFieldStops.setText(f.getStops().toString());
 
-        pilot = f.getPilots()[0];
-        coPilot = f.getPilots()[1];
+      //  pilot = f.getPilots()[0];
+      //  coPilot = f.getPilots()[1];
         from = f.getFrom();
         destination = f.getDestination();
         stops = f.getStops();
@@ -606,7 +607,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 				
 				flight.setStops(stops);
 
-                flight.setPilots(pilots);
+        //        flight.setPilots(pilots);
                 flight.setOtherPersonal(other);
                 flight.setPlane(plane);
 
@@ -618,7 +619,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 				returnFlight.setNumber(id + 1);
 				returnFlight.setFrom(destination);
 				returnFlight.setDestination(from);
-				returnFlight.setPilots(pilots);
+			//	returnFlight.setPilots(pilots);
 				returnFlight.setPlane(plane);
 				returnFlight.setStops(stops);
 				returnFlight.setOtherPersonal(other);
@@ -649,7 +650,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 				
 				newFlight.setStops(stops);
 
-                newFlight.setPilots(pilots);
+//                newFlight.setPilots(pilots);
                 newFlight.setOtherPersonal(other);
                 newFlight.setPlane(plane);
 				
@@ -665,22 +666,22 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 					newReturnFlight.setFrom(destination);
 					newReturnFlight.setNumber(id + 1);
 					newReturnFlight.setOtherPersonal(other);
-					newReturnFlight.setPilots(pilots);
+//					newReturnFlight.setPilots(pilots);
 					newReturnFlight.setPlane(plane);
 					newReturnFlight.setStops(stops);
 					newReturnFlight.setReturnFlight(newFlight);
-					Controller.Instance().ChangeFlight(newReturnFlight, rf);
+				//	Controller.Instance().ChangeFlight(newReturnFlight, rf);
 					
 				}
 				
-				if(Controller.Instance().ChangeFlight(newFlight, flight))
-				{
-					JOptionPane.showMessageDialog(this, "Flights Saved");
-					this.dispose();
-				}
-				else{
-				   JOptionPane.showMessageDialog(this, "Unable to Save flight");
-				}     
+//				if(Controller.Instance().ChangeFlight(newFlight, flight))
+//				{
+//					JOptionPane.showMessageDialog(this, "Flights Saved");
+//					this.dispose();
+//				}
+//				else{
+//				   JOptionPane.showMessageDialog(this, "Unable to Save flight");
+//				}     
 
             }
         }
@@ -690,15 +691,15 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPersonalMouseClicked
-        final ChildPicker<Staff> staff = new ChildPicker<Staff>(Controller.Instance().SearchStaffAvailable(date), other);
+        //final ChildPicker<Staff> staff = new ChildPicker<Staff>(Controller.Instance().SearchStaffAvailable(date), other);
 
-        staff.setVisible(true);
-        staff.getOKButton().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ChangePersonal(staff.getSelectedObjects());
-                staff.dispose();
-            }
-        });
+//        staff.setVisible(true);
+//        staff.getOKButton().addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                ChangePersonal(staff.getSelectedObjects());
+//                staff.dispose();
+//            }
+//        });
     }//GEN-LAST:event_txtPersonalMouseClicked
 
     private void txtFieldStopsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFieldStopsMouseClicked
@@ -717,14 +718,14 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         txtFieldPilot.setBorder(BorderFactory.createLineBorder(Color.orange));
         currentField = FieldEditing.PILOT;
         listSearchResults.setEnabled(true);
-        listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());        // TODO add your handling code here:
+        //listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());        // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldPilotFocusGained
 
     private void txtFieldCoPilotFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldCoPilotFocusGained
         txtFieldCoPilot.setBorder(BorderFactory.createLineBorder(Color.orange));
         currentField = FieldEditing.COPILOT;
         listSearchResults.setEnabled(true);
-        listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());        // TODO add your handling code here:
+      //  listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());        // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldCoPilotFocusGained
 
     private void txtFieldFromFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldFromFocusGained
@@ -745,13 +746,13 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 		this.dispose();
 	}//GEN-LAST:event_btnCancelActionPerformed
 
-    private void ChangePersonal(ArrayList<Staff> staff){
+    private void ChangePersonal(List<Staff> staff){
         other = staff;
         txtPersonal.setText(other.toString());
         txtPersonal.repaint();
     }
 
-    private void ChangeStops(ArrayList<Airport> stops){
+    private void ChangeStops(List<Airport> stops){
         this.stops = stops;
         txtFieldStops.setText(stops.toString());
         txtFieldStops.repaint();

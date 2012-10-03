@@ -12,6 +12,7 @@
 package View;
 
 import Controller.Controller;
+import Model.PersonalType;
 import Model.Staff;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -210,9 +211,9 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
             if (searchId != -1) {
                 foundStaff.addAll(Controller.Instance().SearchStaff(searchId));
             }
-            Staff.PersonalType st = null;
+            PersonalType st = null;
             try {
-                st = (Staff.PersonalType.valueOf(searchString));
+                st = (PersonalType.valueOf(searchString));
             } catch (IllegalArgumentException iae) {
                 Logger.getLogger(GenericTableModel.class.getName()).log(Level.FINER, null, iae.getMessage());
             }
