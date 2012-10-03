@@ -5,6 +5,7 @@
 
 package Database;
 
+import HibernateUtil.HibernateUtil;
 import Model.Airport;
 import Model.Flight;
 import Model.Plane;
@@ -19,8 +20,10 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.Session;
 
 /**
  *
@@ -176,29 +179,20 @@ public class DatabaseConnectie {
 	
 	
     public static HashMap<Integer, Plane> getPlanes(){
-        HashMap<Integer, Plane> planes = new HashMap<Integer, Plane>();
+        
 
-        try{
-            PreparedStatement pstmt;
+        List<Plane>  planesList;  
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        
+            planesList = session.createQuery("from Plane").list();
+            
+            HashMap<Integer, Plane> planes = new HashMap<Integer, Plane>();
+            for (Plane i : planesList) planes.put(i.getNumber(),i);
+        
+        
+        
 
-            pstmt = con.prepareStatement("Select * from plane;");
-
-            ResultSet rs;
-
-                rs = pstmt.executeQuery();
-
-
-            while(rs.next()){
-                Plane p = new Plane();
-
-                p.setCapacity(rs.getInt("capacity"));
-                p.setNumber(rs.getInt("planenumber"));
-                p.setType(rs.getString("type"));
-                planes.put(p.getNumber(), p);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseConnectie.class.getName()).log(Level.SEVERE, null, ex);
-        }
         return planes;
     }
 

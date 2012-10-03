@@ -36,11 +36,11 @@ public class Controller extends Observable {
         Database.DatabaseConnectie.Connect("//localhost:3306/flyaway", "root", "");
 //        Database.DatabaseConnectie.Connect("//mysql04.totaalholding.nl/bohnern_flyaway", "bohnern_flyaway", "FlyAWay");
 
-        airports = Database.DatabaseConnectie.getAirports();
-        staff = Database.DatabaseConnectie.getStaff();
+        //airports = Database.DatabaseConnectie.getAirports();
+        //staff = Database.DatabaseConnectie.getStaff();
         planes = Database.DatabaseConnectie.getPlanes();
         //We need to add flights as last.
-        flights = Database.DatabaseConnectie.getFlights();
+        //flights = Database.DatabaseConnectie.getFlights();
 
 
 
@@ -59,24 +59,24 @@ public class Controller extends Observable {
     }
 
     public boolean Login(String username, String password) {
-        boolean result = false;
-
-        users = Database.DatabaseConnectie.getUsers();
-        if (users != null) {
-            User test = new User();
-            test.setPassword(password, false);
-            test.setUsername(username);
-
-            User test2 = users.get(username);
-
-            if (test2 != null) {
-                if (test2.getPassword().equals(test.getPassword())) {
-                    this.logedIn = test2;
-                    result = true;
-                }
-            }
-        }
-        return result;
+//        boolean result = false;
+//
+//        users = Database.DatabaseConnectie.getUsers();
+//        if (users != null) {
+//            User test = new User();
+//            test.setPassword(password, false);
+//            test.setUsername(username);
+//
+//            User test2 = users.get(username);
+//
+//            if (test2 != null) {
+//                if (test2.getPassword().equals(test.getPassword())) {
+//                    this.logedIn = test2;
+//                    result = true;
+//                }
+//            }
+//        }
+        return true;
     }
 
     private Controller() {

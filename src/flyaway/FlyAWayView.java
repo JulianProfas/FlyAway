@@ -95,19 +95,19 @@ public class FlyAWayView extends FrameView {
         this.getFrame().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.getFrame().addWindowListener(new FlyAwayWindowListener());
 
-        User u = Controller.Instance().getLogedIn();
-        lblWelkom.setText("Welcome : " +u.getUsername());
-        if(u.getRank() == Rank.admin){
-            btnUsers.setEnabled(true);
-			btnSchedule.setEnabled(false);
-        }else if(u.getRank() == Rank.staff){
-			btnAirport.setEnabled(false);
-			btnFlight.setEnabled(false);
-			btnPlane.setEnabled(false);
-			btnStaff.setEnabled(false);
-		}else{
-			btnSchedule.setEnabled(false);
-		}
+//        User u = Controller.Instance().getLogedIn();
+//        lblWelkom.setText("Welcome : " +u.getUsername());
+//        if(u.getRank() == Rank.admin){
+//            btnUsers.setEnabled(true);
+//			btnSchedule.setEnabled(false);
+//        }else if(u.getRank() == Rank.staff){
+//			btnAirport.setEnabled(false);
+//			btnFlight.setEnabled(false);
+//			btnPlane.setEnabled(false);
+//			btnStaff.setEnabled(false);
+//		}else{
+//			btnSchedule.setEnabled(false);
+//		}
     }
 
     public void addFrame(JInternalFrame frame){
