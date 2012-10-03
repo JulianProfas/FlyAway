@@ -212,7 +212,7 @@ public class AirportView extends javax.swing.JInternalFrame implements Observer{
             Airport a = gtm.getRow(selectedRow);
 
             
-            Controller.Instance().RemoveAirport(a);
+            //Controller.Instance().RemoveAirport(a);
             gtm.removeRow(a);
         }
         else{

@@ -214,14 +214,14 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
                 airport.setName(name);
                 airport.setCode(code);
 
-
-                if(Controller.Controller.Instance().AddAirport(airport)){
-                     JOptionPane.showMessageDialog(this, "Airport saved");
-                     this.dispose();
-                }
-                else{
-                    errorMessage = "Unable to save Airport";
-                }
+//
+//                if(Controller.Controller.Instance().AddAirport(airport)){
+//                     JOptionPane.showMessageDialog(this, "Airport saved");
+//                     this.dispose();
+//                }
+//                else{
+//                    errorMessage = "Unable to save Airport";
+//                }
            }
            else{
                Airport airportNew = new Airport();
@@ -230,13 +230,13 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
                airportNew.setName(name);
                airportNew.setCode(code);
 
-               if(Controller.Controller.Instance().ChangeAirport(airportNew, airport)){
-                   JOptionPane.showMessageDialog(this, "Airport saved");
-                   this.dispose();
-               }
-               else{
-                   errorMessage = "Unable to change Airport";
-               }
+//               if(Controller.Controller.Instance().ChangeAirport(airportNew, airport)){
+//                   JOptionPane.showMessageDialog(this, "Airport saved");
+//                   this.dispose();
+//               }
+//               else{
+//                   errorMessage = "Unable to change Airport";
+//               }
            }           
        }
       

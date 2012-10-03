@@ -183,7 +183,7 @@ public class UserView extends javax.swing.JInternalFrame  implements Observer {
 
         if(selected >= 0){
             GenericTableModel<User> userModel = (GenericTableModel<User> )tblUsers.getModel();
-            Controller.Instance().removeUser(userModel.getRow(selected));
+//            Controller.Instance().removeUser(userModel.getRow(selected));
         }
         else{
             lblError.setText("Please select a row first");

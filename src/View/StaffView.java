@@ -185,7 +185,7 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
         int selectedIndex = tblPersonal.getSelectedRow();
         if(selectedIndex >= 0 ){
              Staff s = ((GenericTableModel<Staff>)tblPersonal.getModel()).getRow(selectedIndex);
-             Controller.Instance().DeleteStaff(s);
+//             Controller.Instance().DeleteStaff(s);
              ((GenericTableModel<Staff>) tblPersonal.getModel()).removeRow(s);
         }
         else{

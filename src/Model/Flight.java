@@ -44,120 +44,13 @@ public class Flight implements java.io.Serializable{
 		this.returnFlight = returnFlight;
 	}
 
-	
-	
-    /**
-     * Get the value of date
-     *
-     * @return the value of date
-     */
-    public Date getDate() {
-        return date;
-    }
+	public Airport getFrom() {
+		return From;
+	}
 
-    /**
-     * Set the value of date
-     *
-     * @param date new value of date
-     */
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    /**
-     * Get the value of plane
-     *
-     * @return the value of plane
-     */
-    public Plane getPlane() {
-        return plane;
-    }
-
-    /**
-     * Set the value of plane
-     *
-     * @param plane new value of plane
-     */
-    public void setPlane(Plane plane) {
-        this.plane = plane;
-    }
-
-
-    /**
-     * Get the value of From
-     *
-     * @return the value of From
-     */
-    public Airport getFrom() {
-        return From;
-    }
-
-    /**
-     * Set the value of From
-     *
-     * @param From new value of From
-     */
-    public void setFrom(Airport From) {
-        this.From = From;
-    }
-
-
-    /**
-     * Get the value of destination
-     *
-     * @return the value of destination
-     */
-    public Airport getDestination() {
-        return destination;
-    }
-
-    /**
-     * Set the value of destination
-     *
-     * @param destination new value of destination
-     */
-    public void setDestination(Airport destination) {
-        this.destination = destination;
-    }
-
-
-
-    /**
-     * Get the value of otherPersonal
-     *
-     * @return the value of otherPersonal
-     */
-    public List<Staff> getOtherPersonal() {
-        return otherPersonal;
-    }
-
-    /**
-     * Set the value of otherPersonal
-     *
-     * @param otherPersonal new value of otherPersonal
-     */
-    public void setOtherPersonal(List<Staff> otherPersonal) {
-        this.otherPersonal = otherPersonal;
-    }
-
-
-        /**
-     * Get the value of stops
-     *
-     * @return the value of stops
-     */
-    public List<Airport> getStops() {
-        return stops;
-    }
-
-    /**
-     * Set the value of stops
-     *
-     * @param otherPersonal new value of stops
-     */
-    public void setStops(List<Airport> stops) {
-        this.stops = stops;
-    }
+	public void setFrom(Airport From) {
+		this.From = From;
+	}
 
 	public Staff getCopilot() {
 		return copilot;
@@ -165,6 +58,38 @@ public class Flight implements java.io.Serializable{
 
 	public void setCopilot(Staff copilot) {
 		this.copilot = copilot;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Airport getDestination() {
+		return destination;
+	}
+
+	public void setDestination(Airport destination) {
+		this.destination = destination;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public List<Staff> getOtherPersonal() {
+		return otherPersonal;
+	}
+
+	public void setOtherPersonal(List<Staff> otherPersonal) {
+		this.otherPersonal = otherPersonal;
 	}
 
 	public Staff getPilot() {
@@ -175,34 +100,30 @@ public class Flight implements java.io.Serializable{
 		this.pilot = pilot;
 	}
 
+	public Plane getPlane() {
+		return plane;
+	}
 
-   
-    /**
-     * Get the value of number
-     *
-     * @return the value of number
-     */
-    public int getNumber() {
-        return number;
-    }
+	public void setPlane(Plane plane) {
+		this.plane = plane;
+	}
 
-    /**
-     * Set the value of number
-     *
-     * @param number new value of number
-     */
-    public void setNumber(int number) {
-        this.number = number;
-    }
-    
-    public Flight getReturnFlight() {
-        return returnFlight;
-    }
-    
-    public void setReturnFlight(Flight returnFlight){
-        this.returnFlight = returnFlight;
-    }
-	
+	public Flight getReturnFlight() {
+		return returnFlight;
+	}
+
+	public void setReturnFlight(Flight returnFlight) {
+		this.returnFlight = returnFlight;
+	}
+
+	public List<Airport> getStops() {
+		return stops;
+	}
+
+	public void setStops(List<Airport> stops) {
+		this.stops = stops;
+	}
+
 	@Override
 	public String toString(){
 		return "" + this.getNumber();

@@ -8,7 +8,7 @@
 	<class catalog="flyaway" name="Airport" table="airport">
 		
 		<id name="code" type="java.lang.String">
-			<column name="code" length="3"/>
+			<column name="airportcode" length="3"/>
 			<generator class="assigned"/>
 		</id>
 		

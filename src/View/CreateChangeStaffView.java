@@ -225,10 +225,10 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                 staff.setType(st);
 //                staff.setPrimaryAirport(primaryAirport);
 
-                if(Controller.Controller.Instance().AddStaff(staff)){
-                    JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
-                    this.dispose();
-                }
+//                if(Controller.Controller.Instance().AddStaff(staff)){
+//                    JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
+//                    this.dispose();
+//                }
             }
             else{
                 Staff newStaff = new Staff();
@@ -236,11 +236,11 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                 newStaff.setNumber(staffId);
                 newStaff.setType(st);
 //                newStaff.setPrimaryAirport(primaryAirport);
-
-                if(Controller.Controller.Instance().ChangeStaff(newStaff, staff)){
-                    JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
-                    this.dispose();
-                }
+//
+//                if(Controller.Controller.Instance().ChangeStaff(newStaff, staff)){
+//                    JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
+//                    this.dispose();
+//                }
             }
             this.dispose();
         }

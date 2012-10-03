@@ -215,13 +215,13 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
                     plane.setNumber(planeNumber);
                     plane.setType(type);
                     plane.setCapacity(capacity);
-                    dbResult = Controller.Controller.Instance().AddPlane(plane);
+//                    dbResult = Controller.Controller.Instance().AddPlane(plane);
                 } else {
                     Plane p = new Plane();
                     p.setNumber(planeNumber);
                     p.setType(type);
                     p.setCapacity(capacity);
-                    dbResult = Controller.Controller.Instance().ChangePlane(p, plane);
+                 //   dbResult = Controller.Controller.Instance().ChangePlane(p, plane);
                     
                 }
                 if(!dbResult){

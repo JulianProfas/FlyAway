@@ -626,13 +626,13 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 //				returnFlight.setReturnFlight(flight);
 				
 				
-                if(Controller.Instance().AddFlight(flight) && Controller.Instance().AddFlight(returnFlight))
-				{
-					JOptionPane.showMessageDialog(this, "Flights saved");
-                    this.dispose();
-				}else{
-                   JOptionPane.showMessageDialog(this, "Unable to save flights");
-                }  
+//                if(Controller.Instance().AddFlight(flight) && Controller.Instance().AddFlight(returnFlight))
+//				{
+//					JOptionPane.showMessageDialog(this, "Flights saved");
+//                    this.dispose();
+//				}else{
+//                   JOptionPane.showMessageDialog(this, "Unable to save flights");
+//                }  
                 
             }
             else{

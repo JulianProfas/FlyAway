@@ -196,7 +196,7 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
 
         if(index >= 0){
              Plane p =   ((GenericTableModel<Plane>) tblPlanes.getModel()).getRow(index);
-             Controller.Instance().DeletePlane(p);
+//             Controller.Instance().DeletePlane(p);
              ((GenericTableModel<Plane>) tblPlanes.getModel()).removeRow(p);
         }
         else{

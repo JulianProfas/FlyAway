@@ -185,13 +185,13 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
                 u.setPassword(password, false);
                 u.setRank((Rank)cmbBoxType.getSelectedItem());
 
-                if(Controller.Instance().addUser(u)){
-                    JOptionPane.showMessageDialog(this, "User saved");
-                       this.dispose();
-                }
-                else{
-                    lblError.setText("UserName already exsists");
-                }
+//                if(Controller.Instance().addUser(u)){
+//                    JOptionPane.showMessageDialog(this, "User saved");
+//                       this.dispose();
+//                }
+//                else{
+//                    lblError.setText("UserName already exsists");
+//                }
             }
             else{
                 User u = new User();
@@ -201,14 +201,14 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
 
                 u.setRank((Rank)cmbBoxType.getSelectedItem());
 
-                if(Controller.Instance().ChangeUser(user, u))
-                {
-                    JOptionPane.showMessageDialog(this, "User saved");
-                    this.dispose();
-                }
-                else{
-                    lblError.setText("Change User failed username already exsists");
-                }
+//                if(Controller.Instance().ChangeUser(user, u))
+//                {
+//                    JOptionPane.showMessageDialog(this, "User saved");
+//                    this.dispose();
+//                }
+//                else{
+//                    lblError.setText("Change User failed username already exsists");
+//                }
             }
         }
         else{

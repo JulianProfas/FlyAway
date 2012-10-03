@@ -4,8 +4,6 @@
  */
 package Controller;
 
-import Database.DatabaseConnectie;
-import HibernateUtil.HibernateUtil;
 import Model.Airport;
 import Model.Flight;
 import Model.PersonalType;
@@ -16,8 +14,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Observable;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 
 /**
  *
@@ -34,17 +30,13 @@ public class Controller extends Observable {
     User logedIn;
 
     private void DBSetup() {
-        // Let op het wachtwoord als je local werkt!
-        Database.DatabaseConnectie.Connect("//localhost:3306/flyaway", "root", "");
-//        Database.DatabaseConnectie.Connect("//mysql04.totaalholding.nl/bohnern_flyaway", "bohnern_flyaway", "FlyAWay");
-
-        //airports = Database.DatabaseConnectie.getAirports();
-        //staff = Database.DatabaseConnectie.getStaff();
+       
+		users = Database.DatabaseConnectie.getUsers();
+        airports = Database.DatabaseConnectie.getAirports();
+        staff = Database.DatabaseConnectie.getStaff();
         planes = Database.DatabaseConnectie.getPlanes();
         //We need to add flights as last.
-        //flights = Database.DatabaseConnectie.getFlights();
-
-
+        flights = Database.DatabaseConnectie.getFlights();
 
     }
 
@@ -86,7 +78,7 @@ public class Controller extends Observable {
         airports = new HashMap<String, Airport>();
         staff = new HashMap<Integer, Staff>();
         flights = new HashMap<Integer, Flight>();
-
+		users = new HashMap<String, User>();
         //testSetup();
     }
 
@@ -98,32 +90,7 @@ public class Controller extends Observable {
 
     public static Controller Instance() {
         return controller;
-    }
-
-	public boolean saveObject(Object o){
-	
-		boolean result = false;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-		
-		try{
-		
-			session.save(o);
-			
-			if(session.contains(o)){
-				result = true;
-				this.notifyObservers(o);
-			}
-			
-			session.getTransaction().commit();
-			
-		}catch(HibernateException he){
-			System.out.println(he);
-		}
-		return result;
 	}
-	
-	
 	
     public ArrayList<Airport> getAirports() {
         ArrayList<Airport> results = new ArrayList<Airport>();
@@ -138,7 +105,112 @@ public class Controller extends Observable {
         result.addAll(flights.values());
         return result;
     }
+	
+	public ArrayList<Staff> getStaff() {
+        ArrayList<Staff> result = new ArrayList<Staff>();
+        result.addAll(staff.values());
+        return result;
+    }
 
+    public ArrayList<Plane> getPlanes() {
+
+        ArrayList<Plane> result = new ArrayList<Plane>();
+
+        result.addAll(planes.values());
+        return result;
+    }
+	
+	public ArrayList<User> getUsers() {
+        ArrayList<User> result = new ArrayList<User>();
+        result.addAll(users.values());
+
+        return result;
+    }
+
+	public boolean saveObject(Object o){
+	
+		boolean result = false;
+		if(Database.DatabaseConnectie.saveObject(o)){
+			if(o instanceof User){
+				User u = (User)o;
+				users.put(u.getUsername(), u);
+				this.notifyObservers(u);
+			}else if(o instanceof Staff){
+				Staff s = (Staff)o;
+				staff.put(s.getNumber(), s);
+				this.notifyObservers(s);
+			}else if(o instanceof Plane){
+				Plane p = (Plane)o;
+				planes.put(p.getNumber(), p);
+				this.notifyObservers(p);
+			}else if(o instanceof Airport){
+				Airport a = (Airport)o;
+				airports.put(a.getCode(), a);
+				this.notifyObservers(a);
+			}else if(o instanceof Flight){
+				Flight f = (Flight)o;
+				flights.put(f.getNumber(), f);
+				this.notifyObservers(f);
+			}
+			result = true;
+		}
+		return result;
+	}
+	
+	public boolean updateObject(Object o){
+	
+		boolean result = false;
+		if(Database.DatabaseConnectie.updateObject(o)){
+			if(o instanceof User){
+				User u = (User)o;
+				this.notifyObservers(u);
+			}else if(o instanceof Staff){
+				Staff s = (Staff)o;
+				this.notifyObservers(s);
+			}else if(o instanceof Plane){
+				Plane p = (Plane)o;
+				this.notifyObservers(p);
+			}else if(o instanceof Airport){
+				Airport a = (Airport)o;
+				this.notifyObservers(a);
+			}else if(o instanceof Flight){
+				Flight f = (Flight)o;
+				this.notifyObservers(f);
+			}
+			result = true;
+		}
+		return result;
+	}
+	
+	public boolean deleteObject(Object o){
+	
+		boolean result = false;
+		if(Database.DatabaseConnectie.saveObject(o)){
+			if(o instanceof User){
+				User u = (User)o;
+				users.remove(u.getUsername());
+				this.notifyObservers(u);
+			}else if(o instanceof Staff){
+				Staff s = (Staff)o;
+				staff.remove(s.getNumber());
+				this.notifyObservers(s);
+			}else if(o instanceof Plane){
+				Plane p = (Plane)o;
+				planes.remove(p.getNumber());
+				this.notifyObservers(p);
+			}else if(o instanceof Airport){
+				Airport a = (Airport)o;
+				airports.remove(a.getCode());
+				this.notifyObservers(a);
+			}else if(o instanceof Flight){
+				Flight f = (Flight)o;
+				flights.remove(f.getNumber());
+				this.notifyObservers(f);
+			}
+			result = true;
+		}
+		return result;
+	}
 //    public ArrayList<Flight> getScheduledFlights() {
 //        ArrayList<Flight> result = new ArrayList<Flight>();
 //        Staff s = this.logedIn.getStaffAccount();
@@ -162,19 +234,7 @@ public class Controller extends Observable {
 //
 //    }
 
-    public ArrayList<Staff> getStaff() {
-        ArrayList<Staff> result = new ArrayList<Staff>();
-        result.addAll(staff.values());
-        return result;
-    }
-
-    public ArrayList<Plane> getPlanes() {
-
-        ArrayList<Plane> result = new ArrayList<Plane>();
-
-        result.addAll(planes.values());
-        return result;
-    }
+    
 
     public ArrayList<Plane> SearchPlanes(int number) {
         ArrayList<Plane> foundPlanes = new ArrayList<Plane>();
@@ -229,44 +289,7 @@ public class Controller extends Observable {
         return foundPlanes;
     }
 
-    public boolean DeletePlane(Plane planeToRemove) {
-        boolean result = false;
-
-        if (DatabaseConnectie.deletePlane(planeToRemove)) {
-            planes.remove(planeToRemove.getNumber());
-            result = true;
-            notifyObservers(planeToRemove);
-        }
-
-        return result;
-    }
-
-    public boolean AddPlane(Plane p) {
-        boolean result = false;
-
-        if (DatabaseConnectie.insertPlane(p)) {
-            planes.put(p.getNumber(), p);
-
-            notifyObservers(p);
-
-            result = true;
-        }
-
-        return result;
-    }
-
-    public boolean ChangePlane(Plane newPlane, Plane oldPlane) {
-        boolean result = false;
-        if (DatabaseConnectie.updatePlane(newPlane, oldPlane)) {
-            planes.remove(oldPlane.getNumber());
-            oldPlane.setType(newPlane.getType());
-            oldPlane.setCapacity(newPlane.getCapacity());
-            oldPlane.setNumber(newPlane.getNumber());
-            planes.put(oldPlane.getNumber(), oldPlane);
-            notifyObservers(oldPlane);
-        }
-        return result;
-    }
+    
 
     public ArrayList<Staff> SearchStaff(String name) {
         ArrayList<Staff> result = new ArrayList<Staff>();
@@ -391,45 +414,7 @@ public class Controller extends Observable {
         return staff.get(staffId);
     }
 
-    public boolean DeleteStaff(Staff s) {
-        boolean result = false;
-
-        if (DatabaseConnectie.deleteStaff(s)) {
-            staff.remove(s.getNumber());
-            result = true;
-            notifyObservers(s);
-        }
-        return result;
-    }
-
-    public boolean AddStaff(Staff s) {
-        boolean result = false;
-        if (DatabaseConnectie.insertStaff(s)) {
-
-            staff.put(s.getNumber(), s);
-            result = true;
-            notifyObservers(s);
-        }
-        return result;
-    }
-
-    public boolean ChangeStaff(Staff newStaff, Staff oldStaff) {
-        boolean result = false;
-
-        if (DatabaseConnectie.updateStaff(newStaff, oldStaff)) {
-            staff.remove(oldStaff.getNumber());
-            oldStaff.setName(newStaff.getName());
-            oldStaff.setNumber(newStaff.getNumber());
-            oldStaff.setType(newStaff.getType());
-            result = true;
-            staff.put(oldStaff.getNumber(), oldStaff);
-
-            notifyObservers(oldStaff);
-
-        }
-
-        return result;
-    }
+   
 
     public ArrayList<Airport> SearchAirport(String searchString) {
         ArrayList<Airport> result = new ArrayList<Airport>();
@@ -474,65 +459,7 @@ public class Controller extends Observable {
         return foundAirport;
     }
 
-    public boolean RemoveAirport(Airport a) {
-        boolean result = false;
-
-        if (DatabaseConnectie.deleteAirport(a)) {
-            airports.remove(a.getName());
-            result = true;
-            notifyObservers(a);
-        }
-
-
-        return result;
-    }
-
-    public boolean AddAirport(Airport a) {
-        boolean result = false;
-
-        if (DatabaseConnectie.insertAirport(a)) {
-
-            airports.put(a.getName(), a);
-            result = true;
-            this.setChanged();
-            this.notifyObservers(a);
-        }
-        return result;
-    }
-
-    public boolean ChangeAirport(Airport newAirport, Airport oldAirport) {
-        boolean result = false;
-
-        if (DatabaseConnectie.updateAirport(newAirport, oldAirport)) {
-            airports.remove(oldAirport.getName());
-
-            oldAirport.setName(newAirport.getName());
-            oldAirport.setCountry(newAirport.getCountry());
-            oldAirport.setCity(newAirport.getCity());
-            oldAirport.setCode(newAirport.getCode());
-
-            airports.put(oldAirport.getName(), oldAirport);
-            notifyObservers(oldAirport);
-        }
-        result = true;
-        return result;
-    }
-
-//Flights
-    public boolean AddFlight(Flight f) {
-        boolean result = false;
-
-        if (flights.get(f.getNumber()) == null) {
-
-            if (DatabaseConnectie.insertFlight(f)) {
-                result = true;
-                flights.put(f.getNumber(), f);
-                notifyObservers(f);
-            }
-        }
-
-        return result;
-    }
+   
 
     public Flight GetFlight(int number) {
         Flight found = null;
@@ -581,23 +508,7 @@ public class Controller extends Observable {
 //        return result;
 //    }
 
-    public boolean removeFlight(Flight f) {
-        boolean result = false;
-
-        if (DatabaseConnectie.deleteFlight(f)) {
-            flights.remove(f.getNumber());
-
-            Flight rf = Controller.Instance().getReturnFlight(f.getNumber());
-            if (rf != null) {
-                flights.remove(rf.getNumber());
-//                notifyObservers(f.getReturnFlight());
-            }
-            result = true;
-            notifyObservers(f);
-
-        }
-        return result;
-    }
+    
 
     public ArrayList<Flight> searchFlight(Date date) {
         ArrayList<Flight> result = new ArrayList<Flight>();
@@ -611,60 +522,12 @@ public class Controller extends Observable {
         return result;
     }
 
-    public ArrayList<User> getUsers() {
-        ArrayList<User> result = new ArrayList<User>();
-        result.addAll(users.values());
-
-        return result;
-    }
+    
 
     public User getLogedIn() {
         return logedIn;
     }
 
-    public boolean ChangeUser(User oldUser, User newUser) {
-        boolean result = false;
+    
 
-        if (users.get(oldUser.getUsername()) != null) {
-            if (Database.DatabaseConnectie.updateUser(newUser, oldUser)) {
-
-                users.remove(oldUser.getUsername());
-                users.put(newUser.getUsername(), newUser);
-                notifyObservers(newUser);
-                result = true;
-            }
-
-        }
-        return result;
-    }
-
-    public boolean addUser(User user) {
-        boolean result = false;
-
-        if (users.get(user.getUsername()) == null) {
-
-            if (Database.DatabaseConnectie.insertUser(user)) {
-                users.put(user.getUsername(), user);
-                notifyObservers(user);
-                result = true;
-            }
-
-        }
-        return result;
-    }
-
-    public boolean removeUser(User user) {
-        boolean result = false;
-
-        if (Database.DatabaseConnectie.deleteUser(user)) {
-
-            if (users.remove(user.getUsername()) != null) {
-
-                notifyObservers(user);
-                result = true;
-            }
-
-        }
-        return result;
-    }
 }
