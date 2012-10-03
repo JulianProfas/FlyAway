@@ -185,7 +185,7 @@ public class Controller extends Observable {
 	public boolean deleteObject(Object o){
 	
 		boolean result = false;
-		if(Database.DatabaseConnectie.saveObject(o)){
+		if(Database.DatabaseConnectie.deleteObject(o)){
 			if(o instanceof User){
 				User u = (User)o;
 				users.remove(u.getUsername());

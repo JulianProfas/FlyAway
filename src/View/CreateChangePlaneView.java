@@ -131,8 +131,8 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
                         .addComponent(btnSave)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancel))
-                    .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(213, Short.MAX_VALUE))
+                    .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtFieldCapacity, txtFieldNumber, txtFieldType});
@@ -163,8 +163,8 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
                     .addComponent(btnSave)
                     .addComponent(btnCancel))
                 .addGap(18, 18, 18)
-                .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtFieldCapacity, txtFieldNumber, txtFieldType});
@@ -180,49 +180,53 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
         int planeNumber = -1;
 		
 		lblError.setText("");
-		String ErrorMessage = "";
+		String ErrorMessage = "<html>";
         
 		InputChecker ip = new InputChecker();
 		
+		try{
+			planeNumber = Integer.parseInt(txtFieldNumber.getText());
+			
+			if(Controller.Controller.Instance().getPlaneByNumber(planeNumber) != null && plane == null){
+				ErrorMessage += "Plane already exists with planenumber: " + planeNumber + " <br>";
+			}
+			
+		}catch(NumberFormatException nfe){
+			ErrorMessage += "Planenumber is not a valid number. <br>";
+		}
+	
         if(!ip.checkText(type, true, true)){
-            ErrorMessage += "No type entered. \n";
+            ErrorMessage += "No type entered. <br>";
         }
 		
 		if(!ip.checkMaxLength(type, 50)){
-			ErrorMessage += "Type has a maximum length of 50 chars. \n";	
+			ErrorMessage += "Type has a maximum length of 50 chars. <br>";	
 		}
        
 		try{
 			capacity = Integer.parseInt(txtFieldCapacity.getText());
 			
 			if(!ip.checkNumberRange(capacity, 1, 1000)){
-				ErrorMessage += "Capacity must be a number in the range of 1-1000. \n";
+				ErrorMessage += "Capacity must be a number in the range of 1-1000. <br>";
 			}
 			
 		}catch(NumberFormatException nfe){
-			ErrorMessage += "Capacity is not a valid number. \n";
-		}
-		
-		try{
-			planeNumber = Integer.parseInt(txtFieldNumber.getText());
-			
-			if(Controller.Controller.Instance().getPlaneByNumber(planeNumber) != null){
-				ErrorMessage += "Plane already exists with planenumber: " + planeNumber + " \n";
-			}
-			
-		}catch(NumberFormatException nfe){
-			ErrorMessage += "Planenumber is not a valid number. \n";
+			ErrorMessage += "Capacity is not a valid number. <br>";
 		}
         
-        if(ErrorMessage.isEmpty()){
+		ErrorMessage += "</html>";
+		
+        if(ErrorMessage.equals("<html></html>")){
             
                 if (plane == null) {
                     plane = new Plane(planeNumber, type, capacity);
                     
 					if(Controller.Controller.Instance().saveObject(plane)){
 						JOptionPane.showMessageDialog(null, "Plane saved");
+						this.dispose();
 					}else{
 						JOptionPane.showMessageDialog(null, "Error saving plane");
+						this.dispose();
 					}
 					
                 } else {
@@ -233,8 +237,10 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
 					
 					if(Controller.Controller.Instance().updateObject(plane)){
 						JOptionPane.showMessageDialog(null, "Plane saved");
+						this.dispose();
 					}else{
 						JOptionPane.showMessageDialog(null, "Error saving plane");
+						this.dispose();
 					}
 					
                 }

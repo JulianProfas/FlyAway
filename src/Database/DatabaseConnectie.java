@@ -84,7 +84,7 @@ public class DatabaseConnectie {
 		
 			session.delete(o);
 			
-			if(session.contains(o)){
+			if(!session.contains(o)){
 				result = true;
 			}
 			
