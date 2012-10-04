@@ -39,7 +39,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblError" pref="226" max="32767" attributes="0"/>
+                      <Component id="lblError" pref="251" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -49,9 +49,9 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnClose" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="txtFieldPassword" alignment="0" pref="126" max="32767" attributes="1"/>
-                          <Component id="txtFieldUserName" alignment="0" pref="126" max="32767" attributes="1"/>
-                          <Component id="cmbBoxType" alignment="0" pref="126" max="32767" attributes="1"/>
+                          <Component id="txtFieldPassword" alignment="0" pref="161" max="32767" attributes="1"/>
+                          <Component id="txtFieldUserName" alignment="0" pref="161" max="32767" attributes="1"/>
+                          <Component id="cmbBoxType" alignment="0" pref="161" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
                   </Group>
