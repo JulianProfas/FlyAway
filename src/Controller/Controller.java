@@ -12,6 +12,7 @@ import Model.Staff;
 import Model.Plane;
 import Model.User;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -221,28 +222,27 @@ public class Controller extends Observable {
         return result;
     }
 
-//    public ArrayList<Flight> getScheduledFlights() {
-//        ArrayList<Flight> result = new ArrayList<Flight>();
-//        Staff s = this.logedIn.getStaffAccount();
-//        Calendar c = Calendar.getInstance();
-//        c.setTime(new Date());
-//        c.roll(Calendar.DAY_OF_MONTH, false);
-//        c.set(Calendar.HOUR_OF_DAY, 23);
-//        c.set(Calendar.MINUTE, 59);
-//        Date d = c.getTime();
-//
-//        for (Flight f : flights.values()) {
-//
-////            Staff[] pilots = f.getPilots();
-//            if ((pilots[0].getNumber() == s.getNumber() || pilots[1].getNumber() == s.getNumber() || f.getOtherPersonal().contains(s)) && f.getDate().after(d)) {
-//                result.add(f);
-//            }
-//
-//        }
-//
-//        return result;
-//
-//    }
+    public ArrayList<Flight> getScheduledFlights() {
+        ArrayList<Flight> result = new ArrayList<Flight>();
+        Staff s = this.logedIn.getStaffAccount();
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.roll(Calendar.DAY_OF_MONTH, false);
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        Date d = c.getTime();
+
+        for (Flight f : flights.values()) {
+
+            Staff pilot = f.getPilot();
+            Staff coPilot = f.getCopilot();
+            
+            if ((pilot.getNumber() == s.getNumber() || coPilot.getNumber() == s.getNumber() || f.getOtherPersonal().contains(s)) && f.getDate().after(d)) {
+                result.add(f);
+            }
+        }
+        return result;
+    }
     public ArrayList<Plane> SearchPlanes(int number) {
         ArrayList<Plane> foundPlanes = new ArrayList<Plane>();
         for (Plane p : planes.values()) {

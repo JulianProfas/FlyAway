@@ -33,18 +33,18 @@ public class ScheduleView extends javax.swing.JInternalFrame {
 		
 	}
 
-	private void fillTable(){
-//		//ArrayList<Flight> flights = Controller.Instance().getScheduledFlights();
-//      // GenericTableModel<Flight> flightsModel = new GenericTableModel<Flight>(flights);
-//         tblSchedule.setModel(flightsModel);
-//          TableColumnModel tcm = tblSchedule.getColumnModel();
-//        CustomTableCellRenderer tcr = new CustomTableCellRenderer();
-//        for(int it = 0; it < flightsModel.getColumnCount(); it++){
-//            tcm.getColumn(it).setCellRenderer(tcr);
-//        }
-//		if(flights.isEmpty()){
-//			txtFlights.setText("You are currently not scheduled for any flights");
-//		}
+    private void fillTable() {
+        ArrayList<Flight> flights = Controller.Instance().getScheduledFlights();
+        GenericTableModel<Flight> flightsModel = new GenericTableModel<Flight>(flights);
+        tblSchedule.setModel(flightsModel);
+        TableColumnModel tcm = tblSchedule.getColumnModel();
+        CustomTableCellRenderer tcr = new CustomTableCellRenderer();
+        for (int it = 0; it < flightsModel.getColumnCount(); it++) {
+            tcm.getColumn(it).setCellRenderer(tcr);
+        }
+        if (flights.isEmpty()) {
+            txtFlights.setText("You are currently not scheduled for any flights");
+        }
     }
 	/** This method is called from within the constructor to
 	 * initialize the form.

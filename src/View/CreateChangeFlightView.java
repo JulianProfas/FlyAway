@@ -544,7 +544,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
             errorMessage += "Please insert a correct Airfield: Destination Field <br>";
         }
         if(plane == null){
-            errorMessage += "Please insert a coorect Plane <br>";
+            errorMessage += "Please insert a correct Plane <br>";
         }
 
         if(pilot != null && coPilot != null && pilot == coPilot){
