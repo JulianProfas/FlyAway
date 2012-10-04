@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Observable;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -534,5 +535,10 @@ public class Controller extends Observable {
 
     public User getLogedIn() {
         return logedIn;
+    }
+
+    public void removeUser(User row) {
+        Database.DatabaseConnectie.deleteObject(row);
+        
     }
 }
