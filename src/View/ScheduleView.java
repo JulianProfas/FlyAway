@@ -67,7 +67,7 @@ public class ScheduleView extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setName("Form"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1300, 700));
+        setPreferredSize(new java.awt.Dimension(1200, 700));
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(flyaway.FlyAWayApp.class).getContext().getResourceMap(ScheduleView.class);
         txtLabelUser.setText(resourceMap.getString("txtLabelUser.text")); // NOI18N

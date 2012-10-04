@@ -67,7 +67,7 @@ public class UserView extends javax.swing.JInternalFrame implements Observer {
         setMaximizable(true);
         setResizable(true);
         setName("Form"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1300, 700));
+        setPreferredSize(new java.awt.Dimension(1200, 700));
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 

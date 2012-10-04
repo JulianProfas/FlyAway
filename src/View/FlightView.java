@@ -76,7 +76,7 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
         setResizable(true);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1300, 700));
+        setPreferredSize(new java.awt.Dimension(1200, 700));
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 

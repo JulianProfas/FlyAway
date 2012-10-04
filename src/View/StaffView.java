@@ -62,7 +62,7 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
         setMaximizable(true);
         setResizable(true);
         setName("Form"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1300, 700));
+        setPreferredSize(new java.awt.Dimension(1200, 700));
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(flyaway.FlyAWayApp.class).getContext().getResourceMap(StaffView.class);
         btnSearch.setText(resourceMap.getString("btnSearch.text")); // NOI18N
