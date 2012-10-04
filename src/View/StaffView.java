@@ -36,6 +36,7 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
     private void fillTable(){
          ArrayList<Staff> rows = Controller.Instance().getStaff();
          tblPersonal.setModel(new GenericTableModel<Staff>(rows));
+         tblPersonal.removeColumn(tblPersonal.getColumnModel().getColumn(0));
     }
 
     /** This method is called from within the constructor to
