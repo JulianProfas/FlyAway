@@ -242,59 +242,59 @@ public class MappingTest {
 //		
 //	}
 	
-	@Test
-	public void saveAndRetrieveFlight(){
-		
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		
-		Country c = new Country("CC", 333, "Country Test");
-		Airport a1 = new Airport("BBB", "Test Airport", c, "Test City");
-		Airport a2 = new Airport("CCC", "Test Airport", c, "Test City");
-		Airport a3 = new Airport("DDD", "Test Airport", c, "Test City");
-		Airport a4 = new Airport("EEE", "Test Airport", c, "Test City");
-		Staff s1 = new Staff(1, PersonalType.Pilot, "Piet", a1);
-		Staff s2 = new Staff(2, PersonalType.Pilot, "Henk", a2);
-		Staff s3 = new Staff(3, PersonalType.Stewardess, "Arie", a3);
-		Staff s4 = new Staff(4, PersonalType.Stewardess, "Loes", a2);
-		Plane p = new Plane(1, "ufo", 8);
-		List<Staff> staff = new ArrayList<Staff>();
-		staff.add(s3);
-		staff.add(s4);
-		List<Airport> stops = new ArrayList<Airport>();
-		stops.add(a3);
-		stops.add(a4);
-		
-		Flight f = new Flight(a1, a2, 1, staff, stops, s1, s2, p, null);
-		
-		List<Flight> result = null;
-		Flight test = null;
-		boolean victory = true;
-		
-//		try{
+//	@Test
+//	public void saveAndRetrieveFlight(){
 //		
-			session.save(f);
-			//result = session.createQuery("from User u where u.username = 'test'").list();
-			session.getTransaction().commit();
-			
-//			if(result == null || result.size() != 1){
-//				System.out.println("1");
-//				victory = false;
-//			}else{
-//				test = result.get(0);
-//				if(!test.getUsername().equals("test") || !test.getPassword().equals("test") || !test.getRank().equals(Rank.user)){
-//					System.out.println("2");
-//					victory = false;
-//				}
-//			}
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		session.beginTransaction();
+//		
+//		Country c = new Country("CC", 333, "Country Test");
+//		Airport a1 = new Airport("BBB", "Test Airport", c, "Test City");
+//		Airport a2 = new Airport("CCC", "Test Airport", c, "Test City");
+//		Airport a3 = new Airport("DDD", "Test Airport", c, "Test City");
+//		Airport a4 = new Airport("EEE", "Test Airport", c, "Test City");
+//		Staff s1 = new Staff(1, PersonalType.Pilot, "Piet", a1);
+//		Staff s2 = new Staff(2, PersonalType.Pilot, "Henk", a2);
+//		Staff s3 = new Staff(3, PersonalType.Stewardess, "Arie", a3);
+//		Staff s4 = new Staff(4, PersonalType.Stewardess, "Loes", a2);
+//		Plane p = new Plane(1, "ufo", 8);
+//		List<Staff> staff = new ArrayList<Staff>();
+//		staff.add(s3);
+//		staff.add(s4);
+//		List<Airport> stops = new ArrayList<Airport>();
+//		stops.add(a3);
+//		stops.add(a4);
+//		
+////		Flight f = new Flight(a1, a2, 1, staff, stops, s1, s2, p, null);
+//		
+//		List<Flight> result = null;
+//		Flight test = null;
+//		boolean victory = true;
+//		
+////		try{
+////		
+//			session.save(f);
+//			//result = session.createQuery("from User u where u.username = 'test'").list();
+//			session.getTransaction().commit();
 //			
-//		}catch(HibernateException he){
-//			session.getTransaction().rollback();
-//			assertTrue(false);
-//		}
+////			if(result == null || result.size() != 1){
+////				System.out.println("1");
+////				victory = false;
+////			}else{
+////				test = result.get(0);
+////				if(!test.getUsername().equals("test") || !test.getPassword().equals("test") || !test.getRank().equals(Rank.user)){
+////					System.out.println("2");
+////					victory = false;
+////				}
+////			}
+////			
+////		}catch(HibernateException he){
+////			session.getTransaction().rollback();
+////			assertTrue(false);
+////		}
+////		
+////		assertTrue(victory);
 //		
-//		assertTrue(victory);
-		
-	}
+//	}
 	
 }

@@ -31,8 +31,8 @@ public class Flight implements java.io.Serializable{
 	public Flight() {
 	}
 
-	
-	public Flight(Airport destination, Airport From, int number, List<Staff> otherPersonal, List<Airport> stops, Staff pilot, Staff copilot, Plane plane,Flight returnFlight) {
+	public Flight(Date date, Airport destination, Airport From, int number, List<Staff> otherPersonal, List<Airport> stops, Staff pilot, Staff copilot, Plane plane,Flight returnFlight) {
+		this.date = date;
 		this.destination = destination;
 		this.From = From;
 		this.number = number;

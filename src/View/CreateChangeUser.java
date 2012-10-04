@@ -11,7 +11,7 @@
 
 package View;
 
-import Controller.Controller;
+import Controller.InputChecker;
 import Model.Rank;
 import Model.User;
 import javax.swing.JOptionPane;
@@ -29,19 +29,23 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
         initComponents();
         this.user = user;
 
-        Rank ranks[] = Rank.values();
-        for(Rank r : ranks){
-            cmbBoxType.addItem(r);
-        }
+        cmbBoxType.addItem(Rank.user);
+		cmbBoxType.addItem(Rank.admin);
         cmbBoxType.setSelectedItem(Rank.user);
 
         if(user != null){
+			
+			if(user.getRank().equals(Rank.staff)){
+				cmbBoxType.addItem(Rank.staff);
+			}else{
+				cmbBoxType.addItem(Rank.user);
+				cmbBoxType.addItem(Rank.admin);
+			}
+			
+			txtFieldUserName.setEditable(false);
             fillUser(user);
-        }
-
-             
+        }    
     }
-
 
     private void fillUser(User user){
         txtFieldUserName.setText(user.getUsername());
@@ -114,7 +118,7 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(94, 94, 94)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
@@ -123,16 +127,20 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
                         .addComponent(jLabel3)
                         .addGap(10, 10, 10)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblError, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(btnSave)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnClose))
-                    .addComponent(txtFieldPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                    .addComponent(txtFieldUserName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                    .addComponent(cmbBoxType, javax.swing.GroupLayout.Alignment.LEADING, 0, 126, Short.MAX_VALUE))
-                .addGap(110, 110, 110))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(btnSave)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnClose))
+                            .addComponent(txtFieldPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(txtFieldUserName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(cmbBoxType, javax.swing.GroupLayout.Alignment.LEADING, 0, 126, Short.MAX_VALUE))
+                        .addGap(110, 110, 110))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,8 +163,8 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
                             .addComponent(btnClose)))
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblError)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -168,51 +176,65 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         String userName = txtFieldUserName.getText();
-
         char[] pw = txtFieldPassword.getPassword();
         String password = new String(pw);
-
-        userName.trim();
-        password.trim();
-        if(!userName.isEmpty() && !password.isEmpty()){
+		Rank r = (Rank)cmbBoxType.getSelectedItem();
+		
+		InputChecker ip = new InputChecker();
+		
+		lblError.setText("");
+		String errorMessage = "<html>";
+		
+		if(ip.checkText(userName, isClosed, isClosed)){
+			
+			if(Controller.Controller.Instance().getUserByUsername(userName) != null){
+				errorMessage += "User already exists with username: " + userName + ". <br> ";
+			}
+			
+		}else{
+			errorMessage += "Username is not a valid word. <br>";
+		}
+		
+		if(!ip.checkText(password, true, false)){
+			errorMessage += "No spaces allowed in password. <br>";
+		}
+		
+		errorMessage += "</html>";
+		
+        if(errorMessage.equals("<html></html>")){
 
             if(user == null){
                 
+                user = new User(userName, r, null);
+                user.setPassword(password, false);
 
-                User u = new User();
-
-                u.setUsername(userName);
-                u.setPassword(password, false);
-                u.setRank((Rank)cmbBoxType.getSelectedItem());
-
-//                if(Controller.Instance().addUser(u)){
-//                    JOptionPane.showMessageDialog(this, "User saved");
-//                       this.dispose();
-//                }
-//                else{
-//                    lblError.setText("UserName already exsists");
-//                }
+                if(Controller.Controller.Instance().saveObject(user)){
+                    JOptionPane.showMessageDialog(this, "User saved");
+                    this.dispose();
+                }else{
+					JOptionPane.showMessageDialog(this, "Error while saving user");
+                    this.dispose();
+				}
+               
             }
             else{
-                User u = new User();
-                u.CopyUser(user);
-                u.setUsername(userName);
-                u.setPassword(password, false);
-
-                u.setRank((Rank)cmbBoxType.getSelectedItem());
-
-//                if(Controller.Instance().ChangeUser(user, u))
-//                {
-//                    JOptionPane.showMessageDialog(this, "User saved");
-//                    this.dispose();
-//                }
-//                else{
-//                    lblError.setText("Change User failed username already exsists");
-//                }
+				
+                user.setUsername(userName);
+                user.setPassword(password, false);
+                user.setRank((Rank)cmbBoxType.getSelectedItem());
+				
+                if(Controller.Controller.Instance().updateObject(user)){
+                    JOptionPane.showMessageDialog(this, "User saved");
+                    this.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Error while saving user");
+                    this.dispose();
+                }
             }
         }
         else{
-            lblError.setText("Please enter a correct username and or password");
+            lblError.setText(errorMessage);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
