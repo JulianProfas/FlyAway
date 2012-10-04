@@ -44,10 +44,9 @@ public class CreateChangeAirportView extends javax.swing.JInternalFrame {
 
     private void fillFields() {
         this.txtFieldCity.setText(airport.getCity());
-        
         this.txtFieldName.setText(airport.getName());
         this.txtFieldCode.setText(airport.getCode());
-
+        this.cmbCountry.setSelectedItem(airport.getCountry());
     }
 
     /**
