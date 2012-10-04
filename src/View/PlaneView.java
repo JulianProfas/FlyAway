@@ -170,6 +170,8 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
 
         if (searchString.isEmpty()) {
             foundPlanes = Controller.Instance().getPlanes();
+            GenericTableModel<Plane> ptm = new GenericTableModel<Plane>(foundPlanes);
+            tblPlanes.setModel(ptm);
         } else {
             int searchInt = -1;
             try {

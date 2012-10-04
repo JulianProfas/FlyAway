@@ -214,12 +214,13 @@ public class AirportView extends javax.swing.JInternalFrame implements Observer{
 
             
             if (Controller.Instance().deleteObject(a)) {
+                gtm.removeRow(a);
                 JOptionPane.showMessageDialog(null, "Airport is succesfully deleted.");
             } else {
                lblErrorMessage.setText("Unable to delete airport."); 
             }
             
-            gtm.removeRow(a);
+            
         }
         else{
             lblErrorMessage.setText("Please select a row first.");
