@@ -23,7 +23,6 @@
 			 <param name="type">12</param>
 		  </type>
 		</property>
-
 		
 		<many-to-one name="primaryAirport" column="primaryairport" cascade="save-update" not-null="true" class="Airport">
 		</many-to-one>	

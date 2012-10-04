@@ -22,10 +22,11 @@ public class DatabaseConnectie {
 
         boolean result = false;
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        
 
         try {
-
+			
+			session.beginTransaction();
             session.save(o);
 
             if (session.contains(o)) {
@@ -35,6 +36,7 @@ public class DatabaseConnectie {
             session.getTransaction().commit();
 
         } catch (HibernateException he) {
+			
             System.out.println(he);
         }
         return result;
@@ -44,19 +46,21 @@ public class DatabaseConnectie {
 
         boolean result = false;
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        
 
         try {
 
+			session.beginTransaction();
             session.update(o);
 
             if (session.contains(o)) {
                 result = true;
             }
-
+			
             session.getTransaction().commit();
 
         } catch (HibernateException he) {
+			
             System.out.println(he);
         }
         return result;
@@ -66,18 +70,19 @@ public class DatabaseConnectie {
 
         boolean result = false;
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
 
         try {
 
+			session.beginTransaction();
             session.delete(o);
-
-            if (!session.contains(o)) {
-                result = true;
-            }
 
             session.getTransaction().commit();
 
+			if (!session.contains(o))
+            {
+                result = true;
+            }
+			
         } catch (HibernateException he) {
             System.out.println(he);
         }
