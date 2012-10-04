@@ -16,6 +16,7 @@ import Model.Airport;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -212,7 +213,12 @@ public class AirportView extends javax.swing.JInternalFrame implements Observer{
             Airport a = gtm.getRow(selectedRow);
 
             
-            //Controller.Instance().RemoveAirport(a);
+            if (Controller.Instance().deleteObject(a)) {
+                JOptionPane.showMessageDialog(null, "Airport is succesfully deleted.");
+            } else {
+               lblErrorMessage.setText("Unable to delete airport."); 
+            }
+            
             gtm.removeRow(a);
         }
         else{
