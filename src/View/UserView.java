@@ -8,7 +8,6 @@
  *
  * Created on 7-feb-2010, 19:13:18
  */
-
 package View;
 
 import Controller.Controller;
@@ -16,13 +15,15 @@ import Model.User;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.TableColumnModel;
 
 /**
  *
  * @author user
  */
-public class UserView extends javax.swing.JInternalFrame  implements Observer {
+public class UserView extends javax.swing.JInternalFrame implements Observer {
 
     /** Creates new form UserView */
     public UserView() {
@@ -32,13 +33,13 @@ public class UserView extends javax.swing.JInternalFrame  implements Observer {
         fillTable(Controller.Instance().getUsers());
     }
 
-    private void fillTable(ArrayList<User> users){
+    private void fillTable(ArrayList<User> users) {
         GenericTableModel<User> userModel = new GenericTableModel<User>(users);
 
         tblUsers.setModel(userModel);
-		TableColumnModel tcm = tblUsers.getColumnModel();
+        TableColumnModel tcm = tblUsers.getColumnModel();
         CustomTableCellRenderer tcr = new CustomTableCellRenderer();
-        for(int it = 0; it < tblUsers.getColumnCount(); it++){
+        for (int it = 0; it < tblUsers.getColumnCount(); it++) {
             tcm.getColumn(it).setCellRenderer(tcr);
         }
     }
@@ -107,6 +108,11 @@ public class UserView extends javax.swing.JInternalFrame  implements Observer {
 
         btnSearch.setText(resourceMap.getString("btnSearch.text")); // NOI18N
         btnSearch.setName("btnSearch"); // NOI18N
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         txtFieldSearch.setText(resourceMap.getString("txtFieldSearch.text")); // NOI18N
         txtFieldSearch.setName("txtFieldSearch"); // NOI18N
@@ -155,7 +161,7 @@ public class UserView extends javax.swing.JInternalFrame  implements Observer {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
@@ -164,18 +170,17 @@ public class UserView extends javax.swing.JInternalFrame  implements Observer {
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         int selected = tblUsers.getSelectedRow();
 
-        if(selected >= 0){
-            GenericTableModel<User> userModel = (GenericTableModel<User> )tblUsers.getModel();
+        if (selected >= 0) {
+            GenericTableModel<User> userModel = (GenericTableModel<User>) tblUsers.getModel();
             Controller.Instance().removeUser(userModel.getRow(selected));
-        }
-        else{
+        } else {
             lblError.setText("Please select a row first");
         }
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         CreateChangeUser ccu = new CreateChangeUser(null);
-        flyaway.FlyAWayApp app = (flyaway.FlyAWayApp)flyaway.FlyAWayApp.getApplication();
+        flyaway.FlyAWayApp app = (flyaway.FlyAWayApp) flyaway.FlyAWayApp.getApplication();
         app.getFlyAwayView().addFrame(ccu);
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -183,19 +188,37 @@ public class UserView extends javax.swing.JInternalFrame  implements Observer {
 
         int selected = tblUsers.getSelectedRow();
 
-        if(selected >= 0){
+        if (selected >= 0) {
 
-            GenericTableModel<User> userModel = (GenericTableModel<User> )tblUsers.getModel();
+            GenericTableModel<User> userModel = (GenericTableModel<User>) tblUsers.getModel();
 
             CreateChangeUser ccu = new CreateChangeUser(userModel.getRow(selected));
-            flyaway.FlyAWayApp app = (flyaway.FlyAWayApp)flyaway.FlyAWayApp.getApplication();
+            flyaway.FlyAWayApp app = (flyaway.FlyAWayApp) flyaway.FlyAWayApp.getApplication();
             app.getFlyAwayView().addFrame(ccu);
-        }else{
+        } else {
             lblError.setText("Please select a row first");
         }
     }//GEN-LAST:event_btnChangeActionPerformed
 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        String searchString = txtFieldSearch.getText();
+        ArrayList<User> foundUser = new ArrayList<User>();
 
+
+        if (searchString.isEmpty()) {
+            foundUser = Controller.Instance().getUsers();
+        } else {
+            foundUser.addAll(Controller.Instance().SearchUser(searchString));
+        }
+
+        tblUsers.setModel(new GenericTableModel<User>(foundUser));
+        TableColumnModel tcm = tblUsers.getColumnModel();
+        CustomTableCellRenderer tcr = new CustomTableCellRenderer();
+        for (int it = 0; it < tblUsers.getColumnCount(); it++) {
+            tcm.getColumn(it).setCellRenderer(tcr);
+
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnChange;
@@ -208,9 +231,8 @@ public class UserView extends javax.swing.JInternalFrame  implements Observer {
     // End of variables declaration//GEN-END:variables
 
     public void update(Observable o, Object arg) {
-        if(arg instanceof User){
+        if (arg instanceof User) {
             fillTable(Controller.Instance().getUsers());
         }
     }
-
 }

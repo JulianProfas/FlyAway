@@ -12,6 +12,7 @@ import Model.Staff;
 import Model.Plane;
 import Model.User;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Observable;
@@ -540,5 +541,16 @@ public class Controller extends Observable {
     public void removeUser(User row) {
         Database.DatabaseConnectie.deleteObject(row);
         
+    }
+
+    public ArrayList<User> SearchUser(String searchString) {
+        ArrayList<User> result = new ArrayList<User>();
+
+        for (User u : users.values()) {
+            if (u.getUsername().contains(searchString)) {
+                result.add(u);
+            }
+        }
+        return result;
     }
 }
