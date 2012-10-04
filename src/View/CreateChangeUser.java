@@ -187,7 +187,7 @@ public class CreateChangeUser extends javax.swing.JInternalFrame {
 		
 		if(ip.checkText(userName, isClosed, isClosed)){
 			
-			if(Controller.Controller.Instance().getUserByUsername(userName) != null){
+			if(Controller.Controller.Instance().getUserByUsername(userName) != null && user == null){
 				errorMessage += "User already exists with username: " + userName + ". <br> ";
 			}
 			

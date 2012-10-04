@@ -214,7 +214,7 @@ public class UserView extends javax.swing.JInternalFrame implements Observer {
         tblUsers.setModel(new GenericTableModel<User>(foundUser));
         TableColumnModel tcm = tblUsers.getColumnModel();
         CustomTableCellRenderer tcr = new CustomTableCellRenderer();
-        for (int it = 0; it < tblUsers.getColumnCount(); it++) {
+        for (int it = 0; it < tblUsers.getColumnCount(); it++) {;
             tcm.getColumn(it).setCellRenderer(tcr);
 
         }
