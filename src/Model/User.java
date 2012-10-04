@@ -34,10 +34,10 @@ public class User implements Serializable{
         rank = Rank.user;
     }
 
-	public User(String username, String password, Rank rank) {
+	public User(String username, Rank rank, Staff staff) {
 		this.username = username;
-		this.password = password;
 		this.rank = rank;
+		this.staffAccount = staff;
 	}
 
 	

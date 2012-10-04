@@ -14,7 +14,9 @@ package View;
 import Controller.InputChecker;
 import Model.Airport;
 import Model.PersonalType;
+import Model.Rank;
 import Model.Staff;
+import Model.User;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -225,10 +227,20 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
             if(staff == null){
                 
 				staff = new Staff(staffId, st, name, primaryAirport);
+				User u = new User("" + staffId, Rank.staff, staff );
+				u.setPassword("flyaway", false);
 
                 if(Controller.Controller.Instance().saveObject(staff)){
-                    JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
-                    this.dispose();
+					
+					if(Controller.Controller.Instance().saveObject(u)){
+					
+						JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved \n User: " + u.getUsername() + " saved");
+						this.dispose();
+					}else{
+						JOptionPane.showMessageDialog(this, "Error while saving staff");
+						this.dispose();
+					}
+                   
                 }else{
 					JOptionPane.showMessageDialog(this, "Error while saving staff");
 					this.dispose();
