@@ -73,15 +73,14 @@ public class DatabaseConnectie {
 
         try {
 
-			session.beginTransaction();
+            session.beginTransaction();
             session.delete(o);
 
             session.getTransaction().commit();
 
-			if (!session.contains(o))
-            {
+		
                 result = true;
-            }
+            
 			
         } catch (HibernateException he) {
             System.out.println(he);
