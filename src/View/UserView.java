@@ -67,6 +67,7 @@ public class UserView extends javax.swing.JInternalFrame implements Observer {
         setMaximizable(true);
         setResizable(true);
         setName("Form"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1300, 700));
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
@@ -161,7 +162,7 @@ public class UserView extends javax.swing.JInternalFrame implements Observer {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();

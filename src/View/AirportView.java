@@ -67,6 +67,7 @@ public class AirportView extends javax.swing.JInternalFrame implements Observer{
         setMaximizable(true);
         setResizable(true);
         setName("Form"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1300, 700));
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
@@ -162,7 +163,7 @@ public class AirportView extends javax.swing.JInternalFrame implements Observer{
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14)
                 .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         pack();

@@ -76,6 +76,7 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
         setResizable(true);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1300, 700));
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
@@ -158,7 +159,7 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
                     .addComponent(btnSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnCreate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -167,7 +168,7 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
                         .addComponent(btnNew)))
                 .addGap(21, 21, 21)
                 .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();

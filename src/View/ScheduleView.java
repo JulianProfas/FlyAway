@@ -67,6 +67,7 @@ public class ScheduleView extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setName("Form"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1300, 700));
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(flyaway.FlyAWayApp.class).getContext().getResourceMap(ScheduleView.class);
         txtLabelUser.setText(resourceMap.getString("txtLabelUser.text")); // NOI18N
@@ -109,7 +110,7 @@ public class ScheduleView extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFlights)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();

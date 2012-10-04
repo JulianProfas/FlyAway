@@ -60,6 +60,7 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
         setMaximizable(true);
         setResizable(true);
         setName("Form"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1300, 700));
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
@@ -128,11 +129,11 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
                                 .addComponent(btnChange))
                             .addComponent(btnCreate))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSearch)
                         .addGap(18, 18, 18)
-                        .addComponent(txtFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)))
+                        .addComponent(txtFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -156,7 +157,7 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         pack();
