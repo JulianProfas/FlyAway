@@ -9,25 +9,13 @@ import Model.Airport;
 import Model.Country;
 import Model.Flight;
 import Model.Plane;
-import Model.Rank;
 import Model.Staff;
 import Model.User;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-/**
- *
- * @author Jeroen
- */
 public class DatabaseConnectie {
 
     public static boolean saveObject(Object o) {

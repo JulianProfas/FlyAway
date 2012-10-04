@@ -26,7 +26,7 @@ public class Controller extends Observable {
     HashMap<Integer, Plane> planes;
     HashMap<String, Airport> airports;
     HashMap<Integer, Staff> staff;
-    HashMap<Integer, Flight> flights;//hallo
+    HashMap<Integer, Flight> flights;
     HashMap<String, User> users;
     HashMap<String, Country> countries;
     User logedIn;
@@ -81,8 +81,6 @@ public class Controller extends Observable {
         staff = new HashMap<Integer, Staff>();
         flights = new HashMap<Integer, Flight>();
         users = new HashMap<String, User>();
-        //testSetup();
-
     }
 
     @Override
