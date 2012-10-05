@@ -83,7 +83,7 @@ public class Controller extends Observable {
 
     public ArrayList<Airport> getAirports() {
         ArrayList<Airport> results = new ArrayList<Airport>();
-
+        airports = Database.DatabaseConnectie.getAirports();
         results.addAll(airports.values());
 
         return results;
@@ -91,6 +91,7 @@ public class Controller extends Observable {
 
     public ArrayList<Country> getCountries() {
         ArrayList<Country> results = new ArrayList<Country>();
+        countries = Database.DatabaseConnectie.getCountries();
         results.addAll(countries.values());
         return results;
     }

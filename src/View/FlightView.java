@@ -239,18 +239,22 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
     }//GEN-LAST:event_txtFieldSearchKeyPressed
 
     private void searchFlights() {
-        try {
-            String searchDate = txtFieldSearch.getText();
-            SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
-            Date d = sdf.parse(searchDate);
-            ArrayList<Flight> foundFlights = Controller.Instance().searchFlight(d);
+        ArrayList<Flight> foundFlights = new ArrayList<Flight>();
+        String searchDate = txtFieldSearch.getText();
+        if(searchDate.equalsIgnoreCase("")){
+            foundFlights = Controller.Instance().getFlights();
+        }else{
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
+                Date d = sdf.parse(searchDate);
+                foundFlights = Controller.Instance().searchFlight(d);
 
-            fillTableModel(foundFlights);
-
-        } catch (ParseException ex) {
-            lblErrorMessage.setText("Fill in a correct date in the format " + Flight.FlightDateFormat);
-            Logger.getLogger(FlightView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                lblErrorMessage.setText("Fill in a correct date in the format " + Flight.FlightDateFormat);
+                Logger.getLogger(FlightView.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        fillTableModel(foundFlights);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChange;
