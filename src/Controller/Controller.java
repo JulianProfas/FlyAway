@@ -97,12 +97,14 @@ public class Controller extends Observable {
 
     public ArrayList<Flight> getFlights() {
         ArrayList<Flight> result = new ArrayList<Flight>();
+	flights = Database.DatabaseConnectie.getFlights();
         result.addAll(flights.values());
         return result;
     }
 
     public ArrayList<Staff> getStaff() {
         ArrayList<Staff> result = new ArrayList<Staff>();
+	staff = Database.DatabaseConnectie.getStaff();
         result.addAll(staff.values());
         return result;
     }
@@ -110,13 +112,14 @@ public class Controller extends Observable {
     public ArrayList<Plane> getPlanes() {
 
         ArrayList<Plane> result = new ArrayList<Plane>();
-
+	planes = Database.DatabaseConnectie.getPlanes();
         result.addAll(planes.values());
         return result;
     }
 
     public ArrayList<User> getUsers() {
         ArrayList<User> result = new ArrayList<User>();
+	users = Database.DatabaseConnectie.getUsers();
         result.addAll(users.values());
 
         return result;
