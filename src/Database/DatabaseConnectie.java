@@ -21,7 +21,7 @@ public class DatabaseConnectie {
     public static boolean saveObject(Object o) {
 
         boolean result = false;
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = getSession();
         
 
         try {
@@ -37,8 +37,11 @@ public class DatabaseConnectie {
         } catch (HibernateException he) {
 			
             System.out.println(he);
-            session.close();
+            session.getTransaction().rollback();
             result = false;
+        } finally {
+            //session.flush();
+            //session.close();
         }
         return result;
     }
@@ -46,7 +49,7 @@ public class DatabaseConnectie {
     public static boolean updateObject(Object o) {
 
         boolean result = false;
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = getSession();
 
         try {
             session.beginTransaction();
@@ -60,8 +63,11 @@ public class DatabaseConnectie {
         } catch (HibernateException he) {
 
             System.out.println(he);
-            session.close();
+            session.getTransaction().rollback();
             result = false;
+        } finally {
+            //session.flush();
+            //session.close();
         }
         return result;
     }
@@ -69,7 +75,7 @@ public class DatabaseConnectie {
     public static boolean deleteObject(Object o) {
 
         boolean result = false;
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = getSession();
 
         try {
             session.beginTransaction();
@@ -78,15 +84,18 @@ public class DatabaseConnectie {
             result = true;	
         } catch (HibernateException he) {
             System.out.println(he);
-            session.close();
+            session.getTransaction().rollback();
             result = false;
+        } finally {
+            //session.flush();
+            //session.close();
         }
         return result;
     }
 
     public static HashMap<String, User> getUsers() {
         List<User> userList;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = getSession();
         session.beginTransaction();
 
         userList = session.createQuery("from User").list();
@@ -94,13 +103,12 @@ public class DatabaseConnectie {
         for (User i : userList) {
             users.put(i.getUsername(), i);
         }
-        session.getTransaction().commit();
         return users;
     }
 
     public static HashMap<String, Country> getCountries() {
         List<Country> countryList;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = getSession();
         session.beginTransaction();
         countryList = session.createQuery("from Country").list();
 
@@ -108,14 +116,13 @@ public class DatabaseConnectie {
         for (Country i : countryList) {
             countries.put(i.getCountryCode(), i);
         }
-        session.getTransaction().commit();
         return countries;
     }
 
     public static HashMap<Integer, Plane> getPlanes() {
 
         List<Plane> planesList;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = getSession();
         session.beginTransaction();
 
         planesList = session.createQuery("from Plane").list();
@@ -124,14 +131,13 @@ public class DatabaseConnectie {
         for (Plane i : planesList) {
             planes.put(i.getNumber(), i);
         }
-        session.getTransaction().commit();
         return planes;
     }
 
     public static HashMap<String, Airport> getAirports() {
 
         List<Airport> airportList;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = getSession();
         session.beginTransaction();
 
         airportList = session.createQuery("from Airport").list();
@@ -140,13 +146,12 @@ public class DatabaseConnectie {
         for (Airport i : airportList) {
             airports.put(i.getCode(), i);
         }
-        session.getTransaction().commit();
         return airports;
     }
 
     public static HashMap<Integer, Staff> getStaff() {
         List<Staff> staffList;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = getSession();
         session.beginTransaction();
 
         staffList = session.createQuery("from Staff").list();
@@ -155,13 +160,12 @@ public class DatabaseConnectie {
         for (Staff i : staffList) {
             staff.put(i.getNumber(), i);
         }
-        session.getTransaction().commit();
         return staff;
     }
 
     public static HashMap<Integer, Flight> getFlights() {
         List<Flight> flightList;
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = getSession();
         session.beginTransaction();
 
         flightList = session.createQuery("from Flight").list();
@@ -170,7 +174,16 @@ public class DatabaseConnectie {
         for (Flight i : flightList) {
             flights.put(i.getNumber(), i);
         }
-        session.getTransaction().commit();
         return flights;
+    }
+
+    public static Session getSession() throws HibernateException {
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().getCurrentSession();
+        } catch (org.hibernate.HibernateException he) {
+            session = HibernateUtil.getSessionFactory().openSession();
+        }
+        return session;
     }
 }
