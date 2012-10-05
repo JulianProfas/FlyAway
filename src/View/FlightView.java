@@ -231,18 +231,29 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        try {
-            String searchDate = txtFieldSearch.getText();
-            SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
-            Date d = sdf.parse(searchDate);
-            ArrayList<Flight> foundFlights = Controller.Instance().searchFlight(d);
-            
-            fillTableModel(foundFlights);
+        ArrayList<Flight> foundFlights = new ArrayList<Flight>();
 
-        } catch (ParseException ex) {
-            lblErrorMessage.setText("Fill in a correct date in the format "+ Flight.FlightDateFormat);
-            Logger.getLogger(FlightView.class.getName()).log(Level.SEVERE, null, ex);
+        String searchString = txtFieldSearch.getText();
+
+        if (searchString.isEmpty()) {
+            foundFlights = Controller.Instance().getFlights();
+			
+        } else {
+            Date d = null;
+            try {
+                String searchDate = txtFieldSearch.getText();
+				SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
+				d = sdf.parse(searchDate);
+				foundFlights.addAll(Controller.Instance().searchFlight(d));
+            } catch (ParseException ex) {
+                Logger.getLogger(GenericTableModel.class.getName()).log(Level.FINER, null, ex.getMessage());
+            }
+
+            if (d == null) {
+                foundFlights.addAll(Controller.Instance().searchFlight(searchString));
+            }
         }
+		fillTableModel(foundFlights);
     }//GEN-LAST:event_btnSearchActionPerformed
 
 

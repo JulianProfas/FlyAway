@@ -37,8 +37,8 @@ public class Controller extends Observable {
     User logedIn;
 
       private void DBSetup(){
-//        Database.DatabaseConnectie.Connect("//localhost:3306/flyaway", "root", "");
-        Database.DatabaseConnectie.Connect("//mysql04.totaalholding.nl/bohnern_flyaway", "bohnern_flyaway", "FlyAWay");
+        Database.DatabaseConnectie.Connect("//localhost:3306/flyaway", "root", "");
+//        Database.DatabaseConnectie.Connect("//mysql04.totaalholding.nl/bohnern_flyaway", "bohnern_flyaway", "FlyAWay");
         
         airports = Database.DatabaseConnectie.getAirports();
         staff = Database.DatabaseConnectie.getStaff();
@@ -629,6 +629,28 @@ public class Controller extends Observable {
         return result;        
     }
 
+	public ArrayList<Flight> searchFlight(String searchString){
+		ArrayList<Flight> result = new ArrayList<Flight>();
+		int number = -1;
+		
+		try{
+			number = Integer.parseInt(searchString);
+		}catch(Exception pe){
+		}
+		
+		for (Flight f : flights.values()){
+			
+			if(number == f.getNumber() || f.getFrom().getName().contains(searchString) || 
+					f.getDestination().getName().contains(searchString) || f.getFrom().getCode().contains(searchString) ||
+					f.getFrom().getCity().contains(searchString) || f.getDestination().getCode().contains(searchString) ||
+					f.getDestination().getCity().contains(searchString)){
+			
+				result.add(f);
+			}
+		}
+		
+		return result;
+	}
     public ArrayList<User> getUsers(){
         ArrayList<User> result = new ArrayList<User>();
         result.addAll(users.values());
