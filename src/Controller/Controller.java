@@ -494,10 +494,10 @@ public class Controller extends Observable {
         return loggedInUser;
     }
 
-    public void removeUser(User row) {
-        Database.DatabaseConnectie.deleteObject(row);
+    //public void removeUser(User row) {
+      //  Database.DatabaseConnectie.deleteObject(row);
 
-    }
+    //}
 
     public ArrayList<User> SearchUser(String searchString) {
         ArrayList<User> result = new ArrayList<User>();

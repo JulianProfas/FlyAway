@@ -175,12 +175,17 @@ public class UserView extends javax.swing.JInternalFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        int selected = tblUsers.getSelectedRow();
-
-        if (selected >= 0) {
-            GenericTableModel<User> userModel = (GenericTableModel<User>) tblUsers.getModel();
-            Controller.Instance().removeUser(userModel.getRow(selected));
-        } else {
+        int selectedIndex = tblUsers.getSelectedRow();
+        if(selectedIndex >= 0 ){
+             User u = ((GenericTableModel<User>)tblUsers.getModel()).getRow(selectedIndex);
+             
+			 if(Controller.Instance().deleteObject(u)){
+				((GenericTableModel<User>) tblUsers.getModel()).removeRow(u);
+			 }else{
+				 lblError.setText("User cannot be deleted.");
+			 }     
+        }
+        else{
             lblError.setText("Please select a row first");
         }
     }//GEN-LAST:event_btnRemoveActionPerformed
