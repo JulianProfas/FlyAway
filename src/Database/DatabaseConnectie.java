@@ -37,6 +37,8 @@ public class DatabaseConnectie {
         } catch (HibernateException he) {
 			
             System.out.println(he);
+            session.close();
+            result = false;
         }
         return result;
     }
@@ -58,6 +60,8 @@ public class DatabaseConnectie {
         } catch (HibernateException he) {
 
             System.out.println(he);
+            session.close();
+            result = false;
         }
         return result;
     }
@@ -74,6 +78,8 @@ public class DatabaseConnectie {
             result = true;	
         } catch (HibernateException he) {
             System.out.println(he);
+            session.close();
+            result = false;
         }
         return result;
     }
