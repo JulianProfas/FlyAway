@@ -339,7 +339,6 @@ public class FlyAWayView extends FrameView {
     }//GEN-LAST:event_btnUsersActionPerformed
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-        Controller.Instance().ShutDown();
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 

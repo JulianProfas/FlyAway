@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Model;
 
 import java.util.ArrayList;
@@ -13,10 +12,9 @@ import java.util.List;
  *
  * @author user
  */
-public class Flight implements java.io.Serializable{
+public class Flight implements java.io.Serializable {
 
     public static final String FlightDateFormat = "dd-MM-yyyy";
-    
     private Date date = new Date();
     private Airport destination = null;
     private Airport From = null;
@@ -24,108 +22,108 @@ public class Flight implements java.io.Serializable{
     private List<Staff> otherPersonal = new ArrayList<Staff>();
     private List<Airport> stops = new ArrayList<Airport>();
     private Staff pilot = null;
-	private Staff copilot = null;
+    private Staff copilot = null;
     private Plane plane = null;
     private Flight returnFlight = null;
 
-	public Flight() {
-	}
+    public Flight() {
+    }
 
-	public Flight(Date date, Airport destination, Airport From, int number, List<Staff> otherPersonal, List<Airport> stops, Staff pilot, Staff copilot, Plane plane,Flight returnFlight) {
-		this.date = date;
-		this.destination = destination;
-		this.From = From;
-		this.number = number;
-		this.otherPersonal = otherPersonal;
-		this.stops = stops;
-		this.pilot = pilot;
-		this.copilot = copilot;
-		this.plane = plane;
-		this.returnFlight = returnFlight;
-	}
+    public Flight(Date date, Airport destination, Airport From, int number, List<Staff> otherPersonal, List<Airport> stops, Staff pilot, Staff copilot, Plane plane, Flight returnFlight) {
+        this.date = date;
+        this.destination = destination;
+        this.From = From;
+        this.number = number;
+        this.otherPersonal = otherPersonal;
+        this.stops = stops;
+        this.pilot = pilot;
+        this.copilot = copilot;
+        this.plane = plane;
+        this.returnFlight = returnFlight;
+    }
 
-	public Airport getFrom() {
-		return From;
-	}
+    public Airport getFrom() {
+        return From;
+    }
 
-	public void setFrom(Airport From) {
-		this.From = From;
-	}
+    public void setFrom(Airport From) {
+        this.From = From;
+    }
 
-	public Staff getCopilot() {
-		return copilot;
-	}
+    public Staff getCopilot() {
+        return copilot;
+    }
 
-	public void setCopilot(Staff copilot) {
-		this.copilot = copilot;
-	}
+    public void setCopilot(Staff copilot) {
+        this.copilot = copilot;
+    }
 
-	public Date getDate() {
-		return date;
-	}
+    public Date getDate() {
+        return date;
+    }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-	public Airport getDestination() {
-		return destination;
-	}
+    public Airport getDestination() {
+        return destination;
+    }
 
-	public void setDestination(Airport destination) {
-		this.destination = destination;
-	}
+    public void setDestination(Airport destination) {
+        this.destination = destination;
+    }
 
-	public int getNumber() {
-		return number;
-	}
+    public int getNumber() {
+        return number;
+    }
 
-	public void setNumber(int number) {
-		this.number = number;
-	}
+    public void setNumber(int number) {
+        this.number = number;
+    }
 
-	public List<Staff> getOtherPersonal() {
-		return otherPersonal;
-	}
+    public List<Staff> getOtherPersonal() {
+        return otherPersonal;
+    }
 
-	public void setOtherPersonal(List<Staff> otherPersonal) {
-		this.otherPersonal = otherPersonal;
-	}
+    public void setOtherPersonal(List<Staff> otherPersonal) {
+        this.otherPersonal = otherPersonal;
+    }
 
-	public Staff getPilot() {
-		return pilot;
-	}
+    public Staff getPilot() {
+        return pilot;
+    }
 
-	public void setPilot(Staff pilot) {
-		this.pilot = pilot;
-	}
+    public void setPilot(Staff pilot) {
+        this.pilot = pilot;
+    }
 
-	public Plane getPlane() {
-		return plane;
-	}
+    public Plane getPlane() {
+        return plane;
+    }
 
-	public void setPlane(Plane plane) {
-		this.plane = plane;
-	}
+    public void setPlane(Plane plane) {
+        this.plane = plane;
+    }
 
-	public Flight getReturnFlight() {
-		return returnFlight;
-	}
+    public Flight getReturnFlight() {
+        return returnFlight;
+    }
 
-	public void setReturnFlight(Flight returnFlight) {
-		this.returnFlight = returnFlight;
-	}
+    public void setReturnFlight(Flight returnFlight) {
+        this.returnFlight = returnFlight;
+    }
 
-	public List<Airport> getStops() {
-		return stops;
-	}
+    public List<Airport> getStops() {
+        return stops;
+    }
 
-	public void setStops(List<Airport> stops) {
-		this.stops = stops;
-	}
+    public void setStops(List<Airport> stops) {
+        this.stops = stops;
+    }
 
-	@Override
-	public String toString(){
-		return "" + this.getNumber();
-	}
+    @Override
+    public String toString() {
+        return "" + this.getNumber();
+    }
 }

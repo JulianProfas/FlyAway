@@ -2,50 +2,46 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Model;
 
 /**
  *
  * @author user
  */
-public class Airport implements java.io.Serializable{
-   
-	private String code;
+public class Airport implements java.io.Serializable {
+
+    private String code;
     private String name;
     private Country country;
     private String city;
 
-	public Airport() {
-	}
+    public Airport() {
+    }
 
-	public Airport(String code, String name, Country country, String city) {
-		this.code = code;
-		this.name = name;
-		this.country = country;
-		this.city = city;
-	}
+    public Airport(String code, String name, Country country, String city) {
+        this.code = code;
+        this.name = name;
+        this.country = country;
+        this.city = city;
+    }
 
-	
+    /**
+     * Get the value of code
+     *
+     * @return the value of code
+     */
+    public String getCode() {
+        return code;
+    }
 
-	 
-     /**
-      * Get the value of code
-      *
-      * @return the value of code
-      */
-     public String getCode() {
-         return code;
-     }
-
-     /*
-      * Set the value of code
-      *
-      * @param code new value of code
-      */
-     public void setCode(String code){
-         this.code = code;
-     }
+    /*
+     * Set the value of code
+     *
+     * @param code new value of code
+     */
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     /**
      * Get the value of name
@@ -83,7 +79,7 @@ public class Airport implements java.io.Serializable{
         this.country = country;
     }
 
-     /**
+    /**
      * Get the value of city
      *
      * @return the value of city
@@ -101,11 +97,8 @@ public class Airport implements java.io.Serializable{
         this.city = city;
     }
 
-
     @Override
-    public String toString(){
-        return code + " : " + name + " : " + country + " : " + city;
+    public String toString() {
+        return name;
     }
-
-    
 }

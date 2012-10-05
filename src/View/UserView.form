@@ -45,12 +45,12 @@
                               <Component id="lblError" min="-2" pref="261" max="-2" attributes="0"/>
                               <EmptySpace min="30" pref="30" max="30" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane1" alignment="0" pref="293" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" pref="1046" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txtFieldSearch" pref="297" max="32767" attributes="0"/>
+                      <Component id="txtFieldSearch" pref="1050" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -77,7 +77,7 @@
               </Group>
               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
               <Component id="lblError" min="-2" pref="23" max="-2" attributes="0"/>
-              <EmptySpace pref="51" max="32767" attributes="0"/>
+              <EmptySpace pref="385" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -147,6 +147,9 @@
         <Property name="text" type="java.lang.String" resourceKey="txtFieldSearch.text"/>
         <Property name="name" type="java.lang.String" value="txtFieldSearch" noResource="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFieldSearchKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblError">
       <Properties>

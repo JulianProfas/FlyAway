@@ -2,32 +2,27 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Model;
 
 /**
  *
  * @author user
  */
-public class Plane implements java.io.Serializable{
+public class Plane implements java.io.Serializable {
 
     private int number = -1;
     private String type;
     private int capacity;
 
-	public Plane() {
-	}
+    public Plane() {
+    }
 
-	
-	
-	public Plane(int number, String type, int capacity) {
-		this.number = number;
-		this.type = type;
-		this.capacity = capacity;
-	}
-    
+    public Plane(int number, String type, int capacity) {
+        this.number = number;
+        this.type = type;
+        this.capacity = capacity;
+    }
 
-	
     /**
      * Get the value of type
      *
@@ -45,7 +40,6 @@ public class Plane implements java.io.Serializable{
     public void setType(String Type) {
         this.type = Type;
     }
-  
 
     /**
      * Get the value of capacity
@@ -64,7 +58,6 @@ public class Plane implements java.io.Serializable{
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
-    
 
     /**
      * Get the value of number
@@ -85,8 +78,7 @@ public class Plane implements java.io.Serializable{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.type + " : " + this.number;
     }
-
 }

@@ -14,6 +14,7 @@ import Controller.Controller;
 import Model.Plane;
 //import flyaway.FlyAWayApp;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -86,6 +87,11 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
 
         txtFieldSearch.setText(resourceMap.getString("txtFieldSearch.text")); // NOI18N
         txtFieldSearch.setName("txtFieldSearch"); // NOI18N
+        txtFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFieldSearchKeyPressed(evt);
+            }
+        });
 
         btnCreate.setText(resourceMap.getString("btnCreate.text")); // NOI18N
         btnCreate.setName("btnCreate"); // NOI18N
@@ -121,19 +127,20 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+                    .addComponent(lblErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 1136, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnChange, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCreate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnDelete)
-                                .addComponent(btnChange))
-                            .addComponent(btnCreate))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSearch)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1034, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(txtFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 1033, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
 
@@ -157,38 +164,14 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(428, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-
-        ArrayList<Plane> foundPlanes = new ArrayList<Plane>();
-
-        String searchString = txtFieldSearch.getText();
-
-        if (searchString.isEmpty()) {
-            foundPlanes = Controller.Instance().getPlanes();
-            GenericTableModel<Plane> ptm = new GenericTableModel<Plane>(foundPlanes);
-            tblPlanes.setModel(ptm);
-        } else {
-            int searchInt = -1;
-            try {
-                searchInt = Integer.parseInt(searchString);
-            } catch (NumberFormatException ex) {
-                Logger.getLogger(GenericTableModel.class.getName()).log(Level.FINER, null, ex.getMessage());
-            }
-
-            if (searchInt != -1) {
-                foundPlanes.addAll(Controller.Instance().SearchPlanes(searchInt));
-            }
-            foundPlanes.addAll(Controller.Instance().SearchPlanes(searchString));
-       
-            GenericTableModel<Plane> ptm = new GenericTableModel<Plane>(foundPlanes);
-            tblPlanes.setModel(ptm);
-        }
+        searchPlanes();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -233,6 +216,40 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
              lblErrorMessage.setText("Please select a row first");
          }
     }//GEN-LAST:event_btnChangeActionPerformed
+
+    private void searchPlanes()
+    {
+        ArrayList<Plane> foundPlanes = new ArrayList<Plane>();
+
+        String searchString = txtFieldSearch.getText();
+
+        if (searchString.isEmpty()) {
+            foundPlanes = Controller.Instance().getPlanes();
+            GenericTableModel<Plane> ptm = new GenericTableModel<Plane>(foundPlanes);
+            tblPlanes.setModel(ptm);
+        } else {
+            int searchInt = -1;
+            try {
+                searchInt = Integer.parseInt(searchString);
+            } catch (NumberFormatException ex) {
+                Logger.getLogger(GenericTableModel.class.getName()).log(Level.FINER, null, ex.getMessage());
+            }
+
+            if (searchInt != -1) {
+                foundPlanes.addAll(Controller.Instance().SearchPlanes(searchInt));
+            }
+            foundPlanes.addAll(Controller.Instance().SearchPlanes(searchString));
+       
+            GenericTableModel<Plane> ptm = new GenericTableModel<Plane>(foundPlanes);
+            tblPlanes.setModel(ptm);
+        }
+    }
+    
+    private void txtFieldSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldSearchKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            searchPlanes();
+        }
+    }//GEN-LAST:event_txtFieldSearchKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChange;

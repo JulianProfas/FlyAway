@@ -12,6 +12,7 @@ package View;
 
 import Controller.Controller;
 import Model.User;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -117,6 +118,11 @@ public class UserView extends javax.swing.JInternalFrame implements Observer {
 
         txtFieldSearch.setText(resourceMap.getString("txtFieldSearch.text")); // NOI18N
         txtFieldSearch.setName("txtFieldSearch"); // NOI18N
+        txtFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFieldSearchKeyPressed(evt);
+            }
+        });
 
         lblError.setText(resourceMap.getString("lblError.text")); // NOI18N
         lblError.setName("lblError"); // NOI18N
@@ -139,10 +145,10 @@ public class UserView extends javax.swing.JInternalFrame implements Observer {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1046, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(txtFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE))))
+                        .addComponent(txtFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 1050, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +168,7 @@ public class UserView extends javax.swing.JInternalFrame implements Observer {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(385, Short.MAX_VALUE))
         );
 
         pack();
@@ -202,6 +208,17 @@ public class UserView extends javax.swing.JInternalFrame implements Observer {
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        searchUsers();
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void txtFieldSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldSearchKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            searchUsers();
+        }
+    }//GEN-LAST:event_txtFieldSearchKeyPressed
+
+    private void searchUsers()   
+    {
         String searchString = txtFieldSearch.getText();
         ArrayList<User> foundUser = new ArrayList<User>();
 
@@ -219,7 +236,8 @@ public class UserView extends javax.swing.JInternalFrame implements Observer {
             tcm.getColumn(it).setCellRenderer(tcr);
 
         }
-    }//GEN-LAST:event_btnSearchActionPerformed
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnChange;

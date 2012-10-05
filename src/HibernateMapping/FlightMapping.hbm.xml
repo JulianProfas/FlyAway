@@ -1,45 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!DOCTYPE hibernate-mapping PUBLIC
-  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="Model">
-	
-	<class name="Flight" table="flight" catalog="flyaway">
-        
-		<id name="number" type="java.lang.Integer">
-            <column name="flightnumber"/>
-            <generator class="assigned" />
-        </id>                
-        
-        <many-to-one name="pilot" column="pilot" cascade="save-update" not-null="true" class="Staff">
-		</many-to-one>	
-        
-        <many-to-one name="copilot" column="copilot" cascade="save-update" not-null="true" class="Staff"/>
-        
-        <many-to-one name="destination" column="airportdestination" cascade="save-update" not-null="true" class="Airport"/>
-        
-        <many-to-one name="from" column="airportfrom" cascade="save-update" not-null="true" class="Airport"/>
-        
-		<bag name="stops" table="flightstops" catalog="flyaway" cascade="all">
-            <key column="flight" />
-            <many-to-many column="airport" class="Airport" />
-        </bag>
-        
-        <bag name="otherPersonal" table="flightstaff" catalog="flyaway" cascade="all">
-            <key column="flight"/>
-            <many-to-many column="staff" class="Staff" />
-        </bag>
-
-        <property name="date" type="date">
-            <column name="date" not-null="true" />
-        </property>
-        
-        <many-to-one name="plane" column="plane" cascade="save-update" not-null="true" class="Plane"/>		
-        
-		<many-to-one name="returnFlight" column="returnflight" cascade="save-update" not-null="false" class="Flight"/>
-    </class>
-  
-
+  <class catalog="flyaway" name="Flight" table="flight">
+    <id name="number" type="java.lang.Integer">
+      <column name="flightnumber"/>
+      <generator class="assigned"/>
+    </id>
+    <many-to-one cascade="save-update" class="Staff" column="pilot" name="pilot" not-null="true">
+		</many-to-one>
+    <many-to-one cascade="save-update" class="Staff" column="copilot" name="copilot" not-null="true"/>
+    <many-to-one cascade="save-update" class="Airport" column="airportdestination" name="destination" not-null="true"/>
+    <many-to-one cascade="save-update" class="Airport" column="airportfrom" name="from" not-null="true"/>
+    <bag cascade="all" catalog="flyaway" name="stops" table="flightstops">
+      <key column="flight"/>
+      <many-to-many class="Airport" column="airport"/>
+    </bag>
+    <bag cascade="all" catalog="flyaway" name="otherPersonal" table="flightstaff">
+      <key column="flight"/>
+      <many-to-many class="Staff" column="staff"/>
+    </bag>
+    <property name="date" type="date">
+      <column name="date" not-null="true"/>
+    </property>
+    <many-to-one cascade="save-update" class="Plane" column="plane" name="plane" not-null="true"/>
+    <many-to-one cascade="save-update" class="Flight" column="returnflight" name="returnFlight" not-null="false"/>
+  </class>
 </hibernate-mapping>

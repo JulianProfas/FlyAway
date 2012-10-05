@@ -13,6 +13,7 @@ package View;
 
 import Controller.Controller;
 import Model.Flight;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,8 +48,6 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
         for(int it = 0; it < flightsModel.getColumnCount(); it++){
             tcm.getColumn(it).setCellRenderer(tcr);
         }
-
-
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -93,6 +92,11 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
 
         txtFieldSearch.setText(resourceMap.getString("txtFieldSearch.text")); // NOI18N
         txtFieldSearch.setName("txtFieldSearch"); // NOI18N
+        txtFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFieldSearchKeyPressed(evt);
+            }
+        });
 
         btnSearch.setText(resourceMap.getString("btnSearch.text")); // NOI18N
         btnSearch.setName("btnSearch"); // NOI18N
@@ -138,16 +142,15 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(btnNew))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE))))
+                            .addComponent(txtFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 1036, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1036, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -159,7 +162,7 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
                     .addComponent(btnSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnCreate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -168,7 +171,7 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
                         .addComponent(btnNew)))
                 .addGap(21, 21, 21)
                 .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
 
         pack();
@@ -225,21 +228,30 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        searchFlights();
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void txtFieldSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldSearchKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+        searchFlights();
+        }
+    }//GEN-LAST:event_txtFieldSearchKeyPressed
+
+    private void searchFlights() {
         try {
             String searchDate = txtFieldSearch.getText();
             SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
             Date d = sdf.parse(searchDate);
             ArrayList<Flight> foundFlights = Controller.Instance().searchFlight(d);
-            
+
             fillTableModel(foundFlights);
 
         } catch (ParseException ex) {
-            lblErrorMessage.setText("Fill in a correct date in the format "+ Flight.FlightDateFormat);
+            lblErrorMessage.setText("Fill in a correct date in the format " + Flight.FlightDateFormat);
             Logger.getLogger(FlightView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnSearchActionPerformed
-
-
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChange;
     private javax.swing.JButton btnCreate;

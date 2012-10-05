@@ -9,5 +9,6 @@ package Model;
  * @author Tom
  */
 public enum Rank {
-	admin, user, staff;
+
+    admin, user, staff;
 }

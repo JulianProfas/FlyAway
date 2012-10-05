@@ -13,6 +13,7 @@ package View;
 
 import Controller.Controller;
 import Model.Airport;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -93,6 +94,11 @@ public class AirportView extends javax.swing.JInternalFrame implements Observer{
 
         txtFieldSearch.setText(resourceMap.getString("txtFieldSearch.text")); // NOI18N
         txtFieldSearch.setName("txtFieldSearch"); // NOI18N
+        txtFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFieldSearchKeyPressed(evt);
+            }
+        });
 
         btnCreate.setText(resourceMap.getString("btnCreate.text")); // NOI18N
         btnCreate.setName("btnCreate"); // NOI18N
@@ -129,15 +135,15 @@ public class AirportView extends javax.swing.JInternalFrame implements Observer{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSearch)
-                            .addComponent(btnCreate)
-                            .addComponent(btnChange)
-                            .addComponent(btnDelete))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)))
+                            .addComponent(txtFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 1033, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1033, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -163,13 +169,14 @@ public class AirportView extends javax.swing.JInternalFrame implements Observer{
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14)
                 .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(387, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+    private void searchAirports()
+    {
         String searchText = txtFieldSearch.getText();
         ArrayList<Airport> found = new ArrayList<Airport>();
 
@@ -182,6 +189,10 @@ public class AirportView extends javax.swing.JInternalFrame implements Observer{
         
         GenericTableModel<Airport> model = new GenericTableModel<Airport>(found);
         tblAirport.setModel(model);
+    }
+    
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        searchAirports();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
@@ -227,6 +238,13 @@ public class AirportView extends javax.swing.JInternalFrame implements Observer{
             lblErrorMessage.setText("Please select a row first.");
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void txtFieldSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldSearchKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+        searchAirports();
+        }
+    }//GEN-LAST:event_txtFieldSearchKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

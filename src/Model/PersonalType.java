@@ -9,6 +9,6 @@ package Model;
  * @author Tom
  */
 public enum PersonalType {
-	
-	Pilot, Stewardess;
+
+    Pilot, Stewardess;
 }

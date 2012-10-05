@@ -19,7 +19,6 @@ public class FlyAwayWindowListener extends WindowAdapter {
     @Override
   public void windowClosing(WindowEvent e)
   {
-    Controller.Instance().ShutDown();
     System.exit(0);
   }
 }

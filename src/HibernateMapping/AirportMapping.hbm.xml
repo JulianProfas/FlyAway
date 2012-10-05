@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!DOCTYPE hibernate-mapping PUBLIC
-  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="Model">
-	<class catalog="flyaway" name="Airport" table="airport">
-		
-		<id name="code" type="java.lang.String">
-			<column name="airportcode" length="3"/>
-			<generator class="assigned"/>
-		</id>
-		
-		<property name="name" type="java.lang.String">
-			<column name="name" not-null="true" length="50"/>
-		</property>
-		
-		<property name="city" type="java.lang.String">
-			<column name="city" not-null="true" length="50"/>
-		</property>
-		
-		<many-to-one name="country" column="country" cascade="save-update" not-null="true" class="Country">
-		</many-to-one>	
-		
-	</class>
+  <class catalog="flyaway" name="Airport" table="airport">
+    <id name="code" type="java.lang.String">
+      <column length="3" name="airportcode"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="name" type="java.lang.String">
+      <column length="50" name="name" not-null="true"/>
+    </property>
+    <property name="city" type="java.lang.String">
+      <column length="50" name="city" not-null="true"/>
+    </property>
+    <many-to-one cascade="save-update" class="Country" column="country" name="country" not-null="true">
+		</many-to-one>
+  </class>
 </hibernate-mapping>

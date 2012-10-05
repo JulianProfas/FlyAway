@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!DOCTYPE hibernate-mapping PUBLIC
-  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="Model">
-	<class catalog="flyaway" name="Plane" table="plane">
-		<id name="number" type="java.lang.Integer">
-			<column name="planenumber"/>
-			<generator class="assigned"/>
-		</id>
-		<property name="capacity" type="java.lang.Integer">
-			<column name="capacity" not-null="true"/>
-		</property>
-		<property name="type" type="java.lang.String">
-			<column name="type" not-null="true" length="50"/>
-		</property>
-	</class>	
-</hibernate-mapping>	
+  <class catalog="flyaway" name="Plane" table="plane">
+    <id name="number" type="java.lang.Integer">
+      <column name="planenumber"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="capacity" type="java.lang.Integer">
+      <column name="capacity" not-null="true"/>
+    </property>
+    <property name="type" type="java.lang.String">
+      <column length="50" name="type" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

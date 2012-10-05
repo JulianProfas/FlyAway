@@ -14,6 +14,7 @@ package View;
 import Controller.Controller;
 import Model.PersonalType;
 import Model.Staff;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -99,6 +100,11 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
 
         txtFieldSearch.setText(resourceMap.getString("txtFieldSearch.text")); // NOI18N
         txtFieldSearch.setName("txtFieldSearch"); // NOI18N
+        txtFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFieldSearchKeyPressed(evt);
+            }
+        });
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
@@ -130,11 +136,11 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
                             .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
-                            .addComponent(txtFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1038, Short.MAX_VALUE)
+                            .addComponent(txtFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 1038, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)))
+                        .addComponent(lblErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 1136, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -152,10 +158,10 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
                         .addComponent(btnChange)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRemove))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(238, Short.MAX_VALUE))
         );
 
         pack();
@@ -199,6 +205,17 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        searchStaff();
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void txtFieldSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldSearchKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            searchStaff();
+        }
+    }//GEN-LAST:event_txtFieldSearchKeyPressed
+
+    private void searchStaff()
+    {
         String searchString = txtFieldSearch.getText();
         ArrayList<Staff> foundStaff = new ArrayList<Staff>();
 
@@ -228,9 +245,8 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
             foundStaff.addAll(Controller.Instance().SearchStaff(searchString));
         }
         tblPersonal.setModel(new GenericTableModel<Staff>(foundStaff));
-
-    }//GEN-LAST:event_btnSearchActionPerformed
-
+        tblPersonal.removeColumn(tblPersonal.getColumnModel().getColumn(0));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChange;
