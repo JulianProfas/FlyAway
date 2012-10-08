@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.exception.ConstraintViolationException;
 
 public class DatabaseConnectie {
 
@@ -34,7 +35,7 @@ public class DatabaseConnectie {
 
             session.getTransaction().commit();
 
-        } catch (HibernateException he) {
+        } catch (Exception he) {
 			
             System.out.println(he);
             session.getTransaction().rollback();
@@ -60,7 +61,7 @@ public class DatabaseConnectie {
             }
             session.getTransaction().commit();
 
-        } catch (HibernateException he) {
+        } catch (Exception he) {
 
             System.out.println(he);
             session.getTransaction().rollback();
@@ -82,11 +83,10 @@ public class DatabaseConnectie {
             session.delete(o);
             session.getTransaction().commit();
             result = true;	
-        } catch (HibernateException he) {
-            System.out.println(he);
-            session.getTransaction().rollback();
-            result = false;
-        } 
+        } catch (Exception e){
+			session.getTransaction().rollback();
+			System.out.println(e);
+		}
 //		finally {
 //            //session.flush();
 //            //session.close();
