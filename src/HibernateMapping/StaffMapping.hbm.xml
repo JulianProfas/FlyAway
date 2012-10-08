@@ -15,7 +15,7 @@
         <param name="type">12</param>
       </type>
     </property>
-    <many-to-one cascade="save-update" class="Airport" column="primaryairport" name="primaryAirport" not-null="true">
+    <many-to-one class="Airport" column="primaryairport" lazy="false" name="primaryAirport" not-null="true">
 		</many-to-one>
   </class>
 </hibernate-mapping>

@@ -86,10 +86,11 @@ public class DatabaseConnectie {
             System.out.println(he);
             session.getTransaction().rollback();
             result = false;
-        } finally {
-            //session.flush();
-            //session.close();
-        }
+        } 
+//		finally {
+//            //session.flush();
+//            //session.close();
+//        }
         return result;
     }
 

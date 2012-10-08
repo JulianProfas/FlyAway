@@ -43,15 +43,15 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtFieldNumber" pref="196" max="32767" attributes="0"/>
-                          <Component id="txtFieldPilot" alignment="1" pref="196" max="32767" attributes="0"/>
-                          <Component id="txtFieldCoPilot" alignment="1" pref="196" max="32767" attributes="0"/>
-                          <Component id="txtFieldPlane" alignment="1" pref="196" max="32767" attributes="1"/>
-                          <Component id="txtPersonal" alignment="0" pref="196" max="32767" attributes="1"/>
-                          <Component id="txtFieldFrom" alignment="0" pref="196" max="32767" attributes="0"/>
-                          <Component id="txtFieldDestination" alignment="0" pref="196" max="32767" attributes="0"/>
-                          <Component id="txtFieldDate" alignment="1" pref="196" max="32767" attributes="0"/>
-                          <Component id="txtFieldStops" alignment="0" pref="196" max="32767" attributes="0"/>
+                          <Component id="txtFieldNumber" pref="236" max="32767" attributes="0"/>
+                          <Component id="txtFieldPilot" alignment="1" pref="236" max="32767" attributes="0"/>
+                          <Component id="txtFieldCoPilot" alignment="1" pref="236" max="32767" attributes="0"/>
+                          <Component id="txtFieldPlane" alignment="1" pref="236" max="32767" attributes="1"/>
+                          <Component id="txtPersonal" alignment="0" pref="236" max="32767" attributes="1"/>
+                          <Component id="txtFieldFrom" alignment="0" pref="236" max="32767" attributes="0"/>
+                          <Component id="txtFieldDestination" alignment="0" pref="236" max="32767" attributes="0"/>
+                          <Component id="txtFieldDate" alignment="1" pref="236" max="32767" attributes="0"/>
+                          <Component id="txtFieldStops" alignment="0" pref="236" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="141" max="-2" attributes="0"/>

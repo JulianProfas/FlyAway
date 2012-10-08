@@ -44,10 +44,10 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
          GenericTableModel<Flight> flightsModel = new GenericTableModel<Flight>(flights);
          tblFlights.setModel(flightsModel);
           TableColumnModel tcm = tblFlights.getColumnModel();
-        CustomTableCellRenderer tcr = new CustomTableCellRenderer();
-        for(int it = 0; it < flightsModel.getColumnCount(); it++){
-            tcm.getColumn(it).setCellRenderer(tcr);
-        }
+			CustomTableCellRenderer tcr = new CustomTableCellRenderer();
+			for(int it = 0; it < flightsModel.getColumnCount(); it++){
+				tcm.getColumn(it).setCellRenderer(tcr);
+			}
     }
     /** This method is called from within the constructor to
      * initialize the form.

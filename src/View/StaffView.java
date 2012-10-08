@@ -32,12 +32,16 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
         initComponents();
         Controller.Instance().addObserver(this);
         fillTable();
+		if(tblPersonal.getColumnCount() == 5){
+			tblPersonal.removeColumn(tblPersonal.getColumnModel().getColumn(0));
+		}
+		
     }
 
     private void fillTable(){
          ArrayList<Staff> rows = Controller.Instance().getStaff();
          tblPersonal.setModel(new GenericTableModel<Staff>(rows));
-         tblPersonal.removeColumn(tblPersonal.getColumnModel().getColumn(0));
+         
     }
 
     /** This method is called from within the constructor to
@@ -245,7 +249,6 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
             foundStaff.addAll(Controller.Instance().SearchStaff(searchString));
         }
         tblPersonal.setModel(new GenericTableModel<Staff>(foundStaff));
-        tblPersonal.removeColumn(tblPersonal.getColumnModel().getColumn(0));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -607,6 +607,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 				c.setTime(date);
 				c.add(Calendar.DATE, 1);
 				int returnId = Controller.Instance().getReturnFlightID(id);
+				System.out.println(returnId);
 				
 				Flight returnFlight = new Flight(c.getTime(), from, destination, returnId, other, stops, pilot, coPilot, plane, flight);
 				

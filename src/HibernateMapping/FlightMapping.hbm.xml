@@ -6,11 +6,11 @@
       <column name="flightnumber"/>
       <generator class="assigned"/>
     </id>
-    <many-to-one cascade="save-update" class="Staff" column="pilot" name="pilot" not-null="true"/>
+    <many-to-one class="Staff" column="pilot" name="pilot" not-null="true"/>
 		
-    <many-to-one cascade="save-update" class="Staff" column="copilot" name="copilot" not-null="true"/>
-    <many-to-one cascade="save-update" class="Airport" column="airportdestination" name="destination" not-null="true"/>
-    <many-to-one cascade="save-update" class="Airport" column="airportfrom" name="from" not-null="true"/>
+    <many-to-one class="Staff" column="copilot" name="copilot" not-null="true"/>
+    <many-to-one class="Airport" column="airportdestination" name="destination" not-null="true"/>
+    <many-to-one class="Airport" column="airportfrom" name="from" not-null="true"/>
     <bag cascade="all" catalog="flyaway" name="stops" table="flightstops">
       <key column="flight"/>
       <many-to-many class="Airport" column="airport"/>
@@ -22,7 +22,7 @@
     <property name="date" type="date">
       <column name="date" not-null="true"/>
     </property>
-    <many-to-one cascade="save-update" class="Plane" column="plane" name="plane" not-null="true"/>
-    <many-to-one cascade="save-update" class="Flight" column="returnflight" name="returnFlight" not-null="false"/>
+    <many-to-one class="Plane" column="plane" name="plane" not-null="true"/>
+    <many-to-one class="Flight" column="returnflight" name="returnFlight" not-null="false"/>
   </class>
 </hibernate-mapping>
