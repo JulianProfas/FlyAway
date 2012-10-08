@@ -248,7 +248,13 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
             }
             foundStaff.addAll(Controller.Instance().SearchStaff(searchString));
         }
-        tblPersonal.setModel(new GenericTableModel<Staff>(foundStaff));
+		
+		tblPersonal.setModel(new GenericTableModel<Staff>(foundStaff));
+		
+		if(tblPersonal.getColumnCount() == 5){	
+			tblPersonal.removeColumn(tblPersonal.getColumnModel().getColumn(0));
+		}	
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
