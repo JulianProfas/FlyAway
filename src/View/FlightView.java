@@ -12,6 +12,7 @@
 package View;
 
 import Controller.Controller;
+import Model.Airport;
 import Model.Flight;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
@@ -240,18 +241,23 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
 
     private void searchFlights() {
         ArrayList<Flight> foundFlights = new ArrayList<Flight>();
-        String searchDate = txtFieldSearch.getText();
-        if(searchDate.equalsIgnoreCase("")){
+        String search = txtFieldSearch.getText();
+        if(search.equalsIgnoreCase("")){
             foundFlights = Controller.Instance().getFlights();
         }else{
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat(Flight.FlightDateFormat);
-                Date d = sdf.parse(searchDate);
+                Date d = sdf.parse(search);
                 foundFlights = Controller.Instance().searchFlight(d);
 
             } catch (ParseException ex) {
-                lblErrorMessage.setText("Fill in a correct date in the format " + Flight.FlightDateFormat);
-                Logger.getLogger(FlightView.class.getName()).log(Level.SEVERE, null, ex);
+                
+                foundFlights = Controller.Instance().searchFlight(search);
+                
+                
+                
+                //lblErrorMessage.setText("Fill in a correct date in the format " + Flight.FlightDateFormat);
+                //Logger.getLogger(FlightView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         fillTableModel(foundFlights);

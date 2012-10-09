@@ -499,6 +499,16 @@ public class Controller extends Observable {
         }
         return result;
     }
+    
+    public ArrayList<Flight> searchFlight(String search) {
+        ArrayList<Flight> result = new ArrayList<Flight>();
+        for (Flight f: flights.values()) {
+            if(f.getFrom().toString().contains(search) || f.getDestination().toString().contains(search) || ("" + f.getNumber()).contains(search))  {
+                result.add(f);
+            }
+        }
+        return result;
+    }
 
     public User getLogedIn() {
         return loggedInUser;
