@@ -8,11 +8,12 @@
  *
  * Created on 19-jan-2010, 10:09:59
  */
-
 package View;
 
 import Controller.InputChecker;
+import Model.AirMarshal;
 import Model.Airport;
+import Model.Nationality;
 import Model.PersonalType;
 import Model.Rank;
 import Model.Staff;
@@ -27,33 +28,39 @@ import javax.swing.JOptionPane;
 public class CreateChangeStaffView extends javax.swing.JInternalFrame {
 
     Staff staff = null;
+
     /** Creates new form CreateChangeStaffView */
     public CreateChangeStaffView(Staff s) {
-        initComponents();
+	initComponents();
 
-        PersonalType stypes[] = PersonalType.values();
-        for(PersonalType st : stypes){
-            cmbBoxPersonalTypes.addItem(st);
-        }
-		
-		ArrayList<Airport> airports = Controller.Controller.Instance().getAirports();
-		
-		for(Airport a : airports){
-			cmbBoxAirports.addItem(a);
-		}
-        
-		staff = s;
-        if(s != null){
-			txtFieldID.setEditable(false);
-            Fill(s);
-        }
+	PersonalType stypes[] = PersonalType.values();
+	for (PersonalType st : stypes) {
+	    cmbBoxPersonalTypes.addItem(st);
+	}
+
+	ArrayList<Airport> airports = Controller.Controller.Instance().getAirports();
+
+	for (Airport a : airports) {
+	    cmbBoxAirports.addItem(a);
+	}
+	
+	Nationality snationalities[] = Nationality.values();
+	for (Nationality sn : snationalities) {
+	    cmbBoxNationality.addItem(sn);
+	}
+
+	staff = s;
+	if (s != null) {
+	    txtFieldID.setEditable(false);
+	    Fill(s);
+	}
     }
 
-    private void Fill(Staff s){
-        txtFieldID.setText(""+s.getNumber());
-        txtFieldName.setText(s.getName());
-        cmbBoxPersonalTypes.setSelectedItem(s.getType());
-		cmbBoxAirports.setSelectedItem(s.getPrimaryAirport());
+    private void Fill(Staff s) {
+	txtFieldID.setText("" + s.getNumber());
+	txtFieldName.setText(s.getName());
+	cmbBoxPersonalTypes.setSelectedItem(s.getType());
+	cmbBoxAirports.setSelectedItem(s.getPrimaryAirport());
     }
 
     /** This method is called from within the constructor to
@@ -76,6 +83,10 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         lblErrorMessage = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cmbBoxAirports = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtFieldBadgeNumber = new javax.swing.JTextField();
+        cmbBoxNationality = new javax.swing.JComboBox();
 
         setClosable(true);
         setIconifiable(true);
@@ -88,6 +99,11 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         jLabel1.setName("jLabel1"); // NOI18N
 
         cmbBoxPersonalTypes.setName("cmbBoxPersonalTypes"); // NOI18N
+        cmbBoxPersonalTypes.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                cmbBoxPersonalTypesPropertyChange(evt);
+            }
+        });
 
         jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
@@ -124,48 +140,63 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
 
         cmbBoxAirports.setName("cmbBoxAirports"); // NOI18N
 
+        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
+        jLabel4.setName("jLabel4"); // NOI18N
+        jLabel4.setVisible(false);
+
+        jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
+        jLabel5.setName("jLabel5"); // NOI18N
+        jLabel5.setVisible(false);
+
+        txtFieldBadgeNumber.setName("txtFieldBadgeNumber"); // NOI18N
+        txtFieldBadgeNumber.setVisible(false);
+
+        cmbBoxNationality.setName("cmbBoxNationality"); // NOI18N
+        cmbBoxNationality.setVisible(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
-                .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
+                .addGap(108, 108, 108)
                 .addComponent(btnSave)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancel)
-                .addContainerGap(178, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(376, 376, 376))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel3)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(24, 24, 24)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel4)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(Name)
                             .addComponent(jLabel2)))
-                    .addComponent(Name))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                    .addComponent(cmbBoxAirports, 0, 282, Short.MAX_VALUE)
-                    .addComponent(txtFieldID, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                    .addComponent(cmbBoxPersonalTypes, 0, 282, Short.MAX_VALUE))
-                .addGap(22, 22, 22))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbBoxNationality, 0, 419, Short.MAX_VALUE)
+                            .addComponent(txtFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                            .addComponent(txtFieldID, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                            .addComponent(cmbBoxAirports, 0, 419, Short.MAX_VALUE)
+                            .addComponent(cmbBoxPersonalTypes, 0, 419, Short.MAX_VALUE)
+                            .addComponent(txtFieldBadgeNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
+                        .addGap(78, 78, 78))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,9 +209,17 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(cmbBoxAirports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtFieldBadgeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cmbBoxNationality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnCancel))
@@ -191,100 +230,160 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        String name = txtFieldName.getText();
-        int staffId = -1;
-        PersonalType st = (PersonalType)cmbBoxPersonalTypes.getSelectedItem();
-		Airport primaryAirport = (Airport)cmbBoxAirports.getSelectedItem();
-        
-		lblErrorMessage.setText("");
-		String errorMessage = "<html>";
-		
-		InputChecker ip = new InputChecker();
-		
-		try{
-			staffId = Integer.parseInt(txtFieldID.getText());
-			
-			if(Controller.Controller.Instance().getStaffById(staffId) != null && staff == null){
-				errorMessage += "Staffmember already exists with personal id:" + staffId + "<br>";
-			}
-		}catch(NumberFormatException exception){
-			errorMessage += "Personal id is not a valid number <br>";
+	String name = txtFieldName.getText();
+	int staffId = -1;
+	PersonalType st = (PersonalType) cmbBoxPersonalTypes.getSelectedItem();
+	Airport primaryAirport = (Airport) cmbBoxAirports.getSelectedItem();
+	int badgeNumber = -1;
+	String nationality = cmbBoxNationality.getSelectedItem().toString();
+
+	lblErrorMessage.setText("");
+	String errorMessage = "<html>";
+
+	InputChecker ip = new InputChecker();
+
+	try {
+	    staffId = Integer.parseInt(txtFieldID.getText());
+
+	    if (Controller.Controller.Instance().getStaffById(staffId) != null && staff == null) {
+		errorMessage += "Staffmember already exists with personal id:" + staffId + "<br>";
+	    }
+	} catch (NumberFormatException exception) {
+	    errorMessage += "Personal id is not a valid number <br>";
+	}
+	
+	try {
+	    badgeNumber = Integer.parseInt(txtFieldBadgeNumber.getText());
+	    
+//  TODO checken of badgenumber al voorkomt
+//	    if (Controller.Controller.Instance().getStaffById(staffId) != null && staff == null) {
+//		errorMessage += "Staffmember already exists with personal id:" + staffId + "<br>";
+//	    }
+	} catch (NumberFormatException exception) {
+	    errorMessage += "Badgenumber is not a valid number <br>";
+	}
+
+	if (!ip.checkText(name, false, true)) {
+	    errorMessage += "Please enter a valid name first <br>";
+	}
+
+	if (!ip.checkMaxLength(name, 50)) {
+	    errorMessage += "Name has a maximum length of 50 chars <br>";
+	}
+
+	errorMessage += "</html>";
+
+	if (errorMessage.equals("<html></html>")) {
+
+	    if (staff == null && st != PersonalType.AirMarshal) {
+
+		staff = new Staff(staffId, st, name, primaryAirport);
+		User u = new User("" + staffId, Rank.staff, staff);
+		u.setPassword("flyaway", false);
+
+		if (Controller.Controller.Instance().saveObject(staff)) {
+
+		    if (Controller.Controller.Instance().saveObject(u)) {
+
+			JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved \n User: " + u.getUsername() + " saved");
+			this.dispose();
+		    } else {
+			JOptionPane.showMessageDialog(this, "Error while saving staff");
+			this.dispose();
+		    }
+
+		} else {
+		    JOptionPane.showMessageDialog(this, "Error while saving staff");
+		    this.dispose();
 		}
-		
-        if(!ip.checkText(name, false, true)){
-            errorMessage += "Please enter a valid name first <br>";
-        }
-		
-		if(!ip.checkMaxLength(name, 50)){
-			errorMessage += "Name has a maximum length of 50 chars <br>";
+
+	    } else if (staff != null && st != PersonalType.AirMarshal) {
+
+		staff.setName(name);
+		staff.setNumber(staffId);
+		staff.setType(st);
+		staff.setPrimaryAirport(primaryAirport);
+
+		if (Controller.Controller.Instance().updateObject(staff)) {
+		    JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
+		    this.dispose();
+		} else {
+		    JOptionPane.showMessageDialog(this, "Error while saving staff");
+		    this.dispose();
+		}
+	    } else if (staff == null && st == PersonalType.AirMarshal) {
+
+		staff = new AirMarshal(badgeNumber, nationality, staffId, st, name, primaryAirport);
+		User u = new User("" + staffId, Rank.staff, staff);
+		u.setPassword("flyaway", false);
+
+		if (Controller.Controller.Instance().saveObject(staff)) {
+
+		    if (Controller.Controller.Instance().saveObject(u)) {
+
+			JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved \n User: " + u.getUsername() + " saved");
+			this.dispose();
+		    } else {
+			JOptionPane.showMessageDialog(this, "Error while saving staff");
+			this.dispose();
+		    }
+
+		} else {
+		    JOptionPane.showMessageDialog(this, "Error while saving staff");
+		    this.dispose();
 		}
 
-		errorMessage += "</html>";
+	    } else if (staff != null && st == PersonalType.AirMarshal) {
 		
-        if(errorMessage.equals("<html></html>")){
-			
-            if(staff == null){
-                
-				staff = new Staff(staffId, st, name, primaryAirport);
-				User u = new User("" + staffId, Rank.staff, staff );
-				u.setPassword("flyaway", false);
+		staff = new AirMarshal(badgeNumber, nationality, staffId, st, name, primaryAirport);
 
-                if(Controller.Controller.Instance().saveObject(staff)){
-					
-					if(Controller.Controller.Instance().saveObject(u)){
-					
-						JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved \n User: " + u.getUsername() + " saved");
-						this.dispose();
-					}else{
-						JOptionPane.showMessageDialog(this, "Error while saving staff");
-						this.dispose();
-					}
-                   
-                }else{
-					JOptionPane.showMessageDialog(this, "Error while saving staff");
-					this.dispose();
-				}
-					
-            }
-            else{
-                
-                staff.setName(name);
-                staff.setNumber(staffId);
-                staff.setType(st);
-                staff.setPrimaryAirport(primaryAirport);
-
-                if(Controller.Controller.Instance().updateObject(staff)){
-                    JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
-                    this.dispose();
-                }else{
-					JOptionPane.showMessageDialog(this, "Error while saving staff");
-					this.dispose();
-				}
-            }
-        }
-        else{
-            lblErrorMessage.setText(errorMessage);
-        }
+		if (Controller.Controller.Instance().updateObject(staff)) {
+		    JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
+		    this.dispose();
+		} else {
+		    JOptionPane.showMessageDialog(this, "Error while saving staff");
+		    this.dispose();
+		}
+	    }
+	} else {
+	    lblErrorMessage.setText(errorMessage);
+	}
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        this.dispose();
+	this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    private void cmbBoxPersonalTypesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbBoxPersonalTypesPropertyChange
+	if(cmbBoxPersonalTypes.getSelectedItem().equals(PersonalType.AirMarshal)) {
+	    jLabel4.setVisible(true);
+	    jLabel5.setVisible(true);
+	    txtFieldBadgeNumber.setVisible(true);
+	    cmbBoxNationality.setVisible(true);
+	}else{
+	    jLabel4.setVisible(false);
+	    jLabel5.setVisible(false);
+	    txtFieldBadgeNumber.setVisible(false);
+	    cmbBoxNationality.setVisible(false);
+	}
+    }//GEN-LAST:event_cmbBoxPersonalTypesPropertyChange
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Name;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox cmbBoxAirports;
+    private javax.swing.JComboBox cmbBoxNationality;
     private javax.swing.JComboBox cmbBoxPersonalTypes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lblErrorMessage;
+    private javax.swing.JTextField txtFieldBadgeNumber;
     private javax.swing.JTextField txtFieldID;
     private javax.swing.JTextField txtFieldName;
     // End of variables declaration//GEN-END:variables
-
 }

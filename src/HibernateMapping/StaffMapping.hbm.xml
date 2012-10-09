@@ -16,5 +16,14 @@
       </type>
     </property>
     <many-to-one class="Airport" column="primaryairport" lazy="false" name="primaryAirport" not-null="true"/>
+    <joined-subclass name="Model.AirMarshal" table="airmarshal">
+    <key column="staffnumber"/>
+    <property name="nationality" type="java.lang.String">
+      <column length="50" name="nationality" not-null="true"/>
+    </property>
+    <property name="badgeNumber" type="java.lang.Integer">
+      <column name="badgenumber" not-null="true"/>
+    </property>
+  </joined-subclass>
   </class>
 </hibernate-mapping>

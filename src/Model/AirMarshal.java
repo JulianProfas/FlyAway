@@ -11,6 +11,9 @@ package Model;
 public class AirMarshal extends Staff {
     int badgeNumber;
     String nationality;
+
+    public AirMarshal() {
+    }
     
     public AirMarshal(int badgeNumber, String nationality, int number, PersonalType type, String name, Airport primaryAirport) {
 	super(number, type, name, primaryAirport);
