@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Model.AirMarshal;
 import Model.Airport;
 import Model.Country;
 import Model.Flight;
@@ -418,6 +419,21 @@ public class Controller extends Observable {
 
     public Staff getStaffById(int staffId) {
         return staff.get(staffId);
+    }
+    
+    public AirMarshal getAirMarshalByBadgeNumber(int badgeNumber) {
+	AirMarshal gezocht = null;
+	
+	for (Staff s : staff.values()) {
+	    if (s instanceof AirMarshal){
+		AirMarshal a = (AirMarshal) s;
+	    
+		if (a.getBadgeNumber() == badgeNumber) {
+		    gezocht = a;
+		}
+	    }
+	}
+	return gezocht;
     }
 
     public ArrayList<Airport> SearchAirport(String searchString) {

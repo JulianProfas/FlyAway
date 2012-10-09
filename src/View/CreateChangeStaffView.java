@@ -93,6 +93,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setName("Form"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(630, 300));
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(flyaway.FlyAWayApp.class).getContext().getResourceMap(CreateChangeStaffView.class);
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
@@ -219,7 +220,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                     .addComponent(cmbBoxNationality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnCancel))
@@ -251,17 +252,6 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
 	} catch (NumberFormatException exception) {
 	    errorMessage += "Personal id is not a valid number <br>";
 	}
-	
-	try {
-	    badgeNumber = Integer.parseInt(txtFieldBadgeNumber.getText());
-	    
-//  TODO checken of badgenumber al voorkomt
-//	    if (Controller.Controller.Instance().getStaffById(staffId) != null && staff == null) {
-//		errorMessage += "Staffmember already exists with personal id:" + staffId + "<br>";
-//	    }
-	} catch (NumberFormatException exception) {
-	    errorMessage += "Badgenumber is not a valid number <br>";
-	}
 
 	if (!ip.checkText(name, false, true)) {
 	    errorMessage += "Please enter a valid name first <br>";
@@ -269,6 +259,18 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
 
 	if (!ip.checkMaxLength(name, 50)) {
 	    errorMessage += "Name has a maximum length of 50 chars <br>";
+	}
+	
+	if (st == PersonalType.AirMarshal) {
+	    try {
+		badgeNumber = Integer.parseInt(txtFieldBadgeNumber.getText());
+
+		if (Controller.Controller.Instance().getAirMarshalByBadgeNumber(badgeNumber) != null && staff == null) {
+		    errorMessage += "Staffmember already exists with Badgenumber:" + badgeNumber + "<br>";
+		}
+	    } catch (NumberFormatException exception) {
+		errorMessage += "Badgenumber is not a valid number <br>";
+	    }
 	}
 
 	errorMessage += "</html>";
