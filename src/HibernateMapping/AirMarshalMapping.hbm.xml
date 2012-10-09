@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="Model">
-  <class catalog="flyaway" name="Staff" table="staff">
+  <class catalog="flyaway" name="AirMarshal" table="airmarshal">
     <id name="number" type="java.lang.Integer">
       <column name="staffnumber"/>
       <generator class="assigned"/>
@@ -14,6 +14,12 @@
         <param name="enumClass">Model.PersonalType</param>
         <param name="type">12</param>
       </type>
+    </property>
+    <property column="badgeNumber" type="java.lang.Integer">
+	<column name="badgenumber"/>
+    </property>
+    <property column="nationality" type="java.lang.String">
+	<column name="nationality"/>
     </property>
     <many-to-one class="Airport" column="primaryairport" lazy="false" name="primaryAirport" not-null="true"/>
   </class>

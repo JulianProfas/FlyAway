@@ -16,5 +16,6 @@
     <mapping resource="HibernateMapping/StaffMapping.hbm.xml"/>
     <mapping resource="HibernateMapping/UserMapping.hbm.xml"/>
     <mapping resource="HibernateMapping/FlightMapping.hbm.xml"/>
+    <mapping resource="HibernateMapping/AirMarshalMapping.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
