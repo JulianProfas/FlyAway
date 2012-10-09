@@ -338,31 +338,36 @@ public class Controller extends Observable {
     public ArrayList<Staff> SearchStaffAvailable(Date d) {
 
         ArrayList<Staff> foundStaff = new ArrayList<Staff>();
+	boolean dontAdd = false;
         for (Staff s : staff.values()) {
-            boolean dontAdd = false;
-            for (Flight f : flights.values()) {
-                if (f.getOtherPersonal().contains(s) || f.getPilot().equals(s) || f.getCopilot().equals(s)) {
-                    Date nextDay = (Date) d.clone();
-                    nextDay.setDate(d.getDate() + 1);
-                    Date previousDay = (Date) d.clone();
-                    previousDay.setDate(d.getDate() - 1);
+	    if(s.getType().equals(PersonalType.Pilot)){
+		dontAdd = true;
+	    }else{
+		dontAdd = false;
+		for (Flight f : flights.values()) {
+		    if (f.getOtherPersonal().contains(s) || f.getPilot().equals(s) || f.getCopilot().equals(s)) {
+			Date nextDay = (Date) d.clone();
+			nextDay.setDate(d.getDate() + 1);
+			Date previousDay = (Date) d.clone();
+			previousDay.setDate(d.getDate() - 1);
 
 
-                    if ((f.getDate().getDate() == d.getDate()
-                            && f.getDate().getMonth() == d.getMonth()
-                            && f.getDate().getYear() == d.getYear()) || // staff is already on a plane today
-                            (f.getDate().getDate() == nextDay.getDate()
-                            && f.getDate().getMonth() == nextDay.getMonth()
-                            && f.getDate().getYear() == nextDay.getYear()) || // staff is already on a plane tomorrow
-                            (f.getDate().getDate() == previousDay.getDate()
-                            && f.getDate().getMonth() == previousDay.getMonth()
-                            && f.getDate().getYear() == previousDay.getYear()) // staff was already on a plane yesterday
-                            ) {
+			if ((f.getDate().getDate() == d.getDate()
+				&& f.getDate().getMonth() == d.getMonth()
+				&& f.getDate().getYear() == d.getYear()) || // staff is already on a plane today
+				(f.getDate().getDate() == nextDay.getDate()
+				&& f.getDate().getMonth() == nextDay.getMonth()
+				&& f.getDate().getYear() == nextDay.getYear()) || // staff is already on a plane tomorrow
+				(f.getDate().getDate() == previousDay.getDate()
+				&& f.getDate().getMonth() == previousDay.getMonth()
+				&& f.getDate().getYear() == previousDay.getYear()) // staff was already on a plane yesterday
+				) {
 
-                        dontAdd = true;
+			    dontAdd = true;
 
-                    }
-                }
+			}
+		    }
+		}
             }
             if (!dontAdd) {
                 foundStaff.add(s);
