@@ -72,7 +72,7 @@ public class Controller extends Observable {
 		return airMarshalls;
 	}
 	
-    private Controller() {
+    public Controller() {
         planes = new HashMap<Integer, Plane>();
         airports = new HashMap<String, Airport>();
         staff = new HashMap<Integer, Staff>();
@@ -252,6 +252,33 @@ public class Controller extends Observable {
                 result.add(f);
             }
         }
+        return result;
+    }
+    
+    public ArrayList<Flight> getScheduledFlights(User user) {
+        ArrayList<Flight> result = new ArrayList<Flight>();
+        Staff s = user.getStaffAccount();
+        
+	Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.roll(Calendar.DAY_OF_MONTH, false);
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        Date d = c.getTime();
+	flights = Database.DatabaseConnectie.getFlights();
+	
+	System.out.println(flights.size());
+        for (Flight f : flights.values()) {
+
+            Staff pilot = f.getPilot();
+            Staff coPilot = f.getCopilot();
+	    
+
+            if ((pilot.getNumber() == s.getNumber() || coPilot.getNumber() == s.getNumber() || f.getOtherPersonal().contains(s)) && f.getDate().after(d)) {
+                result.add(f);
+            }
+        }
+	
         return result;
     }
 
