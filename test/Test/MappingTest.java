@@ -10,8 +10,10 @@ import Model.Country;
 import HibernateUtil.HibernateUtil;
 
 
+import Model.AirMarshall;
 import Model.Airport;
 import Model.Flight;
+import Model.Nationality;
 import Model.Plane;
 import Model.Rank;
 import Model.Staff;
@@ -164,45 +166,24 @@ public class MappingTest {
 //		
 //	}
 	
-//	@Test
-//	public void saveAndRetrieveStaff(){
-//	
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//		session.beginTransaction();
-//		
-//		Country c = new Country("CC", 333, "Country Test");
-//		Airport a = new Airport("BBB", "Test Airport", c, "Test City");
-//		Staff s = new Staff(1, PersonalType.Pilot, "Piet", a);
-//		
-//		List<Staff> result = null;
-//		Staff test = null;
-//		boolean victory = true;
-//		
-//		try{
-//		
-//			session.save(s);
-//			result = session.createQuery("from Staff s where s.number = 1").list();
-//			session.getTransaction().commit();
-//			
-//			if(result == null || result.size() != 1){
-//				System.out.println("1");
-//				victory = false;
-//			}else{
-//				test = result.get(0);
-//				if(test.getNumber() != 1 || !test.getName().equals("Piet") || !test.getPrimaryAirport().getCode().equals("BBB") || !test.getType().equals(PersonalType.Pilot)){
-//					System.out.println("2");
-//					victory = false;
-//				}
-//			}
-//			
-//		}catch(HibernateException he){
-//			session.getTransaction().rollback();
-//			assertTrue(false);
-//		}
-//		
-//		assertTrue(victory);
-//		
-//	}
+	@Test
+	public void saveAndRetrieveStaff(){
+	
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		
+		Staff result = (Staff)session.createQuery("from Staff s where s.number = 263").uniqueResult();
+		
+		if(result instanceof AirMarshall){
+			System.out.println("gelukt");
+			AirMarshall a = (AirMarshall) result;
+			System.out.println(a.getNationality());
+		}else{
+			System.out.println("noob");
+		}
+		
+		
+	}
 	
 //	@Test
 //	public void saveAndRetrieveUser(){
@@ -296,5 +277,8 @@ public class MappingTest {
 ////		assertTrue(victory);
 //		
 //	}
+	
+	
+	
 	
 }

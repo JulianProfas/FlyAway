@@ -16,14 +16,17 @@
       </type>
     </property>
     <many-to-one class="Airport" column="primaryairport" lazy="false" name="primaryAirport" not-null="true"/>
-    <joined-subclass name="Model.AirMarshal" table="airmarshal">
-    <key column="staffnumber"/>
-    <property name="nationality" type="java.lang.String">
-      <column length="50" name="nationality" not-null="true"/>
-    </property>
-    <property name="badgeNumber" type="java.lang.Integer">
-      <column name="badgenumber" not-null="true"/>
-    </property>
-  </joined-subclass>
+    <joined-subclass name="Model.AirMarshall" table="airmarshall">
+      <key column="staffnumber"/>
+      <property column="nationality" name="nationality" not-null="true">
+		  <type name="org.hibernate.type.EnumType">
+			<param name="enumClass">Model.Nationality</param>
+			<param name="type">12</param>
+		  </type>
+      </property>
+      <property name="weaponNumber" type="java.lang.Integer">
+        <column name="weaponnumber" not-null="true"/>
+      </property>
+    </joined-subclass>
   </class>
 </hibernate-mapping>

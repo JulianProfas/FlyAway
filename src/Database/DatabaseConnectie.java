@@ -5,6 +5,7 @@
 package Database;
 
 import HibernateUtil.HibernateUtil;
+import Model.AirMarshall;
 import Model.Airport;
 import Model.Country;
 import Model.Flight;
@@ -15,7 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.exception.ConstraintViolationException;
 
 public class DatabaseConnectie {
 
@@ -164,6 +164,20 @@ public class DatabaseConnectie {
         return staff;
     }
 
+	public static HashMap<Integer, AirMarshall> getAirMarshalls(){
+		List<AirMarshall> airmarshallList;
+        Session session = getSession();
+        session.beginTransaction();
+
+        airmarshallList = session.createQuery("from AirMarshall").list();
+
+        HashMap<Integer, AirMarshall> airmarshall = new HashMap<Integer, AirMarshall>();
+        for (AirMarshall i : airmarshallList) {
+            airmarshall.put(i.getNumber(), i);
+        }
+        return airmarshall;
+	}
+	
     public static HashMap<Integer, Flight> getFlights() {
         List<Flight> flightList;
         Session session = getSession();
@@ -187,4 +201,5 @@ public class DatabaseConnectie {
         }
         return session;
     }
+
 }

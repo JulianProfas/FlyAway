@@ -42,13 +42,9 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
     }
 
     private void fillTableModel(ArrayList<Flight> flights){
-         GenericTableModel<Flight> flightsModel = new GenericTableModel<Flight>(flights);
-         tblFlights.setModel(flightsModel);
-          TableColumnModel tcm = tblFlights.getColumnModel();
-			CustomTableCellRenderer tcr = new CustomTableCellRenderer();
-			for(int it = 0; it < flightsModel.getColumnCount(); it++){
-				tcm.getColumn(it).setCellRenderer(tcr);
-			}
+         
+         tblFlights.setModel(new FlightTableModel<Flight>(flights));
+         
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -190,7 +186,7 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
 
         if(index >= 0){
 
-            GenericTableModel<Flight> gtm = (GenericTableModel<Flight>)tblFlights.getModel();
+            FlightTableModel<Flight> gtm = (FlightTableModel<Flight>)tblFlights.getModel();
             Flight f = gtm.getRow(index);
 
 			if(f.getReturnFlight() == null){
@@ -214,7 +210,7 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
 
         if(index >= 0){
 
-            GenericTableModel<Flight> gtm = (GenericTableModel<Flight>)tblFlights.getModel();
+            FlightTableModel<Flight> gtm = (FlightTableModel<Flight>)tblFlights.getModel();
             Flight f = gtm.getRow(index);
 			
 			if(f.getReturnFlight() == null){

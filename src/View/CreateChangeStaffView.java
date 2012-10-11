@@ -11,7 +11,7 @@
 package View;
 
 import Controller.InputChecker;
-import Model.AirMarshal;
+import Model.AirMarshall;
 import Model.Airport;
 import Model.Nationality;
 import Model.PersonalType;
@@ -31,36 +31,43 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
 
     /** Creates new form CreateChangeStaffView */
     public CreateChangeStaffView(Staff s) {
-	initComponents();
+		initComponents();
 
-	PersonalType stypes[] = PersonalType.values();
-	for (PersonalType st : stypes) {
-	    cmbBoxPersonalTypes.addItem(st);
-	}
+		ArrayList<Airport> airports = Controller.Controller.Instance().getAirports();
 
-	ArrayList<Airport> airports = Controller.Controller.Instance().getAirports();
+		for (Airport a : airports) {
+			cmbBoxAirports.addItem(a);
+		}
 
-	for (Airport a : airports) {
-	    cmbBoxAirports.addItem(a);
-	}
-	
-	Nationality snationalities[] = Nationality.values();
-	for (Nationality sn : snationalities) {
-	    cmbBoxNationality.addItem(sn);
-	}
+		Nationality snationalities[] = Nationality.values();
+		for (Nationality sn : snationalities) {
+			cmbBoxNationality.addItem(sn);
+		}
 
-	staff = s;
-	if (s != null) {
-	    txtFieldID.setEditable(false);
-	    Fill(s);
-	}
+		staff = s;
+		if (s != null) {
+			txtFieldID.setEditable(false);
+			if(s.getType() == PersonalType.AirMarshal){
+				cmbBoxPersonalTypes.addItem(PersonalType.AirMarshal);
+			}else{
+				cmbBoxPersonalTypes.addItem(PersonalType.Pilot);
+				cmbBoxPersonalTypes.addItem(PersonalType.Stewardess);
+			}
+			Fill(s);
+		}
+		
     }
 
     private void Fill(Staff s) {
-	txtFieldID.setText("" + s.getNumber());
-	txtFieldName.setText(s.getName());
-	cmbBoxPersonalTypes.setSelectedItem(s.getType());
-	cmbBoxAirports.setSelectedItem(s.getPrimaryAirport());
+		txtFieldID.setText("" + s.getNumber());
+		txtFieldName.setText(s.getName());
+		cmbBoxPersonalTypes.setSelectedItem(s.getType());
+		cmbBoxAirports.setSelectedItem(s.getPrimaryAirport());
+		if(s instanceof AirMarshall){
+			AirMarshall a = (AirMarshall) s;
+			txtFieldWeaponNumber.setText("" + a.getWeaponNumber());
+			cmbBoxNationality.setSelectedItem(a.getNationality());
+		}
     }
 
     /** This method is called from within the constructor to
@@ -85,7 +92,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         cmbBoxAirports = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtFieldBadgeNumber = new javax.swing.JTextField();
+        txtFieldWeaponNumber = new javax.swing.JTextField();
         cmbBoxNationality = new javax.swing.JComboBox();
 
         setClosable(true);
@@ -149,8 +156,8 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         jLabel5.setName("jLabel5"); // NOI18N
         jLabel5.setVisible(false);
 
-        txtFieldBadgeNumber.setName("txtFieldBadgeNumber"); // NOI18N
-        txtFieldBadgeNumber.setVisible(false);
+        txtFieldWeaponNumber.setName("txtFieldWeaponNumber"); // NOI18N
+        txtFieldWeaponNumber.setVisible(false);
 
         cmbBoxNationality.setName("cmbBoxNationality"); // NOI18N
         cmbBoxNationality.setVisible(false);
@@ -179,16 +186,16 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbBoxNationality, 0, 419, Short.MAX_VALUE)
-                            .addComponent(txtFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-                            .addComponent(txtFieldID, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-                            .addComponent(cmbBoxAirports, 0, 419, Short.MAX_VALUE)
-                            .addComponent(cmbBoxPersonalTypes, 0, 419, Short.MAX_VALUE)
-                            .addComponent(txtFieldBadgeNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
+                            .addComponent(cmbBoxNationality, 0, 413, Short.MAX_VALUE)
+                            .addComponent(txtFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+                            .addComponent(txtFieldID, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+                            .addComponent(cmbBoxAirports, 0, 413, Short.MAX_VALUE)
+                            .addComponent(cmbBoxPersonalTypes, 0, 413, Short.MAX_VALUE)
+                            .addComponent(txtFieldWeaponNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
                         .addGap(78, 78, 78))))
         );
         layout.setVerticalGroup(
@@ -213,14 +220,14 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtFieldBadgeNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFieldWeaponNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cmbBoxNationality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnCancel))
@@ -231,125 +238,119 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-	String name = txtFieldName.getText();
-	int staffId = -1;
-	PersonalType st = (PersonalType) cmbBoxPersonalTypes.getSelectedItem();
-	Airport primaryAirport = (Airport) cmbBoxAirports.getSelectedItem();
-	int badgeNumber = -1;
-	String nationality = cmbBoxNationality.getSelectedItem().toString();
+		String name = txtFieldName.getText();
+		int staffId = -1;
+		PersonalType st = (PersonalType) cmbBoxPersonalTypes.getSelectedItem();
+		Airport primaryAirport = (Airport) cmbBoxAirports.getSelectedItem();
+		int weaponNumber = -1;
+		Nationality nationality = (Nationality) cmbBoxNationality.getSelectedItem();
 
-	lblErrorMessage.setText("");
-	String errorMessage = "<html>";
+		lblErrorMessage.setText("");
+		String errorMessage = "<html>";
 
-	InputChecker ip = new InputChecker();
+		InputChecker ip = new InputChecker();
 
-	try {
-	    staffId = Integer.parseInt(txtFieldID.getText());
+		try {
+			staffId = Integer.parseInt(txtFieldID.getText());
 
-	    if (Controller.Controller.Instance().getStaffById(staffId) != null && staff == null) {
-		errorMessage += "Staffmember already exists with personal id:" + staffId + "<br>";
-	    }
-	} catch (NumberFormatException exception) {
-	    errorMessage += "Personal id is not a valid number <br>";
-	}
-
-	if (!ip.checkText(name, false, true)) {
-	    errorMessage += "Please enter a valid name first <br>";
-	}
-
-	if (!ip.checkMaxLength(name, 50)) {
-	    errorMessage += "Name has a maximum length of 50 chars <br>";
-	}
-	
-	if (st == PersonalType.AirMarshal) {
-	    try {
-		badgeNumber = Integer.parseInt(txtFieldBadgeNumber.getText());
-
-		if (Controller.Controller.Instance().getAirMarshalByBadgeNumber(badgeNumber) != null && staff == null) {
-		    errorMessage += "Staffmember already exists with Badgenumber:" + badgeNumber + "<br>";
+			if (Controller.Controller.Instance().getStaffById(staffId) != null && staff == null) {
+			errorMessage += "Staffmember already exists with personal id:" + staffId + "<br>";
+			}
+		} catch (NumberFormatException exception) {
+			errorMessage += "Personal id is not a valid number <br>";
 		}
-	    } catch (NumberFormatException exception) {
-		errorMessage += "Badgenumber is not a valid number <br>";
-	    }
-	}
 
-	errorMessage += "</html>";
+		if (!ip.checkText(name, false, true)) {
+			errorMessage += "Please enter a valid name first <br>";
+		}
 
-	if (errorMessage.equals("<html></html>")) {
+		if (!ip.checkMaxLength(name, 50)) {
+			errorMessage += "Name has a maximum length of 50 chars <br>";
+		}
 
-	    if (staff == null && st != PersonalType.AirMarshal) {
+		if (st == PersonalType.AirMarshal) {
+			try {
+				weaponNumber = Integer.parseInt(txtFieldWeaponNumber.getText());
 
-		staff = new Staff(staffId, st, name, primaryAirport);
-		User u = new User("" + staffId, Rank.staff, staff);
-		u.setPassword("flyaway", false);
+				if(weaponNumber < 0){
+					errorMessage += "Weapon number must be a positive number <br>";
+				}
+				
+				if (Controller.Controller.Instance().getAirMarshalByBadgeNumber(weaponNumber) != null && staff == null) {
+					errorMessage += "Staffmember already exists with weapon number:" + weaponNumber + "<br>";
+				}
+			} catch (NumberFormatException exception) {
+				errorMessage += "Weapon number is not a valid number <br>";
+			}
+		}
 
-		if (Controller.Controller.Instance().saveObject(staff)) {
+		errorMessage += "</html>";
 
-		    if (Controller.Controller.Instance().saveObject(u)) {
+		if (errorMessage.equals("<html></html>")) {
 
-			JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved \n User: " + u.getUsername() + " saved");
-			this.dispose();
-		    } else {
-			JOptionPane.showMessageDialog(this, "Error while saving staff");
-			this.dispose();
-		    }
+			if(staff == null){
+				
+				staff = new Staff(staffId, st, name, primaryAirport);
+				User u = new User("" + staffId, Rank.staff, staff);
+				u.setPassword("flyaway", false);
+				
+				if(st == PersonalType.AirMarshal){
+					AirMarshall a = new AirMarshall(weaponNumber, nationality);
+					a.fillStaff(staff);
+					
+					if(Controller.Controller.Instance().saveObject(a) && Controller.Controller.Instance().saveObject(u)){
+						
+						JOptionPane.showMessageDialog(this, "Staff " + a.getName() + " Saved \n User: " + u.getUsername() + " saved");
+						this.dispose();
+					}else{
+						JOptionPane.showMessageDialog(this, "Error while saving staff");
+					}
+					
+				}else{
+				
+					if(Controller.Controller.Instance().saveObject(staff) && Controller.Controller.Instance().saveObject(u)){
+						
+						JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved \n User: " + u.getUsername() + " saved");
+						this.dispose();
+					}else{
+						JOptionPane.showMessageDialog(this, "Error while saving staff");
+					}
+				}
+				
+			}else{
+			
+				staff.setName(name);
+				staff.setPrimaryAirport(primaryAirport);
+				staff.setType(st);
+				
+				if(st == PersonalType.AirMarshal){
 
+					AirMarshall a = (AirMarshall) staff; 
+					a.setNationality(nationality);
+					a.setWeaponNumber(weaponNumber);
+					
+					if(Controller.Controller.Instance().updateObject(a)){
+						JOptionPane.showMessageDialog(this, "Staff " + a.getName() + " saved");
+						this.dispose();
+					}else{
+						JOptionPane.showMessageDialog(this, "Error while saving staff");
+					}
+					
+				}else{
+					
+					if(Controller.Controller.Instance().updateObject(staff)){
+						JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " saved");
+						this.dispose();
+					}else{
+						JOptionPane.showMessageDialog(this, "Error while saving staff");
+					}
+				}
+				
+			}
+			
 		} else {
-		    JOptionPane.showMessageDialog(this, "Error while saving staff");
-		    this.dispose();
+			lblErrorMessage.setText(errorMessage);
 		}
-
-	    } else if (staff != null && st != PersonalType.AirMarshal) {
-
-		staff.setName(name);
-		staff.setNumber(staffId);
-		staff.setType(st);
-		staff.setPrimaryAirport(primaryAirport);
-
-		if (Controller.Controller.Instance().updateObject(staff)) {
-		    JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
-		    this.dispose();
-		} else {
-		    JOptionPane.showMessageDialog(this, "Error while saving staff");
-		    this.dispose();
-		}
-	    } else if (staff == null && st == PersonalType.AirMarshal) {
-
-		staff = new AirMarshal(badgeNumber, nationality, staffId, st, name, primaryAirport);
-		User u = new User("" + staffId, Rank.staff, staff);
-		u.setPassword("flyaway", false);
-
-		if (Controller.Controller.Instance().saveObject(staff)) {
-
-		    if (Controller.Controller.Instance().saveObject(u)) {
-
-			JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved \n User: " + u.getUsername() + " saved");
-			this.dispose();
-		    } else {
-			JOptionPane.showMessageDialog(this, "Error while saving staff");
-			this.dispose();
-		    }
-
-		} else {
-		    JOptionPane.showMessageDialog(this, "Error while saving staff");
-		    this.dispose();
-		}
-
-	    } else if (staff != null && st == PersonalType.AirMarshal) {
-		
-		staff = new AirMarshal(badgeNumber, nationality, staffId, st, name, primaryAirport);
-
-		if (Controller.Controller.Instance().updateObject(staff)) {
-		    JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
-		    this.dispose();
-		} else {
-		    JOptionPane.showMessageDialog(this, "Error while saving staff");
-		    this.dispose();
-		}
-	    }
-	} else {
-	    lblErrorMessage.setText(errorMessage);
-	}
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -361,12 +362,12 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
 	if(cmbBoxPersonalTypes.getSelectedItem().equals(PersonalType.AirMarshal)) {
 	    jLabel4.setVisible(true);
 	    jLabel5.setVisible(true);
-	    txtFieldBadgeNumber.setVisible(true);
+	    txtFieldWeaponNumber.setVisible(true);
 	    cmbBoxNationality.setVisible(true);
 	}else{
 	    jLabel4.setVisible(false);
 	    jLabel5.setVisible(false);
-	    txtFieldBadgeNumber.setVisible(false);
+	    txtFieldWeaponNumber.setVisible(false);
 	    cmbBoxNationality.setVisible(false);
 	}
     }//GEN-LAST:event_cmbBoxPersonalTypesPropertyChange
@@ -384,8 +385,8 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lblErrorMessage;
-    private javax.swing.JTextField txtFieldBadgeNumber;
     private javax.swing.JTextField txtFieldID;
     private javax.swing.JTextField txtFieldName;
+    private javax.swing.JTextField txtFieldWeaponNumber;
     // End of variables declaration//GEN-END:variables
 }

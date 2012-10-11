@@ -40,7 +40,7 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
 
     private void fillTable(){
          ArrayList<Staff> rows = Controller.Instance().getStaff();
-         tblPersonal.setModel(new GenericTableModel<Staff>(rows));
+         tblPersonal.setModel(new StaffTableModel<Staff>(rows));
          
     }
 
@@ -181,7 +181,7 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
         int selectedIndex = tblPersonal.getSelectedRow();
 
         if(selectedIndex >= 0){
-            Staff s = ((GenericTableModel<Staff>)tblPersonal.getModel()).getRow(selectedIndex);
+            Staff s = ((StaffTableModel<Staff>)tblPersonal.getModel()).getRow(selectedIndex);
 
             CreateChangeStaffView ccsv = new CreateChangeStaffView(s);
             flyaway.FlyAWayApp app = (flyaway.FlyAWayApp)flyaway.FlyAWayApp.getApplication();
@@ -195,10 +195,10 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         int selectedIndex = tblPersonal.getSelectedRow();
         if(selectedIndex >= 0 ){
-             Staff s = ((GenericTableModel<Staff>)tblPersonal.getModel()).getRow(selectedIndex);
+             Staff s = ((StaffTableModel<Staff>)tblPersonal.getModel()).getRow(selectedIndex);
              
 			 if(Controller.Instance().deleteObject(s)){
-				((GenericTableModel<Staff>) tblPersonal.getModel()).removeRow(s);
+				((StaffTableModel<Staff>) tblPersonal.getModel()).removeRow(s);
 			 }else{
 				 lblErrorMessage.setText("Staff cannot be deleted, because it is used in one or more flights");
 			 }     
@@ -249,7 +249,7 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
             foundStaff.addAll(Controller.Instance().SearchStaff(searchString));
         }
 		
-		tblPersonal.setModel(new GenericTableModel<Staff>(foundStaff));
+		tblPersonal.setModel(new StaffTableModel<Staff>(foundStaff));
 		
 		if(tblPersonal.getColumnCount() == 5){	
 			tblPersonal.removeColumn(tblPersonal.getColumnModel().getColumn(0));

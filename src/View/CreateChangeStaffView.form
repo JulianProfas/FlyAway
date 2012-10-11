@@ -53,17 +53,17 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblErrorMessage" min="-2" pref="362" max="-2" attributes="0"/>
+                      <Component id="lblErrorMessage" min="-2" pref="387" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cmbBoxNationality" pref="419" max="32767" attributes="1"/>
-                          <Component id="txtFieldName" alignment="0" pref="419" max="32767" attributes="0"/>
-                          <Component id="txtFieldID" alignment="0" pref="419" max="32767" attributes="1"/>
-                          <Component id="cmbBoxAirports" alignment="0" pref="419" max="32767" attributes="0"/>
-                          <Component id="cmbBoxPersonalTypes" alignment="0" pref="419" max="32767" attributes="1"/>
-                          <Component id="txtFieldBadgeNumber" alignment="0" pref="419" max="32767" attributes="1"/>
+                          <Component id="cmbBoxNationality" pref="413" max="32767" attributes="1"/>
+                          <Component id="txtFieldName" alignment="0" pref="413" max="32767" attributes="0"/>
+                          <Component id="txtFieldID" alignment="0" pref="413" max="32767" attributes="1"/>
+                          <Component id="cmbBoxAirports" alignment="0" pref="413" max="32767" attributes="0"/>
+                          <Component id="cmbBoxPersonalTypes" alignment="0" pref="413" max="32767" attributes="1"/>
+                          <Component id="txtFieldWeaponNumber" alignment="0" pref="413" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                   </Group>
@@ -97,7 +97,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtFieldBadgeNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtFieldWeaponNumber" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -105,8 +105,8 @@
                   <Component id="cmbBoxNationality" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="lblErrorMessage" min="-2" pref="16" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <Component id="lblErrorMessage" pref="37" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnSave" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -213,12 +213,12 @@
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jLabel5.setVisible(false);"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtFieldBadgeNumber">
+    <Component class="javax.swing.JTextField" name="txtFieldWeaponNumber">
       <Properties>
-        <Property name="name" type="java.lang.String" value="txtFieldBadgeNumber" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="txtFieldWeaponNumber" noResource="true"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtFieldBadgeNumber.setVisible(false);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtFieldWeaponNumber.setVisible(false);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbBoxNationality">

@@ -4,7 +4,7 @@
  */
 package Controller;
 
-import Model.AirMarshal;
+import Model.AirMarshall;
 import Model.Airport;
 import Model.Country;
 import Model.Flight;
@@ -31,16 +31,19 @@ public class Controller extends Observable {
     HashMap<Integer, Flight> flights;
     HashMap<String, User> users;
     HashMap<String, Country> countries;
+	HashMap<Integer, AirMarshall> airMarshalls;
     User loggedInUser;
 
     public void Initialize() {
+		countries = Database.DatabaseConnectie.getCountries();
         users = Database.DatabaseConnectie.getUsers();
         airports = Database.DatabaseConnectie.getAirports();
         staff = Database.DatabaseConnectie.getStaff();
+		airMarshalls = Database.DatabaseConnectie.getAirMarshalls();
         planes = Database.DatabaseConnectie.getPlanes();
         //We need to add flights as last.
         flights = Database.DatabaseConnectie.getFlights();
-        countries = Database.DatabaseConnectie.getCountries();
+        
     }
 
     public boolean Login(String username, String password) {
@@ -63,6 +66,12 @@ public class Controller extends Observable {
         return result;
     }
 
+	
+	
+	public HashMap<Integer, AirMarshall> getAirMarshalls() {
+		return airMarshalls;
+	}
+	
     private Controller() {
         planes = new HashMap<Integer, Plane>();
         airports = new HashMap<String, Airport>();
@@ -151,7 +160,11 @@ public class Controller extends Observable {
                 Flight f = (Flight) o;
                 flights.put(f.getNumber(), f);
                 this.notifyObservers(f);
-            }
+            } else if(o instanceof AirMarshall){
+				AirMarshall a = (AirMarshall) o;
+				airMarshalls.put(a.getNumber(), a);
+				this.notifyObservers(a);
+			}
             result = true;
         }
         return result;
@@ -176,7 +189,10 @@ public class Controller extends Observable {
             } else if (o instanceof Flight) {
                 Flight f = (Flight) o;
                 this.notifyObservers(f);
-            }
+            } else if(o instanceof AirMarshall){
+				AirMarshall a = (AirMarshall) o;
+				this.notifyObservers(a);
+			}
             result = true;
         }
         return result;
@@ -207,7 +223,11 @@ public class Controller extends Observable {
                 Flight f = (Flight) o;
                 flights.remove(f.getNumber());
                 this.notifyObservers(f);
-            }
+            } else if(o instanceof AirMarshall){
+				AirMarshall a = (AirMarshall) o;
+				airMarshalls.remove(a.getNumber());
+				this.notifyObservers(a);
+			}
             result = true;
         }
         return result;
@@ -421,14 +441,18 @@ public class Controller extends Observable {
         return staff.get(staffId);
     }
     
-    public AirMarshal getAirMarshalByBadgeNumber(int badgeNumber) {
-	AirMarshal gezocht = null;
+	public AirMarshall getAirMarshallByID(int staffID){
+		return (AirMarshall)staff.get(staffID);
+	}
+	
+    public AirMarshall getAirMarshalByBadgeNumber(int weaponNumber) {
+	AirMarshall gezocht = null;
 	
 	for (Staff s : staff.values()) {
-	    if (s instanceof AirMarshal){
-		AirMarshal a = (AirMarshal) s;
+	    if (s instanceof AirMarshall){
+		AirMarshall a = (AirMarshall) s;
 	    
-		if (a.getBadgeNumber() == badgeNumber) {
+		if (a.getWeaponNumber() == weaponNumber) {
 		    gezocht = a;
 		}
 	    }
