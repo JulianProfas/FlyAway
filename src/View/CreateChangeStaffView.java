@@ -45,6 +45,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
 		}
 
 		staff = s;
+		
 		if (s != null) {
 			txtFieldID.setEditable(false);
 			if(s.getType() == PersonalType.AirMarshal){
@@ -54,8 +55,12 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
 				cmbBoxPersonalTypes.addItem(PersonalType.Stewardess);
 			}
 			Fill(s);
+		} else {
+		    cmbBoxPersonalTypes.addItem(PersonalType.AirMarshal);
+		    cmbBoxPersonalTypes.addItem(PersonalType.Pilot);
+		    cmbBoxPersonalTypes.addItem(PersonalType.Stewardess);
 		}
-		
+		 
     }
 
     private void Fill(Staff s) {
@@ -359,16 +364,18 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void cmbBoxPersonalTypesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbBoxPersonalTypesPropertyChange
-	if(cmbBoxPersonalTypes.getSelectedItem().equals(PersonalType.AirMarshal)) {
-	    jLabel4.setVisible(true);
-	    jLabel5.setVisible(true);
-	    txtFieldWeaponNumber.setVisible(true);
-	    cmbBoxNationality.setVisible(true);
-	}else{
-	    jLabel4.setVisible(false);
-	    jLabel5.setVisible(false);
-	    txtFieldWeaponNumber.setVisible(false);
-	    cmbBoxNationality.setVisible(false);
+	if(cmbBoxPersonalTypes.getSelectedItem() != null){
+	    if(cmbBoxPersonalTypes.getSelectedItem().equals(PersonalType.AirMarshal)) {
+		jLabel4.setVisible(true);
+		jLabel5.setVisible(true);
+		txtFieldWeaponNumber.setVisible(true);
+		cmbBoxNationality.setVisible(true);
+	    }else{
+		jLabel4.setVisible(false);
+		jLabel5.setVisible(false);
+		txtFieldWeaponNumber.setVisible(false);
+		cmbBoxNationality.setVisible(false);
+	    }
 	}
     }//GEN-LAST:event_cmbBoxPersonalTypesPropertyChange
 
