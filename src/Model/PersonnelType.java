@@ -8,7 +8,7 @@ package Model;
  *
  * @author Tom
  */
-public enum PersonalType {
+public enum PersonnelType {
 
     Pilot, Stewardess;
 }

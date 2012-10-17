@@ -7,7 +7,7 @@ package Controller;
 import Model.Airport;
 import Model.Country;
 import Model.Flight;
-import Model.PersonalType;
+import Model.PersonnelType;
 import Model.Staff;
 import Model.Plane;
 import Model.User;
@@ -33,13 +33,13 @@ public class Controller extends Observable {
     User loggedInUser;
 
     public void Initialize() {
-        users = Database.DatabaseConnectie.getUsers();
-        airports = Database.DatabaseConnectie.getAirports();
-        staff = Database.DatabaseConnectie.getStaff();
-        planes = Database.DatabaseConnectie.getPlanes();
+        users = Database.DatabaseConnection.getUsers();
+        airports = Database.DatabaseConnection.getAirports();
+        staff = Database.DatabaseConnection.getStaff();
+        planes = Database.DatabaseConnection.getPlanes();
         //We need to add flights as last.
-        flights = Database.DatabaseConnectie.getFlights();
-        countries = Database.DatabaseConnectie.getCountries();
+        flights = Database.DatabaseConnection.getFlights();
+        countries = Database.DatabaseConnection.getCountries();
     }
 
     public boolean Login(String username, String password) {
@@ -83,7 +83,7 @@ public class Controller extends Observable {
 
     public ArrayList<Airport> getAirports() {
         ArrayList<Airport> results = new ArrayList<Airport>();
-        airports = Database.DatabaseConnectie.getAirports();
+        airports = Database.DatabaseConnection.getAirports();
         results.addAll(airports.values());
 
         return results;
@@ -91,21 +91,21 @@ public class Controller extends Observable {
 
     public ArrayList<Country> getCountries() {
         ArrayList<Country> results = new ArrayList<Country>();
-        countries = Database.DatabaseConnectie.getCountries();
+        countries = Database.DatabaseConnection.getCountries();
         results.addAll(countries.values());
         return results;
     }
 
     public ArrayList<Flight> getFlights() {
         ArrayList<Flight> result = new ArrayList<Flight>();
-	flights = Database.DatabaseConnectie.getFlights();
+        flights = Database.DatabaseConnection.getFlights();
         result.addAll(flights.values());
         return result;
     }
 
     public ArrayList<Staff> getStaff() {
         ArrayList<Staff> result = new ArrayList<Staff>();
-	staff = Database.DatabaseConnectie.getStaff();
+        staff = Database.DatabaseConnection.getStaff();
         result.addAll(staff.values());
         return result;
     }
@@ -113,14 +113,14 @@ public class Controller extends Observable {
     public ArrayList<Plane> getPlanes() {
 
         ArrayList<Plane> result = new ArrayList<Plane>();
-	planes = Database.DatabaseConnectie.getPlanes();
+        planes = Database.DatabaseConnection.getPlanes();
         result.addAll(planes.values());
         return result;
     }
 
     public ArrayList<User> getUsers() {
         ArrayList<User> result = new ArrayList<User>();
-	users = Database.DatabaseConnectie.getUsers();
+        users = Database.DatabaseConnection.getUsers();
         result.addAll(users.values());
 
         return result;
@@ -129,7 +129,7 @@ public class Controller extends Observable {
     public boolean saveObject(Object o) {
 
         boolean result = false;
-        if (Database.DatabaseConnectie.saveObject(o)) {
+        if (Database.DatabaseConnection.saveObject(o)) {
             if (o instanceof User) {
                 User u = (User) o;
                 users.put(u.getUsername(), u);
@@ -159,7 +159,7 @@ public class Controller extends Observable {
     public boolean updateObject(Object o) {
 
         boolean result = false;
-        if (Database.DatabaseConnectie.updateObject(o)) {
+        if (Database.DatabaseConnection.updateObject(o)) {
             if (o instanceof User) {
                 User u = (User) o;
                 this.notifyObservers(u);
@@ -184,8 +184,9 @@ public class Controller extends Observable {
     public boolean deleteObject(Object o) {
 
         boolean result = false;
-		
-        if (Database.DatabaseConnectie.deleteObject(o)) {
+
+        if (Database.DatabaseConnection.deleteObject(o)) {
+
             if (o instanceof User) {
                 User u = (User) o;
                 users.remove(u.getUsername());
@@ -213,51 +214,32 @@ public class Controller extends Observable {
     }
 
     public ArrayList<Flight> getScheduledFlights() {
+        return this.getScheduledFlights(loggedInUser);
+    }
+
+    public ArrayList<Flight> getScheduledFlights(User user) {
         ArrayList<Flight> result = new ArrayList<Flight>();
-        Staff s = this.loggedInUser.getStaffAccount();
+        Staff s = user.getStaffAccount();
+
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         c.roll(Calendar.DAY_OF_MONTH, false);
         c.set(Calendar.HOUR_OF_DAY, 23);
         c.set(Calendar.MINUTE, 59);
         Date d = c.getTime();
+        flights = Database.DatabaseConnection.getFlights();
 
         for (Flight f : flights.values()) {
 
             Staff pilot = f.getPilot();
             Staff coPilot = f.getCopilot();
 
-            if ((pilot.getNumber() == s.getNumber() || coPilot.getNumber() == s.getNumber() || f.getOtherPersonal().contains(s)) && f.getDate().after(d)) {
+
+            if ((pilot.getNumber() == s.getNumber() || coPilot.getNumber() == s.getNumber() || f.getOtherPersonnel().contains(s)) && f.getDate().after(d)) {
                 result.add(f);
             }
         }
-        return result;
-    }
-    
-    public ArrayList<Flight> getScheduledFlights(User user) {
-        ArrayList<Flight> result = new ArrayList<Flight>();
-        Staff s = user.getStaffAccount();
-        
-	Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
-        c.roll(Calendar.DAY_OF_MONTH, false);
-        c.set(Calendar.HOUR_OF_DAY, 23);
-        c.set(Calendar.MINUTE, 59);
-        Date d = c.getTime();
-	flights = Database.DatabaseConnectie.getFlights();
-	
-	System.out.println(flights.size());
-        for (Flight f : flights.values()) {
 
-            Staff pilot = f.getPilot();
-            Staff coPilot = f.getCopilot();
-	    
-
-            if ((pilot.getNumber() == s.getNumber() || coPilot.getNumber() == s.getNumber() || f.getOtherPersonal().contains(s)) && f.getDate().after(d)) {
-                result.add(f);
-            }
-        }
-	
         return result;
     }
 
@@ -318,7 +300,7 @@ public class Controller extends Observable {
         return result;
     }
 
-    public ArrayList<Staff> SearchStaff(PersonalType st) {
+    public ArrayList<Staff> SearchStaff(PersonnelType st) {
         ArrayList<Staff> result = new ArrayList<Staff>();
 
         for (Staff s : staff.values()) {
@@ -333,7 +315,7 @@ public class Controller extends Observable {
         ArrayList<Staff> result = new ArrayList<Staff>();
 
         for (Staff s : staff.values()) {
-            if (s.getName().contains(name) && s.getType().equals(PersonalType.Pilot)) {
+            if (s.getName().contains(name) && s.getType().equals(PersonnelType.Pilot)) {
                 result.add(s);
             }
         }
@@ -365,36 +347,36 @@ public class Controller extends Observable {
     public ArrayList<Staff> SearchStaffAvailable(Date d) {
 
         ArrayList<Staff> foundStaff = new ArrayList<Staff>();
-	boolean dontAdd = false;
+        boolean dontAdd = false;
         for (Staff s : staff.values()) {
-	    if(s.getType().equals(PersonalType.Pilot)){
-		dontAdd = true;
-	    }else{
-		dontAdd = false;
-		for (Flight f : flights.values()) {
-		    if (f.getOtherPersonal().contains(s) || f.getPilot().equals(s) || f.getCopilot().equals(s)) {
-			Date nextDay = (Date) d.clone();
-			nextDay.setDate(d.getDate() + 1);
-			Date previousDay = (Date) d.clone();
-			previousDay.setDate(d.getDate() - 1);
+            if (s.getType().equals(PersonnelType.Pilot)) {
+                dontAdd = true;
+            } else {
+                dontAdd = false;
+                for (Flight f : flights.values()) {
+                    if (f.getOtherPersonnel().contains(s) || f.getPilot().equals(s) || f.getCopilot().equals(s)) {
+                        Date nextDay = (Date) d.clone();
+                        nextDay.setDate(d.getDate() + 1);
+                        Date previousDay = (Date) d.clone();
+                        previousDay.setDate(d.getDate() - 1);
 
 
-			if ((f.getDate().getDate() == d.getDate()
-				&& f.getDate().getMonth() == d.getMonth()
-				&& f.getDate().getYear() == d.getYear()) || // staff is already on a plane today
-				(f.getDate().getDate() == nextDay.getDate()
-				&& f.getDate().getMonth() == nextDay.getMonth()
-				&& f.getDate().getYear() == nextDay.getYear()) || // staff is already on a plane tomorrow
-				(f.getDate().getDate() == previousDay.getDate()
-				&& f.getDate().getMonth() == previousDay.getMonth()
-				&& f.getDate().getYear() == previousDay.getYear()) // staff was already on a plane yesterday
-				) {
+                        if ((f.getDate().getDate() == d.getDate()
+                                && f.getDate().getMonth() == d.getMonth()
+                                && f.getDate().getYear() == d.getYear()) || // staff is already on a plane today
+                                (f.getDate().getDate() == nextDay.getDate()
+                                && f.getDate().getMonth() == nextDay.getMonth()
+                                && f.getDate().getYear() == nextDay.getYear()) || // staff is already on a plane tomorrow
+                                (f.getDate().getDate() == previousDay.getDate()
+                                && f.getDate().getMonth() == previousDay.getMonth()
+                                && f.getDate().getYear() == previousDay.getYear()) // staff was already on a plane yesterday
+                                ) {
 
-			    dontAdd = true;
+                            dontAdd = true;
 
-			}
-		    }
-		}
+                        }
+                    }
+                }
             }
             if (!dontAdd) {
                 foundStaff.add(s);
@@ -408,7 +390,7 @@ public class Controller extends Observable {
 
         ArrayList<Staff> foundStaff = new ArrayList<Staff>();
         for (Staff s : staff.values()) {
-            if (s.getType() != PersonalType.Pilot) {
+            if (s.getType() != PersonnelType.Pilot) {
                 continue; // only looking for pilots, so if this isn't a pilot, continue to the next staff member
             }
             boolean dontAdd = false;
@@ -418,7 +400,6 @@ public class Controller extends Observable {
                     nextDay.setDate(d.getDate() + 1);
                     Date previousDay = (Date) d.clone();
                     previousDay.setDate(d.getDate() - 1);
-
 
                     if ((f.getDate().getDate() == d.getDate()
                             && f.getDate().getMonth() == d.getMonth()
@@ -526,11 +507,11 @@ public class Controller extends Observable {
         }
         return result;
     }
-    
+
     public ArrayList<Flight> searchFlight(String search) {
         ArrayList<Flight> result = new ArrayList<Flight>();
-        for (Flight f: flights.values()) {
-            if(f.getFrom().toString().contains(search) || f.getDestination().toString().contains(search) || ("" + f.getNumber()).contains(search))  {
+        for (Flight f : flights.values()) {
+            if (f.getFrom().toString().contains(search) || f.getDestination().toString().contains(search) || ("" + f.getNumber()).contains(search)) {
                 result.add(f);
             }
         }
@@ -540,11 +521,6 @@ public class Controller extends Observable {
     public User getLogedIn() {
         return loggedInUser;
     }
-
-    //public void removeUser(User row) {
-      //  Database.DatabaseConnectie.deleteObject(row);
-
-    //}
 
     public ArrayList<User> SearchUser(String searchString) {
         ArrayList<User> result = new ArrayList<User>();

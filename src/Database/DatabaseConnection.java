@@ -15,15 +15,14 @@ import java.util.HashMap;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.exception.ConstraintViolationException;
 
-public class DatabaseConnectie {
+public class DatabaseConnection {
 
     public static boolean saveObject(Object o) {
 
         boolean result = false;
         Session session = getSession();
-        
+
 
         try {
             session.beginTransaction();
@@ -36,13 +35,10 @@ public class DatabaseConnectie {
             session.getTransaction().commit();
 
         } catch (Exception he) {
-			
+
             System.out.println(he);
             session.getTransaction().rollback();
             result = false;
-        } finally {
-            //session.flush();
-            //session.close();
         }
         return result;
     }
@@ -66,9 +62,6 @@ public class DatabaseConnectie {
             System.out.println(he);
             session.getTransaction().rollback();
             result = false;
-        } finally {
-            //session.flush();
-            //session.close();
         }
         return result;
     }
@@ -82,15 +75,11 @@ public class DatabaseConnectie {
             session.beginTransaction();
             session.delete(o);
             session.getTransaction().commit();
-            result = true;	
-        } catch (Exception e){
-			session.getTransaction().rollback();
-			System.out.println(e);
-		}
-//		finally {
-//            //session.flush();
-//            //session.close();
-//        }
+            result = true;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            System.out.println(e);
+        }
         return result;
     }
 

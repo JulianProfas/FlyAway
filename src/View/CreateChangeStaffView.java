@@ -13,7 +13,7 @@ package View;
 
 import Controller.InputChecker;
 import Model.Airport;
-import Model.PersonalType;
+import Model.PersonnelType;
 import Model.Rank;
 import Model.Staff;
 import Model.User;
@@ -31,9 +31,9 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     public CreateChangeStaffView(Staff s) {
         initComponents();
 
-        PersonalType stypes[] = PersonalType.values();
-        for(PersonalType st : stypes){
-            cmbBoxPersonalTypes.addItem(st);
+        PersonnelType stypes[] = PersonnelType.values();
+        for(PersonnelType st : stypes){
+            cmbBoxPersonnelTypes.addItem(st);
         }
 		
 		ArrayList<Airport> airports = Controller.Controller.Instance().getAirports();
@@ -52,7 +52,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     private void Fill(Staff s){
         txtFieldID.setText(""+s.getNumber());
         txtFieldName.setText(s.getName());
-        cmbBoxPersonalTypes.setSelectedItem(s.getType());
+        cmbBoxPersonnelTypes.setSelectedItem(s.getType());
 		cmbBoxAirports.setSelectedItem(s.getPrimaryAirport());
     }
 
@@ -66,7 +66,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        cmbBoxPersonalTypes = new javax.swing.JComboBox();
+        cmbBoxPersonnelTypes = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         txtFieldID = new javax.swing.JTextField();
         Name = new javax.swing.JLabel();
@@ -87,7 +87,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
-        cmbBoxPersonalTypes.setName("cmbBoxPersonalTypes"); // NOI18N
+        cmbBoxPersonnelTypes.setName("cmbBoxPersonnelTypes"); // NOI18N
 
         jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
@@ -156,7 +156,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                     .addComponent(txtFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
                     .addComponent(cmbBoxAirports, 0, 282, Short.MAX_VALUE)
                     .addComponent(txtFieldID, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                    .addComponent(cmbBoxPersonalTypes, 0, 282, Short.MAX_VALUE))
+                    .addComponent(cmbBoxPersonnelTypes, 0, 282, Short.MAX_VALUE))
                 .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
@@ -173,7 +173,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(cmbBoxPersonalTypes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbBoxPersonnelTypes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -193,7 +193,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         String name = txtFieldName.getText();
         int staffId = -1;
-        PersonalType st = (PersonalType)cmbBoxPersonalTypes.getSelectedItem();
+        PersonnelType st = (PersonnelType)cmbBoxPersonnelTypes.getSelectedItem();
 		Airport primaryAirport = (Airport)cmbBoxAirports.getSelectedItem();
         
 		lblErrorMessage.setText("");
@@ -205,10 +205,10 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
 			staffId = Integer.parseInt(txtFieldID.getText());
 			
 			if(Controller.Controller.Instance().getStaffById(staffId) != null && staff == null){
-				errorMessage += "Staffmember already exists with personal id:" + staffId + "<br>";
+				errorMessage += "Staffmember already exists with Personnel id:" + staffId + "<br>";
 			}
 		}catch(NumberFormatException exception){
-			errorMessage += "Personal id is not a valid number <br>";
+			errorMessage += "Personnel id is not a valid number <br>";
 		}
 		
         if(!ip.checkText(name, false, true)){
@@ -278,7 +278,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox cmbBoxAirports;
-    private javax.swing.JComboBox cmbBoxPersonalTypes;
+    private javax.swing.JComboBox cmbBoxPersonnelTypes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

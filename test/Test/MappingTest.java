@@ -5,7 +5,7 @@
 package Test;
 
 import java.util.ArrayList;
-import Model.PersonalType;
+import Model.PersonnelType;
 import Model.Country;
 import HibernateUtil.HibernateUtil;
 
@@ -172,7 +172,7 @@ public class MappingTest {
 //		
 //		Country c = new Country("CC", 333, "Country Test");
 //		Airport a = new Airport("BBB", "Test Airport", c, "Test City");
-//		Staff s = new Staff(1, PersonalType.Pilot, "Piet", a);
+//		Staff s = new Staff(1, PersonnelType.Pilot, "Piet", a);
 //		
 //		List<Staff> result = null;
 //		Staff test = null;
@@ -189,7 +189,7 @@ public class MappingTest {
 //				victory = false;
 //			}else{
 //				test = result.get(0);
-//				if(test.getNumber() != 1 || !test.getName().equals("Piet") || !test.getPrimaryAirport().getCode().equals("BBB") || !test.getType().equals(PersonalType.Pilot)){
+//				if(test.getNumber() != 1 || !test.getName().equals("Piet") || !test.getPrimaryAirport().getCode().equals("BBB") || !test.getType().equals(PersonnelType.Pilot)){
 //					System.out.println("2");
 //					victory = false;
 //				}
@@ -253,10 +253,10 @@ public class MappingTest {
 //		Airport a2 = new Airport("CCC", "Test Airport", c, "Test City");
 //		Airport a3 = new Airport("DDD", "Test Airport", c, "Test City");
 //		Airport a4 = new Airport("EEE", "Test Airport", c, "Test City");
-//		Staff s1 = new Staff(1, PersonalType.Pilot, "Piet", a1);
-//		Staff s2 = new Staff(2, PersonalType.Pilot, "Henk", a2);
-//		Staff s3 = new Staff(3, PersonalType.Stewardess, "Arie", a3);
-//		Staff s4 = new Staff(4, PersonalType.Stewardess, "Loes", a2);
+//		Staff s1 = new Staff(1, PersonnelType.Pilot, "Piet", a1);
+//		Staff s2 = new Staff(2, PersonnelType.Pilot, "Henk", a2);
+//		Staff s3 = new Staff(3, PersonnelType.Stewardess, "Arie", a3);
+//		Staff s4 = new Staff(4, PersonnelType.Stewardess, "Loes", a2);
 //		Plane p = new Plane(1, "ufo", 8);
 //		List<Staff> staff = new ArrayList<Staff>();
 //		staff.add(s3);

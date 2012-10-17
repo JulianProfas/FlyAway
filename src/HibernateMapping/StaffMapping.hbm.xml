@@ -11,11 +11,11 @@
     </property>
     <property column="type" name="type" not-null="true">
       <type name="org.hibernate.type.EnumType">
-        <param name="enumClass">Model.PersonalType</param>
+        <param name="enumClass">Model.PersonnelType</param>
         <param name="type">12</param>
       </type>
     </property>
     <many-to-one class="Airport" column="primaryairport" lazy="false" name="primaryAirport" not-null="true">
-		</many-to-one>
+        </many-to-one>
   </class>
 </hibernate-mapping>

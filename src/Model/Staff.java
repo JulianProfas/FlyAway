@@ -10,19 +10,19 @@ package Model;
  */
 public class Staff implements java.io.Serializable {
 
-//    public enum PersonalType{
+//    public enum PersonnelType{
 //        Pilot,
 //        Stewardess
 //    }
     private int number;
-    private PersonalType type;
+    private PersonnelType type;
     private String name;
     private Airport primaryAirport;
 
     public Staff() {
     }
 
-    public Staff(int number, PersonalType type, String name, Airport primaryAirport) {
+    public Staff(int number, PersonnelType type, String name, Airport primaryAirport) {
         this.number = number;
         this.type = type;
         this.name = name;
@@ -34,7 +34,7 @@ public class Staff implements java.io.Serializable {
      *
      * @return the value of type
      */
-    public PersonalType getType() {
+    public PersonnelType getType() {
         return type;
     }
 
@@ -43,7 +43,7 @@ public class Staff implements java.io.Serializable {
      *
      * @param type new value of type
      */
-    public void setType(PersonalType type) {
+    public void setType(PersonnelType type) {
         this.type = type;
     }
 
