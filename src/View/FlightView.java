@@ -41,14 +41,15 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
                  
     }
 
-    private void fillTableModel(ArrayList<Flight> flights){
-         GenericTableModel<Flight> flightsModel = new GenericTableModel<Flight>(flights);
-         tblFlights.setModel(flightsModel);
-          TableColumnModel tcm = tblFlights.getColumnModel();
-			CustomTableCellRenderer tcr = new CustomTableCellRenderer();
-			for(int it = 0; it < flightsModel.getColumnCount(); it++){
-				tcm.getColumn(it).setCellRenderer(tcr);
-			}
+    private void fillTableModel(ArrayList<Flight> flights) {
+        GenericTableModel<Flight> flightsModel = new GenericTableModel<Flight>(flights);
+        tblFlights.setModel(flightsModel);
+        TableColumnModel tcm = tblFlights.getColumnModel();
+        CustomTableCellRenderer tcr = new CustomTableCellRenderer();
+        for (int it = 0; it < flightsModel.getColumnCount(); it++)
+        {
+            tcm.getColumn(it).setCellRenderer(tcr);
+        }
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -188,25 +189,21 @@ public class FlightView extends javax.swing.JInternalFrame implements Observer {
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         int index = tblFlights.getSelectedRow();
 
-        if(index >= 0){
-
-            GenericTableModel<Flight> gtm = (GenericTableModel<Flight>)tblFlights.getModel();
+        if (index >= 0) {
+            GenericTableModel<Flight> gtm = (GenericTableModel<Flight>) tblFlights.getModel();
             Flight f = gtm.getRow(index);
 
-			if(f.getReturnFlight() == null){
-			
-				CreateChangeFlightView ccfv = new CreateChangeFlightView(f);
-				 flyaway.FlyAWayApp app = (flyaway.FlyAWayApp)flyaway.FlyAWayApp.getApplication();
-				 app.getFlyAwayView().addFrame(ccfv);
-			}else{
-				lblErrorMessage.setText("You have selected a automatically generated flight, this cannot be changed");
-			}
-        }
-        else{
+            if (f.getReturnFlight() == null) {
+
+                CreateChangeFlightView ccfv = new CreateChangeFlightView(f);
+                flyaway.FlyAWayApp app = (flyaway.FlyAWayApp) flyaway.FlyAWayApp.getApplication();
+                app.getFlyAwayView().addFrame(ccfv);
+            } else {
+                lblErrorMessage.setText("You have selected a automatically generated flight, this cannot be changed");
+            }
+        } else {
             lblErrorMessage.setText("Please select a row first");
         }
-		
-		
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed

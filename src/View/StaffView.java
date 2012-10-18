@@ -32,16 +32,15 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
         initComponents();
         Controller.Instance().addObserver(this);
         fillTable();
-		if(tblPersonnel.getColumnCount() == 5){
-			tblPersonnel.removeColumn(tblPersonnel.getColumnModel().getColumn(0));
-		}
-		
+        if (tblPersonnel.getColumnCount() == 5) {
+            tblPersonnel.removeColumn(tblPersonnel.getColumnModel().getColumn(0));
+        }
+
     }
 
-    private void fillTable(){
-         ArrayList<Staff> rows = Controller.Instance().getStaff();
-         tblPersonnel.setModel(new GenericTableModel<Staff>(rows));
-         
+    private void fillTable() {
+        ArrayList<Staff> rows = Controller.Instance().getStaff();
+        tblPersonnel.setModel(new GenericTableModel<Staff>(rows));
     }
 
     /** This method is called from within the constructor to
@@ -194,16 +193,15 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         int selectedIndex = tblPersonnel.getSelectedRow();
-        if(selectedIndex >= 0 ){
-             Staff s = ((GenericTableModel<Staff>)tblPersonnel.getModel()).getRow(selectedIndex);
-             
-			 if(Controller.Instance().deleteObject(s)){
-				((GenericTableModel<Staff>) tblPersonnel.getModel()).removeRow(s);
-			 }else{
-				 lblErrorMessage.setText("Staff cannot be deleted, because it is used in one or more flights");
-			 }     
-        }
-        else{
+        if (selectedIndex >= 0) {
+            Staff s = ((GenericTableModel<Staff>) tblPersonnel.getModel()).getRow(selectedIndex);
+
+            if (Controller.Instance().deleteObject(s)) {
+                ((GenericTableModel<Staff>) tblPersonnel.getModel()).removeRow(s);
+            } else {
+                lblErrorMessage.setText("Staff cannot be deleted, because it is used in one or more flights");
+            }
+        } else {
             lblErrorMessage.setText("Please select a row first");
         }
     }//GEN-LAST:event_btnRemoveActionPerformed
@@ -218,11 +216,9 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
         }
     }//GEN-LAST:event_txtFieldSearchKeyPressed
 
-    private void searchStaff()
-    {
+    private void searchStaff() {
         String searchString = txtFieldSearch.getText();
         ArrayList<Staff> foundStaff = new ArrayList<Staff>();
-
 
         if (searchString.isEmpty()) {
             foundStaff = Controller.Instance().getStaff();
@@ -243,18 +239,18 @@ public class StaffView extends javax.swing.JInternalFrame implements Observer {
             } catch (IllegalArgumentException iae) {
                 Logger.getLogger(GenericTableModel.class.getName()).log(Level.FINER, null, iae.getMessage());
             }
-            if(st!= null){
+            if (st != null) {
                 foundStaff.addAll(Controller.Instance().SearchStaff(st));
             }
             foundStaff.addAll(Controller.Instance().SearchStaff(searchString));
         }
-		
-		tblPersonnel.setModel(new GenericTableModel<Staff>(foundStaff));
-		
-		if(tblPersonnel.getColumnCount() == 5){	
-			tblPersonnel.removeColumn(tblPersonnel.getColumnModel().getColumn(0));
-		}	
-        
+
+        tblPersonnel.setModel(new GenericTableModel<Staff>(foundStaff));
+
+        if (tblPersonnel.getColumnCount() == 5) {
+            tblPersonnel.removeColumn(tblPersonnel.getColumnModel().getColumn(0));
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -193,79 +193,76 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         String name = txtFieldName.getText();
         int staffId = -1;
-        PersonnelType st = (PersonnelType)cmbBoxPersonnelTypes.getSelectedItem();
-		Airport primaryAirport = (Airport)cmbBoxAirports.getSelectedItem();
-        
-		lblErrorMessage.setText("");
-		String errorMessage = "<html>";
-		
-		InputChecker ip = new InputChecker();
-		
-		try{
-			staffId = Integer.parseInt(txtFieldID.getText());
-			
-			if(Controller.Controller.Instance().getStaffById(staffId) != null && staff == null){
-				errorMessage += "Staffmember already exists with Personnel id:" + staffId + "<br>";
-			}
-		}catch(NumberFormatException exception){
-			errorMessage += "Personnel id is not a valid number <br>";
-		}
-		
-        if(!ip.checkText(name, false, true)){
+        PersonnelType st = (PersonnelType) cmbBoxPersonnelTypes.getSelectedItem();
+        Airport primaryAirport = (Airport) cmbBoxAirports.getSelectedItem();
+
+        lblErrorMessage.setText("");
+        String errorMessage = "<html>";
+
+        InputChecker ip = new InputChecker();
+
+        try {
+            staffId = Integer.parseInt(txtFieldID.getText());
+
+            if (Controller.Controller.Instance().getStaffById(staffId) != null && staff == null) {
+                errorMessage += "Staffmember already exists with Personnel id:" + staffId + "<br>";
+            }
+        } catch (NumberFormatException exception) {
+            errorMessage += "Personnel id is not a valid number <br>";
+        }
+
+        if (!ip.checkText(name, false, true)) {
             errorMessage += "Please enter a valid name first <br>";
         }
-		
-		if(!ip.checkMaxLength(name, 50)){
-			errorMessage += "Name has a maximum length of 50 chars <br>";
-		}
 
-		errorMessage += "</html>";
-		
-        if(errorMessage.equals("<html></html>")){
-			
-            if(staff == null){
-                
-				staff = new Staff(staffId, st, name, primaryAirport);
-				User u = new User("" + staffId, Rank.staff, staff );
-				u.setPassword("flyaway", false);
+        if (!ip.checkMaxLength(name, 50)) {
+            errorMessage += "Name has a maximum length of 50 chars <br>";
+        }
 
-                if(Controller.Controller.Instance().saveObject(staff)){
-					
-					if(Controller.Controller.Instance().saveObject(u)){
-					
-						JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved \n User: " + u.getUsername() + " saved");
-						this.dispose();
-					}else{
-						JOptionPane.showMessageDialog(this, "Error while saving staff");
-						this.dispose();
-					}
-                   
-                }else{
-					JOptionPane.showMessageDialog(this, "Error while saving staff");
-					this.dispose();
-				}
-					
-            }
-            else{
-                
+        errorMessage += "</html>";
+
+        if (errorMessage.equals("<html></html>")) {
+
+            if (staff == null) {
+
+                staff = new Staff(staffId, st, name, primaryAirport);
+                User u = new User("" + staffId, Rank.staff, staff);
+                u.setPassword("flyaway", false);
+
+                if (Controller.Controller.Instance().saveObject(staff)) {
+
+                    if (Controller.Controller.Instance().saveObject(u)) {
+
+                        JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved \n User: " + u.getUsername() + " saved");
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error while saving staff");
+                        this.dispose();
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error while saving staff");
+                    this.dispose();
+                }
+
+            } else {
+
                 staff.setName(name);
                 staff.setNumber(staffId);
                 staff.setType(st);
                 staff.setPrimaryAirport(primaryAirport);
 
-                if(Controller.Controller.Instance().updateObject(staff)){
+                if (Controller.Controller.Instance().updateObject(staff)) {
                     JOptionPane.showMessageDialog(this, "Staff " + staff.getName() + " Saved");
                     this.dispose();
-                }else{
-					JOptionPane.showMessageDialog(this, "Error while saving staff");
-					this.dispose();
-				}
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error while saving staff");
+                    this.dispose();
+                }
             }
-        }
-        else{
+        } else {
             lblErrorMessage.setText(errorMessage);
         }
-
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
