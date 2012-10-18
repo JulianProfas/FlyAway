@@ -59,6 +59,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
 		    cmbBoxPersonalTypes.addItem(PersonalType.AirMarshal);
 		    cmbBoxPersonalTypes.addItem(PersonalType.Pilot);
 		    cmbBoxPersonalTypes.addItem(PersonalType.Stewardess);
+			cmbBoxPersonalTypes.setSelectedItem(PersonalType.Pilot);
 		}
 		 
     }
@@ -112,6 +113,11 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
         jLabel1.setName("jLabel1"); // NOI18N
 
         cmbBoxPersonalTypes.setName("cmbBoxPersonalTypes"); // NOI18N
+        cmbBoxPersonalTypes.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbBoxPersonalTypesItemStateChanged(evt);
+            }
+        });
         cmbBoxPersonalTypes.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 cmbBoxPersonalTypesPropertyChange(evt);
@@ -231,7 +237,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5)
                     .addComponent(cmbBoxNationality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(lblErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                .addComponent(lblErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
@@ -364,7 +370,11 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void cmbBoxPersonalTypesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbBoxPersonalTypesPropertyChange
-	if(cmbBoxPersonalTypes.getSelectedItem() != null){
+	
+    }//GEN-LAST:event_cmbBoxPersonalTypesPropertyChange
+
+	private void cmbBoxPersonalTypesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBoxPersonalTypesItemStateChanged
+		if(cmbBoxPersonalTypes.getSelectedItem() != null){
 	    if(cmbBoxPersonalTypes.getSelectedItem().equals(PersonalType.AirMarshal)) {
 		jLabel4.setVisible(true);
 		jLabel5.setVisible(true);
@@ -377,7 +387,7 @@ public class CreateChangeStaffView extends javax.swing.JInternalFrame {
 		cmbBoxNationality.setVisible(false);
 	    }
 	}
-    }//GEN-LAST:event_cmbBoxPersonalTypesPropertyChange
+	}//GEN-LAST:event_cmbBoxPersonalTypesItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Name;
