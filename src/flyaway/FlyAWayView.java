@@ -38,7 +38,7 @@ import threads.Lichtkrant;
  */
 public class FlyAWayView extends FrameView {
 
-    public FlyAWayView(SingleFrameApplication app) throws InterruptedException {
+    public FlyAWayView(SingleFrameApplication app) {
         super(app);
 
         initComponents();

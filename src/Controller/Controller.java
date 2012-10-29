@@ -118,7 +118,7 @@ public class Controller extends Observable {
                 Date flightDate = sdf.parse(sdf.format(f.getDate()));
 
                 //method 2
-                Calendar cal = null;
+                Calendar cal = Calendar.getInstance();
 //                cal.setTime(flightDate);
                 cal.setTime(f.getDate());
                 cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -126,8 +126,8 @@ public class Controller extends Observable {
                 cal.set(Calendar.SECOND, 0);
                 cal.set(Calendar.MILLISECOND, 0);
                 
-                System.out.println(cal);
-                System.out.println(datum);
+                System.out.println(cal.getTime());
+                System.out.println(datum.getTime());
                 System.out.println(datum.equals(cal));
 
                 if (datum.equals(cal)) {
