@@ -93,6 +93,6 @@ public class Staff implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return this.name;
+        return this.name + " : " + this.primaryAirport.getName() ;
     }
 }
