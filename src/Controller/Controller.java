@@ -11,11 +11,15 @@ import Model.PersonnelType;
 import Model.Staff;
 import Model.Plane;
 import Model.User;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -100,6 +104,41 @@ public class Controller extends Observable {
         ArrayList<Flight> result = new ArrayList<Flight>();
         flights = Database.DatabaseConnection.getFlights();
         result.addAll(flights.values());
+        return result;
+    }
+
+    public ArrayList<Flight> getFlightsLK(Calendar datum) {
+        ArrayList<Flight> result = new ArrayList<Flight>();
+        flights = Database.DatabaseConnection.getFlights();
+
+        for (Flight f : flights.values()) {
+            try {
+                //method 1
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date flightDate = sdf.parse(sdf.format(f.getDate()));
+
+                //method 2
+                Calendar cal = null;
+//                cal.setTime(flightDate);
+                cal.setTime(f.getDate());
+                cal.set(Calendar.HOUR_OF_DAY, 0);
+                cal.set(Calendar.MINUTE, 0);
+                cal.set(Calendar.SECOND, 0);
+                cal.set(Calendar.MILLISECOND, 0);
+                
+                System.out.println(cal);
+                System.out.println(datum);
+                System.out.println(datum.equals(cal));
+
+                if (datum.equals(cal)) {
+                    result.add(f);
+                    System.out.println(f.getPilot().toString());
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
         return result;
     }
 
