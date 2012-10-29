@@ -28,6 +28,7 @@ import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 /**
  * The application's main frame.
@@ -37,6 +38,7 @@ public class FlyAWayView extends FrameView {
     public FlyAWayView(SingleFrameApplication app) {
         super(app);
 
+		
         initComponents();        
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
@@ -148,7 +150,7 @@ public class FlyAWayView extends FrameView {
         progressBar = new javax.swing.JProgressBar();
 
         mainPanel.setName("mainPanel"); // NOI18N
-        mainPanel.setPreferredSize(new java.awt.Dimension(1366, 768));
+        mainPanel.setPreferredSize(new java.awt.Dimension(900, 480));
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(flyaway.FlyAWayApp.class).getContext().getResourceMap(FlyAWayView.class);
         btnPlane.setText(resourceMap.getString("btnPlane.text")); // NOI18N
@@ -339,7 +341,9 @@ public class FlyAWayView extends FrameView {
     }//GEN-LAST:event_btnUsersActionPerformed
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-        System.exit(0);
+
+		System.exit(0);
+		
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
 	private void btnScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheduleActionPerformed

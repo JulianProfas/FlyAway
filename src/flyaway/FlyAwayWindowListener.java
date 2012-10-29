@@ -5,9 +5,9 @@
 
 package flyaway;
 
-import Controller.Controller;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
 
 
 
@@ -19,6 +19,9 @@ public class FlyAwayWindowListener extends WindowAdapter {
     @Override
   public void windowClosing(WindowEvent e)
   {
-    System.exit(0);
+		int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to close the application?");
+		if(option == JOptionPane.YES_OPTION){
+			System.exit(0);
+		}
   }
 }
