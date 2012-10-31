@@ -14,24 +14,18 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnPlane" alignment="0" max="32767" attributes="1"/>
-                              <Component id="btnFlight" alignment="0" pref="70" max="32767" attributes="1"/>
-                              <Component id="btnAirport" alignment="0" max="32767" attributes="1"/>
-                              <Component id="btnStaff" alignment="0" max="32767" attributes="1"/>
-                              <Component id="btnUsers" alignment="0" max="32767" attributes="1"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnSchedule" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="btnSchedule" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="btnPlane" alignment="0" max="32767" attributes="1"/>
+                      <Component id="btnFlight" alignment="0" pref="70" max="32767" attributes="1"/>
+                      <Component id="btnAirport" alignment="0" max="32767" attributes="1"/>
+                      <Component id="btnStaff" alignment="0" max="32767" attributes="1"/>
+                      <Component id="btnUsers" alignment="0" max="32767" attributes="1"/>
+                      <Component id="btnLogout" alignment="0" min="-2" pref="93" max="-2" attributes="1"/>
                   </Group>
-                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                  <Component id="desktopPane" pref="701" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="desktopPane" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
@@ -47,7 +41,7 @@
                   <Component id="lblWelkom" min="-2" pref="12" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="desktopPane" alignment="1" pref="514" max="32767" attributes="0"/>
+                      <Component id="desktopPane" alignment="1" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="btnPlane" linkSize="2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -60,6 +54,8 @@
                           <Component id="btnUsers" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnSchedule" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="262" max="32767" attributes="0"/>
+                          <Component id="btnLogout" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -136,6 +132,15 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnScheduleActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JButton" name="btnLogout">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="btnLogout.text"/>
+            <Property name="name" type="java.lang.String" value="btnLogout" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JMenuBar" name="menuBar">
@@ -186,7 +191,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="statusMessageLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="630" max="32767" attributes="0"/>
+                  <EmptySpace pref="604" max="32767" attributes="0"/>
                   <Component id="progressBar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="statusAnimationLabel" min="-2" max="-2" attributes="0"/>
