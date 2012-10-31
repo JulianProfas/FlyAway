@@ -57,7 +57,7 @@ public class Controller extends Observable {
         
         if(logedIn != null){
             if(logedIn.getRank() == User.Rank.admin){//              
-                //UserSerializer.writeUsers("users.usr", users);
+                UserSerializer.writeUsers("users.usr", users);
             }
         }
     }
