@@ -44,14 +44,12 @@ public class FlyAWayView extends FrameView {
         initComponents();
         
         //Lichtkrant
-        Lichtkrant nlk = new Lichtkrant();
+        Lichtkrant nlk = new Lichtkrant(tblLk);
         Thread lk = new Thread(nlk);
         lk.start();
         
         
-        //Tabel aanmaken
-        GenericTableModel<Flight> model = new GenericTableModel<Flight>(nlk.list);
-//        tblLk.setModel(model);
+        
         
         
         // status bar initialization - message timeout, idle icon and busy animation, etc
@@ -157,6 +155,7 @@ public class FlyAWayView extends FrameView {
         jLKPane = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLk = new javax.swing.JTable();
+        lblVluchten = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -251,18 +250,21 @@ public class FlyAWayView extends FrameView {
         jLKPane.setLayout(jLKPaneLayout);
         jLKPaneLayout.setHorizontalGroup(
             jLKPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLKPaneLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLKPaneLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jLKPaneLayout.setVerticalGroup(
             jLKPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLKPaneLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLKPaneLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        lblVluchten.setText(resourceMap.getString("lblVluchten.text")); // NOI18N
+        lblVluchten.setName("lblVluchten"); // NOI18N
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -287,8 +289,11 @@ public class FlyAWayView extends FrameView {
                         .addComponent(btnSchedule)))
                 .addGap(14, 14, 14)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLKPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)))
+                    .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(lblVluchten)
+                        .addContainerGap())
+                    .addComponent(jLKPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,10 +314,12 @@ public class FlyAWayView extends FrameView {
                         .addComponent(btnUsers)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSchedule))
-                    .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblVluchten)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLKPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(141, 141, 141))
+                .addComponent(jLKPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         mainPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAirport, btnFlight, btnPlane, btnStaff});
@@ -421,6 +428,7 @@ public class FlyAWayView extends FrameView {
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JPanel jLKPane;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblVluchten;
     private javax.swing.JLabel lblWelkom;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
