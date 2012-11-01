@@ -176,15 +176,16 @@ public class UserView extends javax.swing.JInternalFrame implements Observer {
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         int selectedIndex = tblUsers.getSelectedRow();
-        if (selectedIndex >= 0) {
-            User u = ((GenericTableModel<User>) tblUsers.getModel()).getRow(selectedIndex);
-
-            if (Controller.Instance().deleteObject(u)) {
-                ((GenericTableModel<User>) tblUsers.getModel()).removeRow(u);
-            } else {
-                lblError.setText("User cannot be deleted.");
-            }
-        } else {
+        if(selectedIndex >= 0 ){
+             User u = ((GenericTableModel<User>)tblUsers.getModel()).getRow(selectedIndex);
+             
+			 if(Controller.Instance().deleteObject(u)){
+				((GenericTableModel<User>) tblUsers.getModel()).removeRow(u);
+			 }else{
+				 lblError.setText("User cannot be deleted.");
+			 }     
+        }
+        else{
             lblError.setText("Please select a row first");
         }
     }//GEN-LAST:event_btnRemoveActionPerformed
@@ -196,6 +197,7 @@ public class UserView extends javax.swing.JInternalFrame implements Observer {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
+
         int selected = tblUsers.getSelectedRow();
 
         if (selected >= 0) {
@@ -220,7 +222,8 @@ public class UserView extends javax.swing.JInternalFrame implements Observer {
         }
     }//GEN-LAST:event_txtFieldSearchKeyPressed
 
-    private void searchUsers() {
+    private void searchUsers()   
+    {
         String searchString = txtFieldSearch.getText();
         ArrayList<User> foundUser = new ArrayList<User>();
 

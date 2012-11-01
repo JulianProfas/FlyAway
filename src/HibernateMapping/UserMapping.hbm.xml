@@ -16,6 +16,6 @@
       </type>
     </property>
     <many-to-one class="Staff" column="staff" name="staffAccount" not-null="false">
-        </many-to-one>
+		</many-to-one>
   </class>
 </hibernate-mapping>

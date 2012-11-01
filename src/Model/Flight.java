@@ -19,7 +19,7 @@ public class Flight implements java.io.Serializable {
     private Airport destination = null;
     private Airport From = null;
     private int number = -1;
-    private List<Staff> otherPersonnel = new ArrayList<Staff>();
+    private List<Staff> otherPersonal = new ArrayList<Staff>();
     private List<Airport> stops = new ArrayList<Airport>();
     private Staff pilot = null;
     private Staff copilot = null;
@@ -29,12 +29,12 @@ public class Flight implements java.io.Serializable {
     public Flight() {
     }
 
-    public Flight(Date date, Airport destination, Airport From, int number, List<Staff> otherPersonnel, List<Airport> stops, Staff pilot, Staff copilot, Plane plane, Flight returnFlight) {
+    public Flight(Date date, Airport destination, Airport From, int number, List<Staff> otherPersonal, List<Airport> stops, Staff pilot, Staff copilot, Plane plane, Flight returnFlight) {
         this.date = date;
         this.destination = destination;
         this.From = From;
         this.number = number;
-        this.otherPersonnel = otherPersonnel;
+        this.otherPersonal = otherPersonal;
         this.stops = stops;
         this.pilot = pilot;
         this.copilot = copilot;
@@ -82,12 +82,12 @@ public class Flight implements java.io.Serializable {
         this.number = number;
     }
 
-    public List<Staff> getOtherPersonnel() {
-        return otherPersonnel;
+    public List<Staff> getOtherPersonal() {
+        return otherPersonal;
     }
 
-    public void setOtherPersonnel(List<Staff> otherPersonnel) {
-        this.otherPersonnel = otherPersonnel;
+    public void setOtherPersonal(List<Staff> otherPersonal) {
+        this.otherPersonal = otherPersonal;
     }
 
     public Staff getPilot() {

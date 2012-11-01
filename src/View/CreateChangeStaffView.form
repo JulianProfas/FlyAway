@@ -29,31 +29,16 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
               <Component id="btnSave" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="376" max="-2" attributes="0"/>
-=======
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="61" max="32767" attributes="0"/>
-              <Component id="lblErrorMessage" min="-2" pref="362" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-              <Component id="btnSave" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="184" max="32767" attributes="0"/>
->>>>>>> Release4
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-<<<<<<< HEAD
                   <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
                       <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
@@ -61,23 +46,12 @@
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <Component id="Name" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
-=======
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
->>>>>>> Release4
                       </Group>
                   </Group>
                   <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lblErrorMessage" min="-2" pref="387" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -93,12 +67,6 @@
                       </Group>
                       <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                   </Group>
-=======
-                  <Component id="txtFieldName" pref="282" max="32767" attributes="0"/>
-                  <Component id="cmbBoxAirports" alignment="0" pref="282" max="32767" attributes="0"/>
-                  <Component id="txtFieldID" alignment="0" pref="282" max="32767" attributes="1"/>
-                  <Component id="cmbBoxPersonnelTypes" alignment="0" pref="282" max="32767" attributes="1"/>
->>>>>>> Release4
               </Group>
           </Group>
       </Group>
@@ -119,7 +87,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cmbBoxPersonnelTypes" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbBoxPersonalTypes" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -155,12 +123,12 @@
         <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cmbBoxPersonnelTypes">
+    <Component class="javax.swing.JComboBox" name="cmbBoxPersonalTypes">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="cmbBoxPersonnelTypes" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="cmbBoxPersonalTypes" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cmbBoxPersonalTypesItemStateChanged"/>

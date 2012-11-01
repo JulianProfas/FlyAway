@@ -149,11 +149,12 @@ public class LoginView extends javax.swing.JFrame {
         char[] pw = txtFieldPW.getPassword();
         String password = new String(pw);
 
-        if (Controller.Instance().Login(username, password)) {
-            flyaway.FlyAWayApp app = (flyaway.FlyAWayApp) flyaway.FlyAWayApp.getApplication();
+        if(Controller.Instance().Login(username, password)){
+            flyaway.FlyAWayApp app = (flyaway.FlyAWayApp)flyaway.FlyAWayApp.getApplication();
             app.showMainApp();
             this.dispose();
-        } else {
+        }
+        else{
             lblError.setForeground(Color.red);
             lblError.setText("Incorrect user password combination");
         }

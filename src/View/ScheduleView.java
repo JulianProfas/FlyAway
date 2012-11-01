@@ -22,13 +22,16 @@ import javax.swing.table.TableColumnModel;
  */
 public class ScheduleView extends javax.swing.JInternalFrame {
 
-    /** Creates new form ScheduleView */
-    public ScheduleView() {
-        initComponents();
-        Staff s = Controller.Instance().getLogedIn().getStaffAccount();
-        txtLabelUser.setText("Schedule for staffmember: " + s.getName());
-        fillTable();
-    }
+	/** Creates new form ScheduleView */
+	public ScheduleView() {
+		initComponents();
+		Staff s = Controller.Instance().getLogedIn().getStaffAccount();
+		
+		txtLabelUser.setText("Schedule for staffmember: " + s.getName());
+		
+		fillTable();
+		
+	}
 
     private void fillTable() {
         ArrayList<Flight> flights = Controller.Instance().getScheduledFlights();

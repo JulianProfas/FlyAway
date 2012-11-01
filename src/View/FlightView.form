@@ -44,8 +44,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtFieldSearch" pref="1036" max="32767" attributes="0"/>
-                          <Component id="jScrollPane1" alignment="0" pref="1036" max="32767" attributes="0"/>
+                          <Component id="txtFieldSearch" pref="1089" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" pref="1089" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -63,7 +63,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" pref="347" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="360" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="btnCreate" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -74,7 +74,7 @@
               </Group>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Component id="lblErrorMessage" min="-2" pref="17" max="-2" attributes="0"/>
-              <EmptySpace pref="198" max="32767" attributes="0"/>
+              <EmptySpace pref="210" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

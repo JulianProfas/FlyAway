@@ -30,9 +30,9 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
         initComponents();
         plane = p;
 
-        if (p != null) {
+        if(p != null){
             FillFields();
-            txtFieldNumber.setEditable(false);
+			txtFieldNumber.setEditable(false);
         }
     }
 
@@ -178,76 +178,78 @@ public class CreateChangePlaneView extends javax.swing.JInternalFrame {
         String type = txtFieldType.getText();
         int capacity = -1;
         int planeNumber = -1;
-
-        lblError.setText("");
-        String ErrorMessage = "<html>";
-
-        InputChecker ip = new InputChecker();
-
-        try {
-            planeNumber = Integer.parseInt(txtFieldNumber.getText());
-
-            if (Controller.Controller.Instance().getPlaneByNumber(planeNumber) != null && plane == null) {
-                ErrorMessage += "Plane already exists with planenumber: " + planeNumber + " <br>";
-            }
-
-        } catch (NumberFormatException nfe) {
-            ErrorMessage += "Planenumber is not a valid number. <br>";
-        }
-
-        if (!ip.checkText(type, true, true)) {
+		
+		lblError.setText("");
+		String ErrorMessage = "<html>";
+        
+		InputChecker ip = new InputChecker();
+		
+		try{
+			planeNumber = Integer.parseInt(txtFieldNumber.getText());
+			
+			if(Controller.Controller.Instance().getPlaneByNumber(planeNumber) != null && plane == null){
+				ErrorMessage += "Plane already exists with planenumber: " + planeNumber + " <br>";
+			}
+			
+		}catch(NumberFormatException nfe){
+			ErrorMessage += "Planenumber is not a valid number. <br>";
+		}
+	
+        if(!ip.checkText(type, true, true)){
             ErrorMessage += "No type entered. <br>";
         }
+		
+		if(!ip.checkMaxLength(type, 50)){
+			ErrorMessage += "Type has a maximum length of 50 chars. <br>";	
+		}
+       
+		try{
+			capacity = Integer.parseInt(txtFieldCapacity.getText());
+			
+			if(!ip.checkNumberRange(capacity, 1, 1000)){
+				ErrorMessage += "Capacity must be a number in the range of 1-1000. <br>";
+			}
+			
+		}catch(NumberFormatException nfe){
+			ErrorMessage += "Capacity is not a valid number. <br>";
+		}
+        
+		ErrorMessage += "</html>";
+		
+        if(ErrorMessage.equals("<html></html>")){
+            
+			if (plane == null) {
+				plane = new Plane(planeNumber, type, capacity);
 
-        if (!ip.checkMaxLength(type, 50)) {
-            ErrorMessage += "Type has a maximum length of 50 chars. <br>";
+				if(Controller.Controller.Instance().saveObject(plane)){
+					JOptionPane.showMessageDialog(null, "Plane saved");
+					this.dispose();
+				}else{
+					JOptionPane.showMessageDialog(null, "Error saving plane");
+					this.dispose();
+				}
+
+			} else {
+
+				plane.setNumber(planeNumber);
+				plane.setType(type);
+				plane.setCapacity(capacity);
+
+				if(Controller.Controller.Instance().updateObject(plane)){
+					JOptionPane.showMessageDialog(null, "Plane saved");
+					this.dispose();
+				}else{
+					JOptionPane.showMessageDialog(null, "Error saving plane");
+					this.dispose();
+				}
+
+			}
+                
         }
-
-        try {
-            capacity = Integer.parseInt(txtFieldCapacity.getText());
-
-            if (!ip.checkNumberRange(capacity, 1, 1000)) {
-                ErrorMessage += "Capacity must be a number in the range of 1-1000. <br>";
-            }
-
-        } catch (NumberFormatException nfe) {
-            ErrorMessage += "Capacity is not a valid number. <br>";
-        }
-
-        ErrorMessage += "</html>";
-
-        if (ErrorMessage.equals("<html></html>")) {
-
-            if (plane == null) {
-                plane = new Plane(planeNumber, type, capacity);
-
-                if (Controller.Controller.Instance().saveObject(plane)) {
-                    JOptionPane.showMessageDialog(null, "Plane saved");
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error saving plane");
-                    this.dispose();
-                }
-
-            } else {
-
-                plane.setNumber(planeNumber);
-                plane.setType(type);
-                plane.setCapacity(capacity);
-
-                if (Controller.Controller.Instance().updateObject(plane)) {
-                    JOptionPane.showMessageDialog(null, "Plane saved");
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error saving plane");
-                    this.dispose();
-                }
-
-            }
-
-        } else {
+        else{
             lblError.setText(ErrorMessage);
         }
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

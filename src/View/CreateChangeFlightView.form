@@ -51,7 +51,7 @@
                           <Component id="txtFieldPilot" alignment="1" pref="236" max="32767" attributes="0"/>
                           <Component id="txtFieldCoPilot" alignment="1" pref="236" max="32767" attributes="0"/>
                           <Component id="txtFieldPlane" alignment="1" pref="236" max="32767" attributes="1"/>
-                          <Component id="txtPersonnel" alignment="0" pref="236" max="32767" attributes="1"/>
+                          <Component id="txtPersonal" alignment="0" pref="236" max="32767" attributes="1"/>
                           <Component id="txtFieldFrom" alignment="0" pref="236" max="32767" attributes="0"/>
                           <Component id="txtFieldDestination" alignment="0" pref="236" max="32767" attributes="0"/>
                           <Component id="txtFieldDate" alignment="1" pref="236" max="32767" attributes="0"/>
@@ -119,7 +119,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtPersonnel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPersonal" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jScrollPane1" max="32767" attributes="1"/>
@@ -373,8 +373,9 @@
         <Property name="name" type="java.lang.String" value="lblError" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtPersonnel">
+    <Component class="javax.swing.JTextField" name="txtPersonal">
       <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="txtPersonal.text"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder>
@@ -382,10 +383,10 @@
             </LineBorder>
           </Border>
         </Property>
-        <Property name="name" type="java.lang.String" value="txtPersonnel" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="txtPersonal" noResource="true"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtPersonnelMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtPersonalMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFieldStops">
