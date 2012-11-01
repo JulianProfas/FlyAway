@@ -88,7 +88,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         txtFieldDestination.setText(f.getDestination().toString());
         txtFieldFrom.setText(f.getFrom().toString());
         txtFieldPlane.setText(f.getPlane().toString());
-        txtPersonal.setText(f.getOtherPersonal().toString());
+        txtPersonnel.setText(f.getOtherPersonnel().toString());
         txtFieldStops.setText(f.getStops().toString());
 
         pilot = f.getPilot();
@@ -98,7 +98,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         stops = f.getStops();
         plane = f.getPlane();
 
-        other = f.getOtherPersonal();
+        other = f.getOtherPersonnel();
         date = f.getDate();
     }
 
@@ -166,7 +166,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         txtFieldDate = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         lblError = new javax.swing.JLabel();
-        txtPersonal = new javax.swing.JTextField();
+        txtPersonnel = new javax.swing.JTextField();
         txtFieldStops = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
 
@@ -320,12 +320,11 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         lblError.setText(resourceMap.getString("lblError.text")); // NOI18N
         lblError.setName("lblError"); // NOI18N
 
-        txtPersonal.setText(resourceMap.getString("txtPersonal.text")); // NOI18N
-        txtPersonal.setBorder(javax.swing.BorderFactory.createLineBorder(resourceMap.getColor("txtFieldCoPilot.border.lineColor"))); // NOI18N
-        txtPersonal.setName("txtPersonal"); // NOI18N
-        txtPersonal.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtPersonnel.setBorder(javax.swing.BorderFactory.createLineBorder(resourceMap.getColor("txtFieldCoPilot.border.lineColor"))); // NOI18N
+        txtPersonnel.setName("txtPersonnel"); // NOI18N
+        txtPersonnel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtPersonalMouseClicked(evt);
+                txtPersonnelMouseClicked(evt);
             }
         });
 
@@ -368,7 +367,11 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
                             .addComponent(txtFieldPilot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                             .addComponent(txtFieldCoPilot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                             .addComponent(txtFieldPlane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+<<<<<<< HEAD
                             .addComponent(txtPersonal, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+=======
+                            .addComponent(txtPersonnel, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+>>>>>>> Release4
                             .addComponent(txtFieldFrom, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                             .addComponent(txtFieldDestination, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                             .addComponent(txtFieldDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
@@ -379,7 +382,14 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
                         .addGap(71, 71, 71)
                         .addComponent(btnSave)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+<<<<<<< HEAD
                         .addComponent(btnCancel)))
+=======
+                        .addComponent(btnCancel))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)))
+>>>>>>> Release4
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -422,7 +432,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(txtPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtPersonnel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -592,7 +602,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         }
 
         if(other.contains(pilot) || other.contains(coPilot)){
-            errorMessage += "A pilot or copilot cannot also be registered as other personal <br>";
+            errorMessage += "A pilot or copilot cannot also be registered as other Personnel <br>";
         }
 
         if(stops.contains(from) || stops.contains(destination)){
@@ -665,7 +675,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 				flight.setPilot(pilot);
 				flight.setCopilot(coPilot);
 				flight.setStops(stops);
-                flight.setOtherPersonal(other);
+                flight.setOtherPersonnel(other);
                 flight.setPlane(plane);
 				
 				Flight rf = Controller.Instance().getReturnFlight(id);
@@ -684,7 +694,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 					rf.setPlane(plane);
 					List<Staff> otherReturn = new ArrayList<Staff>();
 					otherReturn.addAll(other);
-					rf.setOtherPersonal(otherReturn);
+					rf.setOtherPersonnel(otherReturn);
 					List<Airport> stopsReturn = new ArrayList<Airport>();
 					stopsReturn.addAll(stops);
 					rf.setStops(stopsReturn);
@@ -707,17 +717,17 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void txtPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPersonalMouseClicked
+    private void txtPersonnelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPersonnelMouseClicked
         final ChildPicker<Staff> staff = new ChildPicker<Staff>(Controller.Instance().SearchStaffAvailable(date), other);
 
         staff.setVisible(true);
         staff.getOKButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ChangePersonal(staff.getSelectedObjects());
+                ChangePersonnel(staff.getSelectedObjects());
                 staff.dispose();
             }
         });
-    }//GEN-LAST:event_txtPersonalMouseClicked
+    }//GEN-LAST:event_txtPersonnelMouseClicked
 
     private void txtFieldStopsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFieldStopsMouseClicked
         final ChildPicker<Airport> stopAirports = new ChildPicker<Airport>(Controller.Instance().getAirports(), stops);
@@ -763,11 +773,16 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 		this.dispose();
 	}//GEN-LAST:event_btnCancelActionPerformed
 
-    private void ChangePersonal(List<Staff> staff){
+    private void ChangePersonnel(List<Staff> staff){
         other = staff;
+<<<<<<< HEAD
         txtPersonal.setText(other.toString());
         txtPersonal.repaint();
 		checkPrimaryAirport();
+=======
+        txtPersonnel.setText(other.toString());
+        txtPersonnel.repaint();
+>>>>>>> Release4
     }
 
     private void ChangeStops(List<Airport> stops){
@@ -799,7 +814,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     private javax.swing.JTextField txtFieldPilot;
     private javax.swing.JTextField txtFieldPlane;
     private javax.swing.JTextField txtFieldStops;
-    private javax.swing.JTextField txtPersonal;
+    private javax.swing.JTextField txtPersonnel;
     // End of variables declaration//GEN-END:variables
 
 }

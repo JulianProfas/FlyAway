@@ -11,6 +11,7 @@
     </property>
     <property column="type" name="type" not-null="true">
       <type name="org.hibernate.type.EnumType">
+<<<<<<< HEAD
         <param name="enumClass">Model.PersonalType</param>
         <param name="type">12</param>
       </type>
@@ -28,5 +29,13 @@
         <column name="weaponnumber" not-null="true"/>
       </property>
     </joined-subclass>
+=======
+        <param name="enumClass">Model.PersonnelType</param>
+        <param name="type">12</param>
+      </type>
+    </property>
+    <many-to-one class="Airport" column="primaryairport" lazy="false" name="primaryAirport" not-null="true">
+        </many-to-one>
+>>>>>>> Release4
   </class>
 </hibernate-mapping>

@@ -177,17 +177,16 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int index = tblPlanes.getSelectedRow();
 
-        if(index >= 0){
-             
-			Plane p =   ((GenericTableModel<Plane>) tblPlanes.getModel()).getRow(index);
-	         
-			 if(Controller.Instance().deleteObject(p)){
-				 ((GenericTableModel<Plane>) tblPlanes.getModel()).removeRow(p);
-			 }else{
-				 lblErrorMessage.setText("Plane cannot be deleted, because it is used in one or more flights");
-			 } 
-        }
-        else{
+        if (index >= 0) {
+
+            Plane p = ((GenericTableModel<Plane>) tblPlanes.getModel()).getRow(index);
+
+            if (Controller.Instance().deleteObject(p)) {
+                ((GenericTableModel<Plane>) tblPlanes.getModel()).removeRow(p);
+            } else {
+                lblErrorMessage.setText("Plane cannot be deleted, because it is used in one or more flights");
+            }
+        } else {
             lblErrorMessage.setText("Please select a row first");
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
@@ -217,8 +216,7 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
          }
     }//GEN-LAST:event_btnChangeActionPerformed
 
-    private void searchPlanes()
-    {
+    private void searchPlanes() {
         ArrayList<Plane> foundPlanes = new ArrayList<Plane>();
 
         String searchString = txtFieldSearch.getText();
@@ -239,7 +237,7 @@ public class PlaneView extends javax.swing.JInternalFrame implements Observer{
                 foundPlanes.addAll(Controller.Instance().SearchPlanes(searchInt));
             }
             foundPlanes.addAll(Controller.Instance().SearchPlanes(searchString));
-       
+
             GenericTableModel<Plane> ptm = new GenericTableModel<Plane>(foundPlanes);
             tblPlanes.setModel(ptm);
         }

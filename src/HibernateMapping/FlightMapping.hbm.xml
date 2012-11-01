@@ -7,7 +7,6 @@
       <generator class="assigned"/>
     </id>
     <many-to-one class="Staff" column="pilot" name="pilot" not-null="true"/>
-		
     <many-to-one class="Staff" column="copilot" name="copilot" not-null="true"/>
     <many-to-one class="Airport" column="airportdestination" name="destination" not-null="true"/>
     <many-to-one class="Airport" column="airportfrom" name="from" not-null="true"/>
@@ -15,7 +14,7 @@
       <key column="flight"/>
       <many-to-many class="Airport" column="airport"/>
     </bag>
-    <bag  catalog="flyaway" name="otherPersonal" table="flightstaff">
+    <bag catalog="flyaway" name="otherPersonnel" table="flightstaff">
       <key column="flight"/>
       <many-to-many class="Staff" column="staff"/>
     </bag>
