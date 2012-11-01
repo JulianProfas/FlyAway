@@ -293,6 +293,7 @@ public class Controller extends Observable {
     }
 
     public User getUserByUsername(String userName) {
+	users = Database.DatabaseConnectie.getUsers();
         return users.get(userName);
     }
 
