@@ -428,6 +428,46 @@ public class Controller extends Observable {
         }
         return foundStaff;
     }
+    
+    public ArrayList<Staff> SearchStaffPursersAvailable(Date d) {
+
+        ArrayList<Staff> foundStaff = new ArrayList<Staff>();
+        for (Staff s : staff.values()) {
+            if (s.getType() != PersonnelType.Purser) {
+                continue; // only looking for pilots, so if this isn't a pilot, continue to the next staff member
+            }
+            boolean dontAdd = false;
+            for (Flight f : flights.values()) {
+		if (f.getPurser() != null) {
+		    if (f.getPurser().equals(s)) {
+			Date nextDay = (Date) d.clone();
+			nextDay.setDate(d.getDate() + 1);
+			Date previousDay = (Date) d.clone();
+			previousDay.setDate(d.getDate() - 1);
+
+			if ((f.getDate().getDate() == d.getDate()
+				&& f.getDate().getMonth() == d.getMonth()
+				&& f.getDate().getYear() == d.getYear()) || // staff is already on a plane today
+				(f.getDate().getDate() == nextDay.getDate()
+				&& f.getDate().getMonth() == nextDay.getMonth()
+				&& f.getDate().getYear() == nextDay.getYear()) || // staff is already on a plane tomorrow
+				(f.getDate().getDate() == previousDay.getDate()
+				&& f.getDate().getMonth() == previousDay.getMonth()
+				&& f.getDate().getYear() == previousDay.getYear()) // staff was already on a plane yesterday
+				) {
+
+			    dontAdd = true;
+
+			}
+		    }
+		}
+            }
+            if (!dontAdd) {
+                foundStaff.add(s);
+            }
+        }
+        return foundStaff;
+    }
 
     public Staff getStaffById(int staffId) {
         return staff.get(staffId);

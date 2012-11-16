@@ -41,7 +41,7 @@ import javax.swing.JOptionPane;
  * @author Jeroen
  */
 public class CreateChangeFlightView extends javax.swing.JInternalFrame implements KeyListener {
-    private enum FieldEditing { PILOT, COPILOT, FROM, DESTINATION, PLANE }
+    private enum FieldEditing { PILOT, COPILOT, PURSER, FROM, DESTINATION, PLANE }
 
     private FieldEditing currentField = null;
 
@@ -50,6 +50,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     //Objects used to create / change the flight
     private Staff pilot = null;
     private Staff coPilot = null;
+    private Staff purser = null;
     private Airport from = null;
     private Airport destination = null;
     private Plane plane = null;
@@ -169,6 +170,8 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         txtPersonnel = new javax.swing.JTextField();
         txtFieldStops = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        txtFieldPurser = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -340,45 +343,75 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         jLabel9.setText(resourceMap.getString("jLabel9.text")); // NOI18N
         jLabel9.setName("jLabel9"); // NOI18N
 
+        txtFieldPurser.setBackground(resourceMap.getColor("txtFieldPurser.background")); // NOI18N
+        txtFieldPurser.setEditable(false);
+        txtFieldPurser.setBorder(javax.swing.BorderFactory.createLineBorder(resourceMap.getColor("txtFieldPurser.border.lineColor"))); // NOI18N
+        txtFieldPurser.setName("txtFieldPurser"); // NOI18N
+        txtFieldCoPilot.addKeyListener(this);
+        txtFieldPurser.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtFieldPurserFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFieldPurserFocusLost(evt);
+            }
+        });
+
+        jLabel10.setText(resourceMap.getString("jLabel10.text")); // NOI18N
+        jLabel10.setName("jLabel10"); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFieldNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                            .addComponent(txtFieldPilot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                            .addComponent(txtFieldCoPilot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                            .addComponent(txtFieldPlane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                            .addComponent(txtPersonnel, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                            .addComponent(txtFieldFrom, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                            .addComponent(txtFieldDestination, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                            .addComponent(txtFieldDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                            .addComponent(txtFieldStops, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtFieldNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                    .addComponent(txtFieldDate, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                    .addComponent(txtFieldPilot, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                    .addComponent(txtFieldCoPilot, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                    .addComponent(txtFieldPurser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
+                                .addGap(6, 6, 6))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel7))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtFieldPlane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                            .addComponent(txtPersonnel, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                            .addComponent(txtFieldFrom, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                            .addComponent(txtFieldDestination, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                            .addComponent(txtFieldStops, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(61, 61, 61)
+                                        .addComponent(btnSave)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnCancel)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(btnSave)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancel))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(51, 51, 51)
-                        .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)))
+                        .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -402,6 +435,10 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtFieldCoPilot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtFieldPurser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -429,7 +466,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
                     .addComponent(btnCancel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -480,6 +517,14 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
                 if(tmpCoPilot != null){
                     coPilot = tmpCoPilot;
                     txtFieldCoPilot.setText(coPilot.toString());
+                }
+                break;
+		case PURSER:
+                Staff tmpPurser = (Staff)listSearchResults.getSelectedValue();
+
+                if(tmpPurser != null){
+                    purser = tmpPurser;
+                    txtFieldPurser.setText(purser.toString());
                 }
                 break;
             case FROM:
@@ -600,7 +645,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         if(errorMessage.equals("<html></html>")){
             
             if(flight == null){
-                flight = new Flight(date, destination, from, id, other, stops, pilot, coPilot, plane, null);
+                flight = new Flight(date, destination, from, id, other, stops, pilot, coPilot, purser, plane, null);
                 
 				Calendar c = Calendar.getInstance();
 				c.setTime(date);
@@ -608,7 +653,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 				int returnId = Controller.Instance().getReturnFlightID(id);
 				System.out.println(returnId);
 				
-				Flight returnFlight = new Flight(c.getTime(), from, destination, returnId, other, stops, pilot, coPilot, plane, flight);
+				Flight returnFlight = new Flight(c.getTime(), from, destination, returnId, other, stops, pilot, coPilot, purser, plane, flight);
 				
                 if(Controller.Instance().saveObject(flight) && Controller.Instance().saveObject(returnFlight))
 				{
@@ -625,9 +670,10 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
                 flight.setDestination(destination);
                 flight.setFrom(from);
                 flight.setNumber(id);
-				flight.setPilot(pilot);
-				flight.setCopilot(coPilot);
-				flight.setStops(stops);
+		flight.setPilot(pilot);
+		flight.setCopilot(coPilot);
+		flight.setPurser(purser);
+		flight.setStops(stops);
                 flight.setOtherPersonnel(other);
                 flight.setPlane(plane);
 				
@@ -644,6 +690,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 					rf.setNumber(id + 1);
 					rf.setPilot(pilot);
 					rf.setCopilot(coPilot);
+					rf.setPurser(purser);
 					rf.setPlane(plane);
 					List<Staff> otherReturn = new ArrayList<Staff>();
 					otherReturn.addAll(other);
@@ -698,14 +745,14 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
         txtFieldPilot.setBorder(BorderFactory.createLineBorder(Color.orange));
         currentField = FieldEditing.PILOT;
         listSearchResults.setEnabled(true);
-        listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());        // TODO add your handling code here:
+        listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());
     }//GEN-LAST:event_txtFieldPilotFocusGained
 
     private void txtFieldCoPilotFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldCoPilotFocusGained
         txtFieldCoPilot.setBorder(BorderFactory.createLineBorder(Color.orange));
         currentField = FieldEditing.COPILOT;
         listSearchResults.setEnabled(true);
-        listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());        // TODO add your handling code here:
+        listSearchResults.setListData(Controller.Instance().SearchStaffPilotsAvailable(date).toArray());
     }//GEN-LAST:event_txtFieldCoPilotFocusGained
 
     private void txtFieldFromFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldFromFocusGained
@@ -726,6 +773,18 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
 		this.dispose();
 	}//GEN-LAST:event_btnCancelActionPerformed
 
+    private void txtFieldPurserFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldPurserFocusGained
+	txtFieldPurser.setBorder(BorderFactory.createLineBorder(Color.orange));
+        currentField = FieldEditing.PURSER;
+        listSearchResults.setEnabled(true);
+        listSearchResults.setListData(Controller.Instance().SearchStaffPursersAvailable(date).toArray());
+    }//GEN-LAST:event_txtFieldPurserFocusGained
+
+    private void txtFieldPurserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFieldPurserFocusLost
+	txtFieldPurser.setBorder(BorderFactory.createLineBorder(Color.lightGray));
+        listSearchResults.setEnabled(false);
+    }//GEN-LAST:event_txtFieldPurserFocusLost
+
     private void ChangePersonnel(List<Staff> staff){
         other = staff;
         txtPersonnel.setText(other.toString());
@@ -742,6 +801,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -760,6 +820,7 @@ public class CreateChangeFlightView extends javax.swing.JInternalFrame implement
     private javax.swing.JTextField txtFieldNumber;
     private javax.swing.JTextField txtFieldPilot;
     private javax.swing.JTextField txtFieldPlane;
+    private javax.swing.JTextField txtFieldPurser;
     private javax.swing.JTextField txtFieldStops;
     private javax.swing.JTextField txtPersonnel;
     // End of variables declaration//GEN-END:variables

@@ -8,9 +8,10 @@
     </id>
     <many-to-one class="Staff" column="pilot" name="pilot" not-null="true"/>
     <many-to-one class="Staff" column="copilot" name="copilot" not-null="true"/>
+    <many-to-one class="Staff" column="purser" name="purser" not-null="false"/>
     <many-to-one class="Airport" column="airportdestination" name="destination" not-null="true"/>
     <many-to-one class="Airport" column="airportfrom" name="from" not-null="true"/>
-    <bag cascade="all" catalog="flyaway" name="stops" table="flightstops">
+    <bag catalog="flyaway" name="stops" table="flightstops">
       <key column="flight"/>
       <many-to-many class="Airport" column="airport"/>
     </bag>
