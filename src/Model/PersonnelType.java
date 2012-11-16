@@ -10,5 +10,5 @@ package Model;
  */
 public enum PersonnelType {
 
-    Pilot, Stewardess;
+    Pilot, Stewardess, Purser;
 }
